@@ -14,6 +14,7 @@ import Login from '../components/Login'
 import Setup from '../components/Setup'
 import Signup from '../components/Signup'
 import Settings from '../components/Settings'
+import 'semantic-ui-css/semantic.min.css'
 
 const App = (props) => {
   return (

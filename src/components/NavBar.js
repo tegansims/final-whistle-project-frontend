@@ -15,7 +15,6 @@ const link = {
 const NavBar = () => {
   return (
     <div className='navbar'>
-      {/*{code here}*/}
       <NavLink to='/' exact style={link}>Home</NavLink>
       <NavLink to='/games' exact style={link}>Games</NavLink>
       <NavLink to='/stats' exact style={link}>Stats</NavLink>
