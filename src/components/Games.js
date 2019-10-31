@@ -8,6 +8,12 @@ class Games extends React.Component {
         }
     }
     
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.props.username !== prevProps.username) {
+    //         this.props.history.push('/login')
+    //     }
+    // }
+
     render(){
         return <div>
             Games page

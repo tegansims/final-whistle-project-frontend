@@ -1,6 +1,8 @@
 const baseUrl = 'http://localhost:3000/'
 const logInUrl = baseUrl + 'login'
 const validateUrl = baseUrl + 'validate'
+const newUsersURL = baseUrl + 'signup'
+
 
 const get = url => 
     fetch(url, {
@@ -24,8 +26,9 @@ fetch(url, {
 
 const logIn = user => post(logInUrl, user)
 const validate = () => get(validateUrl)
+const signUp = (user) => post(newUsersURL, user)
 
 
 window.validate = validate
 
-export default { logIn, validate }
+export default { logIn, validate, signUp }

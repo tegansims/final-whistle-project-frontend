@@ -13,7 +13,7 @@ import Tactics from '../components/Tactics'
 import Home from '../components/Home'
 import LoginForm from '../components/LoginForm'
 import Setup from '../components/Setup'
-import Signup from '../components/Signup'
+import SignupForm from '../components/SignupForm'
 import Settings from '../components/Settings'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -22,17 +22,6 @@ class App extends React.Component {
   state = {
     email: ''
   }
-
-  // -- log in and out --- //
-  logIn = user =>
-    this.setState({ email: user.email } , () =>
-    localStorage.setItem('token', user.token)
-  );
-
-  logOut = () => {
-    this.setState({ email: "" }); 
-    localStorage.removeItem('token')
-  };
 
   //  -- validating -- //
   componentDidMount () {
@@ -51,6 +40,30 @@ class App extends React.Component {
     }
   }
 
+  // -- log in and out --- //
+  logIn = user =>
+    this.setState({ email: user.email } , () =>
+    localStorage.setItem('token', user.token)
+  );
+
+  logOut = () => {
+    this.setState({ email: "" }); 
+    localStorage.removeItem('token')
+  };
+
+    // -- sign in and out --- //
+    signIn = user =>
+    this.setState({ email: user.email }, () =>
+      localStorage.setItem("token", user.token)
+    );
+
+    signOut = () => {
+      this.setState({ email: "" });
+      localStorage.removeItem("token");
+      this.props.history.push("/");
+    };
+  
+
   render () {
     return (
       <Router>
@@ -65,7 +78,7 @@ class App extends React.Component {
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.email}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn}/> } />
         <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email}/>}  />
-        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} signIn={this.signIn}/>}  />
         </div>
       </Router>
     );
