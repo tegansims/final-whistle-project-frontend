@@ -21,7 +21,7 @@ class NavBar extends React.Component {
         <NavLink to='/stats' exact style={link}>Stats</NavLink>
         <NavLink to='/settings' exact style={link}>Settings</NavLink>
         <NavLink to='/tactics' exact style={link}>Tactics</NavLink>
-        {this.props.username ? <NavLink to='/tactics' exact style={link}>LogOut</NavLink> : null}
+        {this.props.username ? <NavLink to='/login' onClick={this.props.logOut} exact style={link}>LogOut</NavLink> : null}
         {/* change the above link to LogOut page!  */}
       </div>
     );

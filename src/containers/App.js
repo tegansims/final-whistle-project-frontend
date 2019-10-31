@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
+import API from '../adaptors/API'
 import NavBar from '../components/NavBar'
 import Games from '../components/Games'
 import Stats from '../components/Stats'
@@ -24,20 +25,38 @@ class App extends React.Component {
 
   // -- log in and out --- //
   logIn = user =>
-    this.setState({ email: user.email }
+    this.setState({ email: user.email } , () =>
+    localStorage.setItem('token', user.token)
   );
 
   logOut = () => {
-    this.setState({ email: "" });
+    this.setState({ email: "" }); 
+    localStorage.removeItem('token')
   };
 
+  //  -- validating -- //
+  componentDidMount () {
+    if (localStorage.getItem('token') !== undefined) {
+      API.validate().then(data => {
+        if (data.error) {
+          throw Error(data.error)
+        } else {
+          this.logIn(data)
+          this.props.history.push('/')
+        }
+      })
+      .catch(error => {
+        console.error(error)
+      })
+    }
+  }
 
   render () {
     return (
       <Router>
         {/*{code here}*/}
         <div>
-        <NavBar username={this.state.email}/>
+        <NavBar username={this.state.email} logOut={this.logOut}/>
         {this.state.email ? this.state.email : null} 
         <Route exact path="/" component={routerProps => <Home {...routerProps} username={this.state.email}/>}  />
         <Route exact path="/games" component={routerProps => <Games {...routerProps} username={this.state.email}/>} />
