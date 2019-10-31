@@ -37,14 +37,15 @@ class App extends React.Component {
       <Router>
         {/*{code here}*/}
         <div>
-        <NavBar/>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/games" component={Games} />
-        <Route exact path="/stats" component={Stats} />
-        <Route exact path="/settings" component={Settings} />
-        <Route exact path="/tactics" component={Tactics} />
+        <NavBar username={this.state.email}/>
+        {this.state.email ? this.state.email : null} 
+        <Route exact path="/" component={routerProps => <Home {...routerProps} username={this.state.email}/>}  />
+        <Route exact path="/games" component={routerProps => <Games {...routerProps} username={this.state.email}/>} />
+        <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.email}/>} />
+        <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.email}/>} />
+        <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.email}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn}/> } />
-        <Route exact path="/setup" component={Setup} />
+        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email}/>}  />
         <Route exact path="/signup" component={Signup} />
         </div>
       </Router>

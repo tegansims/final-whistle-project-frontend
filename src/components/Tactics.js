@@ -24,6 +24,12 @@ const PitchImage = () => {
 
 class Tactics extends React.Component {
     
+    componentDidMount () {
+        if (!this.props.username) {
+            this.props.history.push('/login')
+        }
+    }
+    
     state = {
         isDragging: false,
         redItems: generateItems('#B01943'),
