@@ -78,7 +78,7 @@ class App extends React.Component {
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.email}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn}/> } />
         <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email}/>}  />
-        <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} signIn={this.signIn}/>}  />
+        <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} signIn={this.signIn} logIn ={this.logIn}/>}  />
         </div>
       </Router>
     );

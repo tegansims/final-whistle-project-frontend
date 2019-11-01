@@ -6,10 +6,7 @@ class SignupForm extends Component {
     state = {
       email: '',
       password: '',
-      password_confirmation: '',
-      team_id: 4,
-      usertype_id: 4
-
+      password_confirmation: ''
     }
   
     handleSubmit = (event) => {
@@ -22,7 +19,7 @@ class SignupForm extends Component {
             console.log("data: ", data)
             //API.validate()
             this.props.signIn(data)
-            this.props.history.push('/')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
+            this.props.history.push('/settings')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
           }
         })
         .catch(error => {
