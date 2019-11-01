@@ -12,7 +12,7 @@ import Stats from '../components/Stats'
 import Tactics from '../components/Tactics'
 import Home from '../components/Home'
 import LoginForm from '../components/LoginForm'
-import Setup from '../components/Setup'
+import Setup from '../components/Setup/Setup'
 import SignupForm from '../components/SignupForm'
 import Settings from '../components/Settings'
 import 'semantic-ui-css/semantic.min.css'
@@ -67,10 +67,9 @@ class App extends React.Component {
   render () {
     return (
       <Router>
-        {/*{code here}*/}
         <div>
         <NavBar username={this.state.email} logOut={this.logOut}/>
-        {this.state.email ? this.state.email : null} 
+        {this.state.email ? 'Welcome, '+ this.state.email : null} 
         <Route exact path="/" component={routerProps => <Home {...routerProps} username={this.state.email}/>}  />
         <Route exact path="/games" component={routerProps => <Games {...routerProps} username={this.state.email}/>} />
         <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.email}/>} />

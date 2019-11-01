@@ -1,0 +1,77 @@
+import React, {Component} from 'react';
+import {Form, Button} from 'semantic-ui-react'
+import API from '../../adaptors/API' 
+
+class CreateTeam extends React.Component {
+
+    state = {
+        name: '',
+        password: '',
+        password_confirmation: '',
+        sport_id: 1
+      }
+
+    
+    handleSubmit = (event) => {
+        event.preventDefault()
+        console.log(this.state)
+        API.createTeam({team: this.state}).then(data => {
+            if (data.error) {
+              throw Error(data.error)
+            } else {
+              console.log("data: ", data)
+            }
+          })
+          .catch(error => {
+            console.error(error)
+          })
+    }
+
+
+    handleChange = event =>
+        this.setState({ [event.target.name]: event.target.value })
+
+
+    render () {
+        const { name, password, password_confirmation } = this.state
+        const { handleChange, handleSubmit } = this
+    
+        return (
+           <Form onSubmit={handleSubmit}>
+         
+           <input type='text'
+              id='nameInput'
+              label='Name'
+              value={name}
+              onChange={handleChange}
+              name='name'
+              placeholder='team name'
+            />
+            <br />
+             <input type='text'
+              id='passwordInput'
+              label='Password'
+              value={password}
+              onChange={handleChange}
+              name='password'
+              type='password'
+              placeholder='team password'
+            />
+            <br />
+            <input type='text'
+              id='passwordConfirm'
+              label='Password Confirmation'
+              value={password_confirmation}
+              onChange={handleChange}
+              name='password_confirmation'
+              type='password'
+              placeholder='confirm your team password'
+            />
+            <br />
+            <Button> Create Team </Button>
+          </Form>
+        )
+      }
+}
+
+export default CreateTeam;
