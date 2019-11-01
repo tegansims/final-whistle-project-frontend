@@ -4,6 +4,7 @@ const validateUrl = baseUrl + 'validate'
 const newUsersUrl = baseUrl + 'signup'
 
 const newTeamUrl = baseUrl + 'createteam'
+const newPlayerUrl = baseUrl + 'createplayer'
 
 
 const get = url => 
@@ -30,8 +31,9 @@ const logIn = user => post(logInUrl, user)
 const validate = () => get(validateUrl)
 const signUp = (user) => post(newUsersUrl, user)
 const createTeam = (team) => post(newTeamUrl, team)
+const createPlayer = (player) => post(newPlayerUrl, player)
 
 
 window.validate = validate
 
-export default { logIn, validate, signUp, createTeam}
+export default { logIn, validate, signUp, createTeam, createPlayer}
