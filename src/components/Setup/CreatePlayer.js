@@ -7,7 +7,7 @@ class CreatePlayer extends React.Component {
 
     state = {
         name: '', 
-        team_id: 1
+        team_id: 1   // NEED TO NOT HARDCODE THIS
     }
 
     handleChange = event =>
