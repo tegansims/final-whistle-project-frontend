@@ -1,12 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Form, Button } from 'semantic-ui-react'
 import API from '../adaptors/API'
 
-class SignupForm extends Component {
+class SignupForm extends React.Component {
     state = {
       email: '',
       password: '',
       password_confirmation: ''
+    }
+
+    componentDidMount () {
+        if (this.props.username) {
+            this.props.history.push('/')
+        }
     }
   
     handleSubmit = (event) => {
@@ -47,7 +53,7 @@ class SignupForm extends Component {
             placeholder='email'
           />
           <br />
-           <input type='text'
+           <input 
             id='passwordInput'
             label='Password'
             value={password}
@@ -57,7 +63,7 @@ class SignupForm extends Component {
             placeholder='password'
           />
           <br />
-          <input type='text'
+          <input 
             id='passwordConfirm'
             label='Password Confirmation'
             value={password_confirmation}

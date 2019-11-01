@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Form, Button} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
 
@@ -20,6 +20,7 @@ class CreateTeam extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
+              this.props.history.push(`/teams/${data.id}`)
             }
           })
           .catch(error => {
@@ -48,7 +49,7 @@ class CreateTeam extends React.Component {
               placeholder='team name'
             />
             <br />
-             <input type='text'
+             <input 
               id='passwordInput'
               label='Password'
               value={password}
@@ -58,7 +59,7 @@ class CreateTeam extends React.Component {
               placeholder='team password'
             />
             <br />
-            <input type='text'
+            <input 
               id='passwordConfirm'
               label='Password Confirmation'
               value={password_confirmation}

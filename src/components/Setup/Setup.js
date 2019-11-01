@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Button} from 'semantic-ui-react'
+import React from 'react';
+import {Button, Segment} from 'semantic-ui-react'
 import CreateTeam from './CreateTeam'
 import CreatePlayer from './CreatePlayer'
 import CreateGame from './CreateGame'
@@ -18,8 +18,14 @@ class Setup extends React.Component {
         join: false
     }
 
-    handleCreateClick = () => this.setState({ create: !this.state.create })
-    handleJoinClick = () =>  this.setState({ join: !this.state.join })
+    handleCreateClick = () => this.setState({ 
+        create: !this.state.create,
+        join: false
+    })
+    handleJoinClick = () =>  this.setState({ 
+        join: !this.state.join,
+        create: false    
+    })
 
     
     
@@ -28,9 +34,9 @@ class Setup extends React.Component {
             Setup
             <br></br>
             Welcome to Stattr Dattr <br></br>
-            <Button onClick={this.handleCreateClick}>Create Team</Button><br></br><br></br>
-            <Button onClick={this.handleJoinClick}>Join Team</Button>
-            {this.state.create ? <div><CreateTeam /> <CreatePlayer/> <CreateGame/></div>: null }
+            <Segment><Button onClick={this.handleCreateClick}>Create Team</Button></Segment>
+            <Segment><Button onClick={this.handleJoinClick}>Join Team</Button></Segment>
+            {this.state.create && <><Segment><CreateTeam /></Segment> <Segment><CreatePlayer/></Segment><Segment><CreateGame/></Segment></> }
             {this.state.join ? <JoinTeam /> : null }
         </div>
     }

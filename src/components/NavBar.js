@@ -1,28 +1,24 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 const link = {
-  width: '100px',   
-  padding: '12px',
-  margin: '0 6px 6px',
-  background: '#B01943',
-  textDecoration: 'none',
-  color: 'white',
-  borderRadius: '5px'
+  background: '#B01943', 
+  color: 'white'
 } 
 
 
 class NavBar extends React.Component {
   render() {
     return (
-      <div className='navbar'>
-        <NavLink to='/' exact style={link}>Home</NavLink>
-        <NavLink to='/games' exact style={link}>Games</NavLink>
-        <NavLink to='/stats' exact style={link}>Stats</NavLink>
-        <NavLink to='/settings' exact style={link}>Settings</NavLink>
-        <NavLink to='/tactics' exact style={link}>Tactics</NavLink>
-        {this.props.username ? <NavLink to='/login' onClick={this.props.logOut} exact style={link}>LogOut</NavLink> : null}
-      </div>
+      <Menu>
+        <Menu.Item as={NavLink} to='/' exact style={link}>Home</Menu.Item>
+        <Menu.Item as={NavLink} to='/games' exact style={link}>Games</Menu.Item>
+        <Menu.Item as={NavLink} to='/stats' exact style={link}>Stats</Menu.Item>
+        <Menu.Item as={NavLink} to='/settings' exact style={link}>Settings</Menu.Item>
+        <Menu.Item as={NavLink} to='/tactics' exact style={link}>Tactics</Menu.Item>
+        {this.props.username ? <Menu.Item as={NavLink} to='/login' onClick={this.props.logOut} exact style={link}>LogOut</Menu.Item> : null}
+      </Menu>
     );
   }
 };

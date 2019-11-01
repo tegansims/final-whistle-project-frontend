@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Layer, Image, Stage, Circle, Rect} from 'react-konva'
 import { isBlock } from '@babel/types';
 import useImage from 'use-image';

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Home extends React.Component {
+class Stats extends React.Component {
 
     componentDidMount () {
         if (!this.props.username) {
@@ -9,11 +9,11 @@ class Home extends React.Component {
     }
     
     render(){
-        return <div>
-            Home
-            </div>
+        return <div>    
+            Stats Page
+        </div>
     }
 
 }
 
-export default Home;
+export default Stats;

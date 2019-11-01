@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Button } from 'semantic-ui-react'
 import { Form } from 'semantic-ui-react'
 
@@ -11,6 +11,12 @@ class LoginForm extends React.Component {
   state = {
     email: '',
     password: ''
+  }
+
+  componentDidMount () {
+    if (this.props.username) {
+        this.props.history.push('/')
+    }
   }
 
   handleSubmit = (event) => {
@@ -51,7 +57,7 @@ class LoginForm extends React.Component {
           placeholder='email'
         />
         <br />
-         <input type='text'
+         <input 
           id='passwordInput'
           label='Password'
           value={password}

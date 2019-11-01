@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Stats extends React.Component {
+class Settings extends React.Component {
 
     componentDidMount () {
         if (!this.props.username) {
@@ -9,11 +9,11 @@ class Stats extends React.Component {
     }
     
     render(){
-        return <div>    
-            Stats Page
+        return <div>
+            Settings
         </div>
     }
 
 }
 
-export default Stats;
+export default Settings;

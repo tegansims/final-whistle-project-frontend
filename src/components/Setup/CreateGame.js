@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Form, Button} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
 
@@ -61,7 +61,6 @@ class CreateGame extends React.Component {
                 value={venue}
                 onChange={handleChange}
                 name='venue'
-                type='text'
                 placeholder='venue'
             />
             <br />
