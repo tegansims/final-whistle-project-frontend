@@ -6,7 +6,10 @@ class SignupForm extends Component {
     state = {
       email: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      team_id: 4,
+      usertype_id: 4
+
     }
   
     handleSubmit = (event) => {
