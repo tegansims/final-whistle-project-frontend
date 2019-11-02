@@ -8,14 +8,15 @@ import JoinTeam from './JoinTeam'
 
 class Setup extends React.Component {
 
-    // componentDidMount () {
-    //     if (!this.props.username) {
-    //         this.props.history.push('/login')
-    //     }
-    // }
     state = {
         create: false,
         join: false
+    }
+    
+    componentDidMount () {
+        if (!this.props.username) {
+            this.props.history.push('/login')
+        }
     }
 
     handleCreateClick = () => this.setState({ 

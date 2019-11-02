@@ -1,4 +1,4 @@
-import Games from '../pages/Games'
+import GamesList from './GamesList'
 import Stats from '../pages/Stats'
 import Tactics from '../pages/Tactics'
 import Home from '../pages/Home'
@@ -8,7 +8,7 @@ import SignupForm from '../pages/SignupForm'
 import Settings from '../pages/Settings'
 
 export default {
-    Games,
+    GamesList,
     Stats, 
     Tactics, 
     Home, 

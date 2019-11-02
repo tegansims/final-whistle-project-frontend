@@ -12,12 +12,14 @@ import Setup from './components/Setup/Setup'
 import 'semantic-ui-css/semantic.min.css'
 
 import pages from './pages/pages'
-const { Games, Stats, Tactics, Home, Settings, LoginForm, SignupForm } = pages
+const { GamesList, Stats, Tactics, Home, Settings, LoginForm, SignupForm } = pages
 
 class App extends React.Component {
 
   state = {
-    email: ''
+    email: '',
+    team_id: 1, // NEED TO NOT HARDCODE THIS
+    games: []
   }
 
   //  -- validating -- //
@@ -27,14 +29,19 @@ class App extends React.Component {
         if (data.error) {
           throw Error(data.error)
         } else {
+          console.log(data)
           this.logIn(data)
           this.props.history.push('/')
+          this.setState({user: data})
         }
       })
       .catch(error => {
         console.error(error)
       })
     }
+    API.games().then(games => {
+      this.setState({ games })
+    })
   }
 
   // -- log in and out --- //
@@ -48,26 +55,30 @@ class App extends React.Component {
     localStorage.removeItem('token')
   };
 
-    // -- sign in and out --- //
-    signIn = user =>
-    this.setState({ email: user.email }, () =>
-      localStorage.setItem("token", user.token)
-    );
+  // -- sign in and out --- //
+  signIn = user =>
+  this.setState({ email: user.email }, () =>
+    localStorage.setItem("token", user.token)
+  );
 
-    signOut = () => {
-      this.setState({ email: "" });
-      localStorage.removeItem("token");
-      this.props.history.push("/");
-    };
+  signOut = () => {
+    this.setState({ email: "" });
+    localStorage.removeItem("token");
+    this.props.history.push("/");
+  };
+
+  // --- filtering just your team's games --- //
+  filterGames = () => this.state.games.filter(game => game.team.id === this.state.team_id)
   
-
+  // --- rendering --- //
   render () {
+
     return (
       <Router>
       <NavBar username={this.state.email} logOut={this.logOut}/>
         <Container>
         <Route exact path="/" component={routerProps => <Home {...routerProps} username={this.state.email}/>}  />
-        <Route exact path="/games" component={routerProps => <Games {...routerProps} username={this.state.email}/>} />
+        <Route exact path="/games" component={routerProps => <GamesList {...routerProps} username={this.state.email} games={this.filterGames()} />} />
         <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.email}/>} />
         <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.email}/>} />
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.email}/>} />

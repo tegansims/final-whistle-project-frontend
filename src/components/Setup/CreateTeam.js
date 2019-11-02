@@ -20,7 +20,7 @@ class CreateTeam extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-              this.props.history.push(`/teams/${data.id}`)
+              this.props.history.push(`/teams/${data.id}`) // this will work once that route is set up!
             }
           })
           .catch(error => {

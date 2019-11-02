@@ -1,6 +1,7 @@
 import React from 'react';
+import GamesTile from './GamesTile'
 
-class Games extends React.Component {
+class GamesList extends React.Component {
 
     componentDidMount () {
         if (!this.props.username) {
@@ -16,10 +17,10 @@ class Games extends React.Component {
 
     render(){
         return <div>
-            Games page
+        {this.props.games.map(game => <GamesTile key={game.id} game={game} />)}
             </div>
     }
 
 }
 
-export default Games;
+export default GamesList;
