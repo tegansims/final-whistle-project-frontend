@@ -17,7 +17,7 @@ class NavBar extends React.Component {
         <Menu.Item as={NavLink} to='/stats' exact style={link}>Stats</Menu.Item>
         <Menu.Item as={NavLink} to='/settings' exact style={link}>Settings</Menu.Item>
         <Menu.Item as={NavLink} to='/tactics' exact style={link}>Tactics</Menu.Item>
-        {this.props.username ? <Menu.Item as={NavLink} to='/login' onClick={this.props.logOut} exact style={link}>LogOut</Menu.Item> : null}
+        {this.props.currentUser ? <Menu.Item as={NavLink} to='/login' onClick={this.props.logOut} exact style={link}>LogOut</Menu.Item> : null}
       </Menu>
     );
   }

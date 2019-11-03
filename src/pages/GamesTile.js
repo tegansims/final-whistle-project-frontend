@@ -51,11 +51,11 @@ class GamesTile extends React.Component {
                     {this.props.game.completed && <Segment>Man Of The Match:   </Segment> }
                     {this.props.game.completed && <Segment>Dick Of The Day: </Segment> }
                     {!this.props.game.completed && <Segment onClick={this.handleVoteClick}> Vote </Segment> }
-                    {!this.props.game.completed && this.state.vote && <Vote/>}
+                    {!this.props.game.completed && this.state.vote && <Vote currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
                     <Segment onClick={this.handleCommentClick}>Comments: </Segment>
                     {this.state.comments && <Segment> 
                         {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 
-                           <CommentForm game_id={this.props.game.id}/>
+                           <CommentForm game_id={this.props.game.id} currentUser= {this.props.currentUser}/>
                     </Segment> 
                     }
                    </Segment.Group>

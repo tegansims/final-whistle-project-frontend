@@ -8,7 +8,7 @@ class CommentForm extends React.Component {
         comment: '',
         public: true,
         game_id: this.props.game_id,
-        user_id: 1   // NEED TO NOT HARDCODE THIS
+        user_id: this.props.currentUser.id
     }
 
     handleSubmit = (event) => {
@@ -20,7 +20,7 @@ class CommentForm extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-              this.props.history.push('/games')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
+            //   this.props.history.push('/games')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
             }
           })
           .catch(error => {

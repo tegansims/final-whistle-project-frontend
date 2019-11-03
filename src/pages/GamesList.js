@@ -4,7 +4,7 @@ import GamesTile from './GamesTile'
 class GamesList extends React.Component {
 
     componentDidMount () {
-        if (!this.props.username) {
+        if (!this.props.currentUser) {
             this.props.history.push('/login')
         }
     }
@@ -17,7 +17,7 @@ class GamesList extends React.Component {
 
     render(){
         return <div>
-        {this.props.games.map(game => <GamesTile key={game.id} game={game} />)}
+        {this.props.games.map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser}/>)}
             </div>
     }
 

@@ -17,7 +17,7 @@ const { GamesList, Stats, Tactics, Home, Settings, LoginForm, SignupForm } = pag
 class App extends React.Component {
 
   state = {
-    email: '',
+    currentUser: null,
     team_id: 1, // NEED TO NOT HARDCODE THIS
     games: [],
     teams: []
@@ -51,30 +51,26 @@ class App extends React.Component {
   // -- log in and out --- //
   logIn = user => {
     console.log(user)
-    this.setState({ email: user.email } , () =>
+    this.setState({ currentUser: user.user } , () =>
     localStorage.setItem('token', user.token)
   );
   }
 
   logOut = () => {
-    this.setState({ email: "" }); 
-    localStorage.removeItem('token')
+    this.setState({ currentUser: null }); 
+    localStorage.removeItem('token');
+    // this.props.history.push("/");
   };
 
   // -- sign in and out --- //
   signIn = user =>
-  this.setState({ email: user.email }, () =>
+  this.setState({ currentUser: user.user }, () =>
     localStorage.setItem("token", user.token)
   );
 
-  signOut = () => {
-    this.setState({ email: "" });
-    localStorage.removeItem("token");
-    this.props.history.push("/");
-  };
 
   // --- filtering just your team's games --- //
-  filterGames = () => this.state.games.filter(game => game.team.id === this.state.team_id)
+  filterGames = () => this.state.games.filter(game => game.team.id === this.state.currentUser.team_id)
 
   // --- changing team --- //
   setTeamId = (team) => {this.setState({ team_id: team.id})}
@@ -84,16 +80,16 @@ class App extends React.Component {
 
     return (
       <Router>
-      <NavBar username={this.state.email} logOut={this.logOut}/>
+      <NavBar currentUser={this.state.currentUser} logOut={this.logOut}/>
         <Container>
-        <Route exact path="/" component={routerProps => <Home {...routerProps} username={this.state.email}/>}  />
-        <Route exact path="/games" component={routerProps => <GamesList {...routerProps} username={this.state.email} games={this.filterGames()} />} />
-        <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.email}/>} />
-        <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.email}/>} />
-        <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.email}/>} />
-        <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.email}/> } />
-        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email} teams={this.state.teams} setTeamId={this.setTeamId}/>}  />
-        <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.email} signIn={this.signIn} logIn ={this.logIn}/>}  />
+        <Route exact path="/" component={routerProps => <Home {...routerProps} username={this.state.currentUser}/>}  />
+        <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} games={this.filterGames()} />} />
+        <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.currentUser}/>} />
+        <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.currentUser}/>} />
+        <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
+        <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
+        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.currentUser} teams={this.state.teams} setTeamId={this.setTeamId}/>}  />
+        <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.currentUser} signIn={this.signIn} logIn ={this.logIn}/>}  />
         </Container>
       </Router>
     );

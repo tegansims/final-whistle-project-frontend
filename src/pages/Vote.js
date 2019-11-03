@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Form, Button } from 'semantic-ui-react';
+import API from '../adaptors/API'
 
 class Vote extends React.Component {
 
@@ -7,13 +8,25 @@ class Vote extends React.Component {
         mom: '',
         dod: '',
         momComment: '',
-        dodComment: ''
+        dodComment: '', 
+        game_id: this.props.game_id,
+        user_id: this.props.currentUser.id
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log('hello')
-        console.log(this.state)
+        API.createVote(this.state)
+          .then(data => {
+            if (data.error) {
+              throw Error(data.error)
+            } else {
+              console.log("data: ", data)
+            //   this.props.history.push('/games')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
+            }
+          })
+          .catch(error => {
+            alert(error)
+          })
       }
     
     handleChange = event =>
