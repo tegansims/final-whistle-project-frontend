@@ -19,7 +19,8 @@ class App extends React.Component {
   state = {
     email: '',
     team_id: 1, // NEED TO NOT HARDCODE THIS
-    games: []
+    games: [],
+    teams: []
   }
 
   //  -- validating -- //
@@ -41,6 +42,9 @@ class App extends React.Component {
     }
     API.games().then(games => {
       this.setState({ games })
+    })
+    API.teams().then(teams => {
+      this.setState({ teams })
     })
   }
 
@@ -83,7 +87,7 @@ class App extends React.Component {
         <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.email}/>} />
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.email}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.email}/> } />
-        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email}/>}  />
+        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email} teams={this.state.teams}/>}  />
         <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.email} signIn={this.signIn} logIn ={this.logIn}/>}  />
         </Container>
       </Router>

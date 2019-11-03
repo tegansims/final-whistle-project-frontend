@@ -8,6 +8,7 @@ const newPlayerUrl = baseUrl + 'createplayer'
 const newGameUrl = baseUrl + 'creategame'
 
 const gamesUrl = baseUrl + 'games'
+const teamsUrl = baseUrl + 'teams'
 
 const get = url => 
     fetch(url, {
@@ -36,7 +37,9 @@ const createTeam = (team) => post(newTeamUrl, team)
 const createPlayer = (player) => post(newPlayerUrl, player)
 const createGame = (game) => post(newGameUrl, game)
 const games = () => get(gamesUrl)
+const teams = () => get(teamsUrl)
+
 
 window.validate = validate
 
-export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games}
+export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams}

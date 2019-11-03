@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Segment } from 'semantic-ui-react';
 
 class GamesTile extends React.Component {
@@ -25,6 +25,7 @@ class GamesTile extends React.Component {
                     <Segment>Assists: </Segment>
                     <Segment>Man Of The Match: </Segment>
                     <Segment>Dick Of The Day: </Segment>
+                    <Segment>Comments: </Segment>
                    </Segment.Group>
 
                 : null }
