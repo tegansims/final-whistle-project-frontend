@@ -73,6 +73,9 @@ class App extends React.Component {
 
   // --- filtering just your team's games --- //
   filterGames = () => this.state.games.filter(game => game.team.id === this.state.team_id)
+
+  // --- changing team --- //
+  setTeamId = (team) => {this.setState({ team_id: team.id})}
   
   // --- rendering --- //
   render () {
@@ -87,7 +90,7 @@ class App extends React.Component {
         <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.email}/>} />
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.email}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.email}/> } />
-        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email} teams={this.state.teams}/>}  />
+        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} username={this.state.email} teams={this.state.teams} setTeamId={this.setTeamId}/>}  />
         <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.email} signIn={this.signIn} logIn ={this.logIn}/>}  />
         </Container>
       </Router>

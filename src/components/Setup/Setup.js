@@ -63,7 +63,7 @@ class Setup extends React.Component {
             </Segment> }
             {this.state.create && <><Segment><CreateTeam /></Segment> <Segment><CreatePlayer/></Segment><Segment><CreateGame/></Segment></> }
             {/* {this.state.join && 'Join Team' && this.props.teams.map(team => <JoinTeam key={team.id} team = {team} /> )} */}
-            {this.state.join && 'Join Team' && <JoinTeam teams={this.props.teams} /> }
+            {this.state.join && 'Join Team' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId}/> }
 
         </div>
     }
