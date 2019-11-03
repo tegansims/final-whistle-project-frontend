@@ -35,7 +35,7 @@ class JoinTeam extends React.Component {
             // id='team'
             label='Team'
             floating
-            fluid
+            // fluid
             options={teams}
             name='team'
             placeholder='choose your team'

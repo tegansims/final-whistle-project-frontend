@@ -1,15 +1,19 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Button } from 'semantic-ui-react';
+import Vote from './Vote'
+import CommentForm from './CommentForm'
 
 class GamesTile extends React.Component {
 
     state = {
         visible: false,
-        comments: false
+        comments: false,
+        vote: false
     }
 
-    handleClick = () => { this.setState({ visible: !this.state.visible}) }
-    handleCommentClick = () => { this.setState({ comments: !this.state.comments}) }
+    handleClick = () =>  this.setState({ visible: !this.state.visible}) 
+    handleCommentClick = () => this.setState({ comments: !this.state.comments}) 
+    handleVoteClick = () => this.setState({ vote: !this.state.vote}) 
 
     colour = (score) => {
         // let score = this.game.score
@@ -46,9 +50,13 @@ class GamesTile extends React.Component {
                     {this.props.game.completed && <Segment>Assists: {this.props.game.assists.map(assist => <li key={assist.id}>{assist.player.name}</li>)}</Segment> }   
                     {this.props.game.completed && <Segment>Man Of The Match:   </Segment> }
                     {this.props.game.completed && <Segment>Dick Of The Day: </Segment> }
-                    {!this.props.game.completed && <Segment> Vote </Segment> }
+                    {!this.props.game.completed && <Segment onClick={this.handleVoteClick}> Vote </Segment> }
+                    {!this.props.game.completed && this.state.vote && <Vote/>}
                     <Segment onClick={this.handleCommentClick}>Comments: </Segment>
-                    {this.state.comments && <Segment> {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} </Segment> 
+                    {this.state.comments && <Segment> 
+                        {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 
+                           <CommentForm/>
+                    </Segment> 
                     }
                    </Segment.Group>
 
