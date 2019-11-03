@@ -49,10 +49,12 @@ class App extends React.Component {
   }
 
   // -- log in and out --- //
-  logIn = user =>
+  logIn = user => {
+    console.log(user)
     this.setState({ email: user.email } , () =>
     localStorage.setItem('token', user.token)
   );
+  }
 
   logOut = () => {
     this.setState({ email: "" }); 
