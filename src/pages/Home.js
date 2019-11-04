@@ -27,7 +27,7 @@ class Home extends React.Component {
         return <div>
             Home
             {!this.token && history.push('/login')}
-            {this.token && currentUser && !currentUser.team_id && history.push('/setup')}
+            {this.token && currentUser && !currentUser.team_id && history.push('/settings')}
             {this.token && currentUser && currentUser.team_id && history.push('/games')}
             </div>
     }

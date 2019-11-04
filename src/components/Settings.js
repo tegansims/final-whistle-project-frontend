@@ -1,17 +1,17 @@
 import React from 'react';
 import {Button, Segment, Grid, Divider, Header, Icon} from 'semantic-ui-react'
-import CreateTeam from './CreateTeam'
-import CreatePlayer from './CreatePlayer'
-import CreateGame from './CreateGame'
-import JoinTeam from './JoinTeam'
-import Welcome from './Welcome'
+import CreateTeam from './Setup/CreateTeam'
+import CreatePlayer from './Setup/CreatePlayer'
+import CreateGame from './Setup/CreateGame'
+import JoinTeam from './Setup/JoinTeam'
+import Welcome from './Setup/Welcome'
 
 import {
     BrowserRouter as Router,
     Route
   } from 'react-router-dom';
 
-class Setup extends React.Component {
+class Settings extends React.Component {
 
     state = {
         create: false,
@@ -19,11 +19,11 @@ class Setup extends React.Component {
         options: true
     }
     
-    componentDidMount () {
-        if (!this.props.currentUser) {
-            this.props.history.push('/login')
-        }
-    }
+    // componentDidMount () {
+    //     if (!this.props.currentUser) {
+    //         this.props.history.push('/login')
+    //     }
+    // }
 
     handleCreateClick = () => this.setState({ 
         create: !this.state.create,
@@ -75,5 +75,5 @@ class Setup extends React.Component {
 
 }
 
-export default Setup;
+export default Settings;
 

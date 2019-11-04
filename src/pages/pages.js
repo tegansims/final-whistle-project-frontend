@@ -5,7 +5,7 @@ import Home from '../pages/Home'
 import LoginForm from '../pages/LoginForm'
 import SignupForm from '../pages/SignupForm'
 
-import Settings from '../pages/Settings'
+import Settings from '../components/Settings'
 
 export default {
     GamesList,

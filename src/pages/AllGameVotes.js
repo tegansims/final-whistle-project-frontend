@@ -55,6 +55,10 @@ class AllGameVotes extends React.Component {
             return prev;
         },{});
     }
+
+    // votesSorted = (obj) => {
+    //     obj.sort((a,b) => b - a)
+    // }
     
     render(){
         return <div>

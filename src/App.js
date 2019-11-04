@@ -8,7 +8,7 @@ import { Container} from 'semantic-ui-react';
 
 import API from './adaptors/API'
 import NavBar from './components/NavBar'
-import Setup from './components/Setup/Setup'
+import Setup from './components/Settings'
 import 'semantic-ui-css/semantic.min.css'
 
 import pages from './pages/pages'
@@ -95,10 +95,9 @@ class App extends React.Component {
         <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
         <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} games={this.filterGames()} />} />
         <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.currentUser}/>} />
-        <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
-        <Route exact path="/setup" component={routerProps => <Setup {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  setTeamId={this.setTeamId}/>}  />
+        <Route exact path="/settings" component={routerProps => <Setup {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  setTeamId={this.setTeamId}/>}  />
         <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.currentUser} signIn={this.signIn} logIn ={this.logIn}/>}  />
         </Container>
       </Router>
