@@ -1,16 +1,18 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Sticky } from 'semantic-ui-react';
 
 const link = {
   background: '#B01943', 
   color: 'white'
 } 
 
-
 class NavBar extends React.Component {
+
+
   render() {
     return (
+
       <Menu>
         <Menu.Item as={NavLink} to='/' exact style={link}>Home</Menu.Item>
         <Menu.Item as={NavLink} to='/games' exact style={link}>Games</Menu.Item>
@@ -19,9 +21,9 @@ class NavBar extends React.Component {
         <Menu.Item as={NavLink} to='/tactics' exact style={link}>Tactics</Menu.Item>
         {this.props.currentUser ? <Menu.Item as={NavLink} to='/login' onClick={this.props.logOut} exact style={link}>LogOut</Menu.Item> : null}
       </Menu>
+
     );
   }
 };
 
-export default NavBar;
-
+export default NavBar

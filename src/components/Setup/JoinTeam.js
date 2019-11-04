@@ -67,7 +67,6 @@ class JoinTeam extends React.Component {
     }
 
 
-
     render(){
         const { password } = this.state
         const { handleChange, handleSubmit, handleDropdownChange } = this

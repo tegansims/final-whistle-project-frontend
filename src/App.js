@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Container} from 'semantic-ui-react';
 
 import API from './adaptors/API'
 import NavBar from './components/NavBar'
@@ -83,12 +83,14 @@ class App extends React.Component {
   // --- changing team --- //
   setTeamId = (team) => {this.setState({ team_id: team.id})}
   
+
   // --- rendering --- //
   render () {
 
     return (
       <Router>
-      <NavBar currentUser={this.state.currentUser} logOut={this.logOut}/>
+        <NavBar currentUser={this.state.currentUser} logOut={this.logOut}/>
+
         <Container>
         <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
         <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} games={this.filterGames()} />} />

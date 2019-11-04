@@ -1,19 +1,22 @@
 import React from 'react';
 import { Segment, Button } from 'semantic-ui-react';
-import Vote from './Vote'
+import VoteForm from './VoteForm'
 import CommentForm from './CommentForm'
+import AllGameVotes from './AllGameVotes'
 
 class GamesTile extends React.Component {
 
     state = {
         visible: false,
         comments: false,
-        vote: false
+        vote: false, 
+        allVotes: false
     }
 
     handleClick = () =>  this.setState({ visible: !this.state.visible}) 
     handleCommentClick = () => this.setState({ comments: !this.state.comments}) 
     handleVoteClick = () => this.setState({ vote: !this.state.vote}) 
+    handleAllVotesClick = () => this.setState({ allVotes: !this.state.allVotes}) 
 
     colour = (score) => {
         // let score = this.game.score
@@ -50,8 +53,13 @@ class GamesTile extends React.Component {
                     {this.props.game.completed && <Segment>Assists: {this.props.game.assists.map(assist => <li key={assist.id}>{assist.player.name}</li>)}</Segment> }   
                     {this.props.game.completed && <Segment>Man Of The Match:   </Segment> }
                     {this.props.game.completed && <Segment>Dick Of The Day: </Segment> }
+                    
                     {!this.props.game.completed && <Segment onClick={this.handleVoteClick}> Vote </Segment> }
-                    {!this.props.game.completed && this.state.vote && <Vote currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
+                    {!this.props.game.completed && this.state.vote && <VoteForm currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
+
+                    {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleAllVotesClick}> Show All Votes </Segment> }
+                    {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
+
                     <Segment onClick={this.handleCommentClick}>Comments: </Segment>
                     {this.state.comments && <Segment> 
                         {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 

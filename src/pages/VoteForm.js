@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Button, Dropdown } from 'semantic-ui-react';
 import API from '../adaptors/API'
 
-class Vote extends React.Component {
+class VoteForm extends React.Component {
 
   state = {
       mom: '',
@@ -77,6 +77,7 @@ class Vote extends React.Component {
                 labeled
                 fluid                
                 selection
+                search
                 onChange={handleDropdownMomChange}
                 options={mappedPlayers()}
                 name='mom'
@@ -95,6 +96,7 @@ class Vote extends React.Component {
                 labeled
                 fluid                
                 selection
+                search
                 onChange={handleDropdownDodChange}
                 options={this.mappedPlayers()}
                 name='dod'
@@ -118,4 +120,4 @@ class Vote extends React.Component {
 
 }
 
-export default Vote;
+export default VoteForm;
