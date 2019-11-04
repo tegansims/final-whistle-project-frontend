@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Dropdown, Button } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
+import { Redirect } from 'react-router-dom';
+
 
 
 class JoinTeam extends React.Component {
@@ -23,7 +25,8 @@ class JoinTeam extends React.Component {
     }
     
     handleDropdownChange = (event, data) => {
-        console.log(event)
+        console.log(this.props.teams)
+        // console.log(this.dropdownify(this.props.team, 0))
         this.setState({
             user: {
                 ...this.state.user, 
@@ -40,6 +43,7 @@ class JoinTeam extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
+              return <Redirect to= '/games'/> // REDIRECT TO GAMES
             }
           })
           .catch(error => {
@@ -47,26 +51,16 @@ class JoinTeam extends React.Component {
           })
       }
 
-   
+    mappedTeams = () => {
+        let output = this.props.teams.map(team => {
+            return {key: team.id.toString, value:team.name, text: team.name }
+        })
+        return output
+    }
+
+
+
     render(){
-        const teams = this.props.teams.map(team => 
-            <p key={team.id.toString()} id={team.id} value={team} text={team.name}>  {team.name}</p>)
-
-        const teams2 = [
-            { key: 'eng', text: 'English', value: 'eng' }, 
-            { key: 'spn', text: 'Spanish', value: 'spn' },
-            { key: 'rus', text: 'Russian', value: 'Russian' },
-            ]    
-   
-        const teams3 = [
-            { key: this.props.teams[0].id, text: this.props.teams[0].name, value: this.props.teams[0].name}
-            // { key: this.props.teams[1].id, text: this.props.teams[1].name, value: this.props.teams[1].name},
-            // { key: this.props.teams[2].id, text: this.props.teams[2].name, value: this.props.teams[2].name},
-            // { key: this.props.teams[3].id, text: this.props.teams[3].name, value: this.props.teams[3].name},
-            // { key: this.props.teams[4].id, text: this.props.teams[4].name, value: this.props.teams[4].name}
-        ]
-      
-
         const { password } = this.state
         const { handleChange, handleSubmit, handleDropdownChange } = this
 
@@ -79,7 +73,7 @@ class JoinTeam extends React.Component {
             floating
             selection
             search
-            options={teams3}
+            options={this.mappedTeams()}
             name='team'
             placeholder='choose your team'
             onChange={handleDropdownChange}>
