@@ -90,7 +90,7 @@ class App extends React.Component {
       <Router>
       <NavBar currentUser={this.state.currentUser} logOut={this.logOut}/>
         <Container>
-        <Route exact path="/" component={routerProps => <Home {...routerProps} username={this.state.currentUser}/>}  />
+        <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
         <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} games={this.filterGames()} />} />
         <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/settings" component={routerProps => <Settings {...routerProps} username={this.state.currentUser}/>} />

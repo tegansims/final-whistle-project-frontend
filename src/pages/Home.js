@@ -5,7 +5,7 @@ class Home extends React.Component {
 
     // componentDidMount () {
     //     if (!this.props.username) {
-    //         this.props.history.push('/login')
+    //         history.push('/login')
     //     }
     // }
     
@@ -20,15 +20,15 @@ class Home extends React.Component {
         localStorage.getItem('token')
     }
 
-    currentUser = () => this.props.email
-
 
 
     render(){
+        const {history, currentUser} = this.props
         return <div>
             Home
-            {!this.token ? this.props.history.push('/login') : null}
-            {this.token && this.currentUser ? this.props.history.push('/setup') : null}
+            {!this.token && history.push('/login')}
+            {this.token && currentUser && !currentUser.team_id && history.push('/setup')}
+            {this.token && currentUser && currentUser.team_id && history.push('/games')}
             </div>
     }
 
