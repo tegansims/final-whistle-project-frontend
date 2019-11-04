@@ -2,41 +2,46 @@ import React from 'react';
 import { Form, Dropdown, Button } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
 import { Redirect } from 'react-router-dom';
-import LinkPlayer from './LinkPlayer'
 
+ 
 
-
-class JoinTeam extends React.Component {
-
-    state = {
+class LinkPlayer extends React.Component {
+    
+    state ={
         user: {
-            team: '',
+            player: '',
             password: '', 
-            user_id: this.props.currentUser.id
+            user_id: this.props.currentUser.id,
+            team_id: this.props.team_id
         },
-        user_id: this.props.currentUser.id, 
-        team_id: '',
-        joinTeam: true,
-        linkPlayer: false
-      }
+        players: []
+    }
 
+    componentDidMount() {
+        API.players().then(allplayers => {
+            console.log(allplayers)
+            console.log(this.state.user.team_id)
+            console.log(allplayers.filter(player => player.team.id === this.props.team_id))
+            this.setState({ players: allplayers.filter(player => player.team.id === this.props.team_id) })
+          })
+    } 
 
     handleChange = event => {
-        console.log(this.mappedTeams())
         console.log(event.target)
-        this.setState({ 
-            user: {
-                ...this.state.user,password : event.target.value }})
-    }
-    
+            this.setState({ 
+                user: {
+                    ...this.state.user,password : event.target.value }})
+        }
+        
     handleDropdownChange = (event, data) => {
         this.setState({
             user: {
                 ...this.state.user, 
-                team : data.value }})
+                player : data.value }})
     }
 
     handleSubmit = (event) => {
+        console.log(this.state)
         event.preventDefault()
 
         API.joinTeam({user:this.state.user}, this.state.user.user_id)
@@ -46,7 +51,6 @@ class JoinTeam extends React.Component {
             } else {
               console.log("data: ", data)
               this.setState({
-                  team_id: data.user.team_id,
                   joinTeam: false,
                   linkPlayer: true
                 })
@@ -57,11 +61,12 @@ class JoinTeam extends React.Component {
           .catch(error => {
             console.error(error)
           })
-      }
+    }
 
-    mappedTeams = () => {
-        let output = this.props.teams.map(team => {
-            return {key: team.id, value:team.name, text: team.name }
+
+    mappedPlayers = () => {
+        let output = this.state.players.map(player => {
+            return {key: player.id, value:player.name, text: player.name }
         })
         return output
     }
@@ -72,18 +77,17 @@ class JoinTeam extends React.Component {
         const { password } = this.state
         const { handleChange, handleSubmit, handleDropdownChange } = this
 
-    return <div>
-        {this.state.joinTeam && <Form onSubmit={handleSubmit}>
+        return <div>
+            <Form onSubmit={handleSubmit}>
         <Form.Group>
             <Dropdown
-            // id='team'
             labeled
             floating
             selection
             search
-            options={this.mappedTeams()}
+            options={this.mappedPlayers()}
             name='team'
-            placeholder='choose your team'
+            placeholder='link your player account'
             onChange={handleDropdownChange}>
 
             </Dropdown>
@@ -101,13 +105,13 @@ class JoinTeam extends React.Component {
         <Button> Join </Button>
 
         </Form> 
-        }
+    
 
-        { this.state.linkPlayer && <LinkPlayer  team_id = {this.state.team_id} currentUser={this.props.currentUser}/> }
+
 
         </div>
     }
 
 }
 
-export default JoinTeam;
+export default LinkPlayer;
