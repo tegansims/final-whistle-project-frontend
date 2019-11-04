@@ -16,7 +16,7 @@ class Setup extends React.Component {
     }
     
     componentDidMount () {
-        if (!this.props.username) {
+        if (!this.props.currentUser) {
             this.props.history.push('/login')
         }
     }
@@ -63,7 +63,7 @@ class Setup extends React.Component {
             </Segment> }
             {this.state.create && <><Segment><CreateTeam /></Segment> <Segment><CreatePlayer/></Segment><Segment><CreateGame/></Segment></> }
             {/* {this.state.join && 'Join Team' && this.props.teams.map(team => <JoinTeam key={team.id} team = {team} /> )} */}
-            {this.state.join && 'Join Team' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId}/> }
+            {this.state.join && 'Join Team' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId} currentUser={this.props.currentUser}/> }
 
         </div>
     }

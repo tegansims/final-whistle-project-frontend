@@ -8,9 +8,11 @@ const newPlayerUrl = baseUrl + 'createplayer'
 const newGameUrl = baseUrl + 'creategame'
 const newCommentUrl = baseUrl + 'createcomment'
 const newVoteUrl = baseUrl + 'createvote'
+const joinTeamUrl = baseUrl + 'jointeam'
 
 const gamesUrl = baseUrl + 'games'
 const teamsUrl = baseUrl + 'teams'
+const usersUrl = baseUrl + 'users'
 
 const get = url => 
     fetch(url, {
@@ -31,6 +33,17 @@ fetch(url, {
 }).then(resp => resp.json())
 
 
+const patch = (url, id, objToUpdate) =>
+fetch(`${url}/${id}`, {
+    method: 'PATCH',
+        headers: {
+           'Content-Type': 'application/json',
+           Authorization: localStorage.getItem('token') 
+        },
+        body: JSON.stringify(objToUpdate)
+}).then(response => response.json())
+
+
 
 const logIn = user => post(logInUrl, user)
 const validate = () => get(validateUrl)
@@ -42,8 +55,9 @@ const createComment = (comment) => post(newCommentUrl, comment)
 const games = () => get(gamesUrl)
 const teams = () => get(teamsUrl)
 const createVote = (vote) => post(newVoteUrl, vote)
+const joinTeam = (user, id) => patch(usersUrl, id, user)
 
 
 window.validate = validate
 
-export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, createComment, createVote}
+export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, createComment, createVote, joinTeam}
