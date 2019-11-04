@@ -36,14 +36,14 @@ class LoginForm extends React.Component {
       })
   }
 
+  handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
-  handleChange = event =>
-    this.setState({ [event.target.name]: event.target.value })
+  handleSignUpClick = () => this.props.history.push('/signup')
 
 
   render () {
     const { email, password } = this.state
-    const { handleChange, handleSubmit } = this
+    const { handleChange, handleSubmit, handleSignUpClick } = this
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -67,7 +67,7 @@ class LoginForm extends React.Component {
           placeholder='password'
         />
         <br />
-        <Button> Log In </Button>
+        <Button> Log In </Button><Button onClick = {handleSignUpClick}>Sign up</Button>
       </Form>
     )
   }
