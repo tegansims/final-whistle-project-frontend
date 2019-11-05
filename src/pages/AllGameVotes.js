@@ -77,13 +77,24 @@ class AllGameVotes extends React.Component {
         return <Segment>
             
             <Button onClick={this.handleMomShowClick}>Man of the Match</Button> <Button onClick={this.handleDodShowClick}>Dick of the Day</Button>
-            {this.state.momShow && <Segment> 
-                Man of the match:  {this.state.momVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>)} 
-                <Button onClick={(event)=>this.handleCalculateSubmit(event, 1)}> Calculate Winners</Button><Button>Publish</Button>
+
+            {this.state.momShow && <Segment>  Man of the match: <br></br>
+                
+                {this.props.game.mom_winner 
+                ? this.props.game.mom_winner
+                : this.state.momVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>) 
+            }
+            {!this.props.game.mom_winner && <Button onClick={(event)=>this.handleCalculateSubmit(event, 1)}> Calculate and publish Winners</Button>}
             </Segment> }
-            {this.state.dodShow &&<Segment> 
-                Dick of the day:  {this.state.dodVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>)} 
-                <Button onClick={(event)=>this.handleCalculateSubmit(event, 2)}>Calculate Winners</Button> <Button>Publish</Button> 
+
+            {this.state.dodShow &&<Segment> Dick of the day: <br></br>
+
+                {this.props.game.dod_winner 
+                ? this.props.game.dod_winner
+                : this.state.dodVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>)
+                }
+               
+            {!this.props.game.dod_winner && <Button onClick={(event)=>this.handleCalculateSubmit(event, 2)}>Calculate and publish Winners</Button> }
             </Segment> }
                       
         </Segment>

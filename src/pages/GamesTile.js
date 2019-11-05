@@ -71,7 +71,7 @@ class GamesTile extends React.Component {
                     {!this.props.game.completed && this.props.currentUser.admin && this.state.update && <UpdateGameForm currentUser= {this.props.currentUser} game_id={this.props.game.id} pushGameUpdateToState={this.props.pushGameUpdateToState}/>}
 
                     {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleAllVotesClick}> Show All Votes: </Segment> }
-                    {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
+                    {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game={this.props.game} pushGameUpdateToState={this.props.pushGameUpdateToState} game_id={this.props.game.id}/>}
                     
                     {!this.props.game.completed && this.props.currentUser.admin && <Button fluid>Complete Game</Button>}
 
