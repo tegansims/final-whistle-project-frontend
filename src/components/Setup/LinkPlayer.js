@@ -3,7 +3,11 @@ import { Form, Dropdown, Button } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
 import { Redirect } from 'react-router-dom';
 
- 
+const usertypeOptions = [
+  { key: 'player', text: 'player', value: 'player' },
+  { key: 'coach', text: 'coach', value: 'coach' },
+  { key: 'supporter', text: 'supporter', value: 'supporter' },
+]
 
 class LinkPlayer extends React.Component {
     
@@ -12,22 +16,26 @@ class LinkPlayer extends React.Component {
             player: '',
             password: '', 
             user_id: this.props.currentUser.id,
-            team_id: this.props.team_id
+            team_id: this.props.team_id, 
+            usertype: ''
         },
-        players: []
+        players: [], 
+        // usertypes: [], 
+        dropdown: false
     }
 
     componentDidMount() {
         API.players().then(allplayers => {
-            console.log(allplayers)
-            console.log(this.state.user.team_id)
-            console.log(allplayers.filter(player => player.team.id === this.props.team_id))
             this.setState({ players: allplayers.filter(player => player.team.id === this.props.team_id) })
           })
+        // API.usertypes().then(usertypes => {
+        //   this.setState({ usertypes })
+        // })
     } 
 
+    // ---- hanedling change and submits --- //
     handleChange = event => {
-        console.log(event.target)
+        console.log(event.target.value)
             this.setState({ 
                 user: {
                     ...this.state.user,
@@ -40,6 +48,14 @@ class LinkPlayer extends React.Component {
                 ...this.state.user, 
                 player : data.value }})
     }
+
+    handleRadioChange = (event, data) => {
+      console.log(data.value)
+          this.setState({ 
+              user: {
+                  ...this.state.user,
+                  usertype : data.value }})
+      }
 
     handleSubmit = (event) => {
         console.log(this.state)
@@ -64,7 +80,7 @@ class LinkPlayer extends React.Component {
           })
     }
 
-
+    // --- mapping players and usertypes --- //
     mappedPlayers = () => {
         let output = this.state.players.map(player => {
             return {key: player.id, value:player.name, text: player.name }
@@ -72,16 +88,40 @@ class LinkPlayer extends React.Component {
         return output
     }
 
-
+  //   mappedUsertypes = () => {
+  //     let output = this.state.usertypes.map(usertype => {
+  //         return {key: usertype.id, value:usertype.usertype, text: usertype.usertype }
+  //     })
+  //     return output
+  // }
+  
 
     render(){
-        const { password } = this.state
-        const { handleChange, handleSubmit, handleDropdownChange } = this
+        const { password } = this.state.user
+        const { handleChange, handleSubmit, handleDropdownChange, handleRadioChange } = this
 
         return <div>
             <Form onSubmit={handleSubmit}>
         <Form.Group>
-            <Dropdown
+        <Form.Radio
+            label='Player'
+            value='player'
+            checked={this.state.user.usertype === 'player'}
+            onChange={handleRadioChange}
+          />
+          <Form.Radio
+            label='Coach'
+            value='coach'
+            checked={this.state.user.usertype === 'coach'}
+            onChange={handleRadioChange}
+          />
+          <Form.Radio
+            label='Supporter'
+            value='supporter'
+            checked={this.state.user.usertype === 'supporter'}
+            onChange={handleRadioChange}
+          />
+           {this.state.user.usertype === 'player' && <Dropdown
             labeled
             floating
             selection
@@ -90,9 +130,8 @@ class LinkPlayer extends React.Component {
             name='team'
             placeholder='link your player account'
             onChange={handleDropdownChange}>
-
-            </Dropdown>
-            <input 
+         </Dropdown> }
+          <input 
           id='passwordInput'
           label='Password'
           value={password}
@@ -101,7 +140,7 @@ class LinkPlayer extends React.Component {
           onChange={handleChange}
 
           placeholder='team password'
-        />
+    /> 
         </Form.Group>
         <Button> Join </Button>
 

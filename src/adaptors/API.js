@@ -15,6 +15,7 @@ const teamsUrl = baseUrl + 'teams'
 const usersUrl = baseUrl + 'users'
 const playersUrl = baseUrl + 'players'
 const votesUrl = baseUrl + 'votes'
+const usertypesUrl = baseUrl + 'usertypes'
 
 const get = url => 
     fetch(url, {
@@ -58,10 +59,11 @@ const games = () => get(gamesUrl)
 const teams = () => get(teamsUrl)
 const players = () => get(playersUrl)
 const votes = () => get(votesUrl)
+const usertypes = () => get(usertypesUrl)
 const createVote = (vote) => post(newVoteUrl, vote)
 const joinTeam = (user, id) => patch(usersUrl, id, user)
 
 
 window.validate = validate
 
-export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, createComment, createVote, joinTeam, players, votes}
+export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, createComment, createVote, joinTeam, players, votes, usertypes}
