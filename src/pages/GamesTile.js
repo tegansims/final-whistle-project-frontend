@@ -3,6 +3,7 @@ import { Segment, Button } from 'semantic-ui-react';
 import VoteForm from './VoteForm'
 import CommentForm from './CommentForm'
 import AllGameVotes from './AllGameVotes'
+import UpdateGameForm from './UpdateGameForm'
 
 class GamesTile extends React.Component {
 
@@ -10,13 +11,15 @@ class GamesTile extends React.Component {
         visible: false,
         comments: false,
         vote: false, 
-        allVotes: false
+        allVotes: false, 
+        update: false
     }
 
     handleClick = () =>  this.setState({ visible: !this.state.visible}) 
     handleCommentClick = () => this.setState({ comments: !this.state.comments}) 
     handleVoteClick = () => this.setState({ vote: !this.state.vote}) 
     handleAllVotesClick = () => this.setState({ allVotes: !this.state.allVotes}) 
+    handleUpdateGameClick = () => this.setState({ update: !this.state.update}) 
 
     colour = (score) => {
         if (!score) {
@@ -59,12 +62,17 @@ class GamesTile extends React.Component {
                     {!this.props.game.completed && <Segment onClick={this.handleVoteClick}> Vote </Segment> }
                     {!this.props.game.completed && this.state.vote && <VoteForm currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
 
-                    {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleAllVotesClick}> Show All Votes </Segment> }
-                    {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
-
                     <Segment onClick={this.handleCommentClick}>Comments: </Segment>
                     {this.state.comments &&   <CommentForm game={this.props.game} game_id={this.props.game.id} currentUser= {this.props.currentUser} 
-                        pushCommentToState={this.props.pushCommentToState} handleClick={this.handleClick} handleCommentClick={this.handleCommentClick}/>  }
+                        pushGameUpdateToState={this.props.pushGameUpdateToState} handleClick={this.handleClick} handleCommentClick={this.handleCommentClick}/>  }
+
+                    {/* if admin */}
+                    {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleAllVotesClick}> Show All Votes: </Segment> }
+                    {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
+                    
+                    {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleUpdateGameClick}> Update Game Details: </Segment> }
+                    {!this.props.game.completed && this.props.currentUser.admin && this.state.update && <UpdateGameForm currentUser= {this.props.currentUser} game_id={this.props.game.id} pushGameUpdateToState={this.props.pushGameUpdateToState}/>}
+
                    </Segment.Group>
 
                 : null }

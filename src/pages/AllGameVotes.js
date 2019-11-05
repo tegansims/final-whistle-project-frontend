@@ -61,7 +61,7 @@ class AllGameVotes extends React.Component {
     // }
     
     render(){
-        return <div>
+        return <Segment>
             <Button onClick={this.handleMomShowClick}>Man of the Match</Button> <Button onClick={this.handleDodShowClick}>Dick of the Day</Button>
             {this.state.momShow && <Segment> 
                 Man of the match:  {this.state.momVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>)} 
@@ -72,7 +72,7 @@ class AllGameVotes extends React.Component {
                 <Button>Calculate Winners</Button> <Button>Publish</Button> 
             </Segment> }
                       
-        </div>
+        </Segment>
        
     }
 

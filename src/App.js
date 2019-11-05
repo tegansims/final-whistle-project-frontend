@@ -12,7 +12,7 @@ import Setup from './components/Settings'
 import 'semantic-ui-css/semantic.min.css'
 
 import pages from './pages/pages'
-const { GamesList, Stats, Tactics, Home, Settings, LoginForm, SignupForm } = pages
+const { GamesList, Stats, Tactics, Home, LoginForm, SignupForm } = pages
 
 class App extends React.Component {
 
@@ -84,7 +84,7 @@ class App extends React.Component {
   setTeamId = (team) => {this.setState({ team_id: team.id})}
 
   // --- push comment to state --- //
-  pushCommentToState = () => API.games().then(games => this.setState({ games }) )
+  pushGameUpdateToState = () => API.games().then(games => this.setState({ games }) )
   
 
   // --- rendering --- //
@@ -97,7 +97,7 @@ class App extends React.Component {
         <Container>
         <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
         <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
-            games={this.filterGames()} pushCommentToState={this.pushCommentToState} />} />
+            games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
         <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />

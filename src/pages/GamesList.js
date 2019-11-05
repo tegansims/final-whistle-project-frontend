@@ -15,11 +15,17 @@ class GamesList extends React.Component {
     //     }
     // }
 
-
+    gamesSortedByDate = () => {
+        return this.props.games.sort(function(a, b) {
+            a = new Date(a.date);
+            b = new Date(b.date);
+            return a>b ? 1 : a<b ? -1 : 0;
+        });
+    }
 
     render(){
         return <div>
-        {this.props.games.map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser} pushCommentToState={this.props.pushCommentToState}/>)}
+        {this.gamesSortedByDate().map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser} pushGameUpdateToState={this.props.pushGameUpdateToState}/>)}
             </div>
     }
 

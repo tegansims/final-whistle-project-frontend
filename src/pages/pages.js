@@ -12,7 +12,7 @@ export default {
     Stats, 
     Tactics, 
     Home, 
-    Settings, 
+
     LoginForm, 
     SignupForm
 }

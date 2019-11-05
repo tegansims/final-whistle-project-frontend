@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Dropdown } from 'semantic-ui-react';
+import { Form, Button, Dropdown, Segment } from 'semantic-ui-react';
 import API from '../adaptors/API'
 
 class VoteForm extends React.Component {
@@ -66,7 +66,7 @@ class VoteForm extends React.Component {
     render(){
         const { momComment, dodComment } = this.state
         const { handleChange, handleSubmit, handleDropdownMomChange, handleDropdownDodChange, mappedPlayers, votedAlready } = this
-        return <div>
+        return <Segment>
         {votedAlready.length >= 1 
         ? "you've already voted!" 
         :
@@ -115,7 +115,7 @@ class VoteForm extends React.Component {
         <Button> Submit </Button>
         </Form>
         }
-        </div>
+        </Segment>
     }
 
 }

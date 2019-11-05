@@ -20,7 +20,7 @@ class CommentForm extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-              this.props.pushCommentToState()
+              this.props.pushGameUpdateToState()
               this.props.handleClick()
               this.props.handleCommentClick() // not working ()
             }
@@ -35,9 +35,9 @@ class CommentForm extends React.Component {
     render(){
         const { comment } = this.state
         const { handleChange, handleSubmit } = this
-        return  <Segment.Group>
+        return  <Segment>
           {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 
-            
+            <br></br>
           <Form onSubmit={handleSubmit}>
             <input type='text'
                 id='comment'
@@ -50,7 +50,7 @@ class CommentForm extends React.Component {
         <Form.Checkbox value={this.state.public} label='Make this public?' />
         <Button>Enter Comment</Button> 
         </Form>
-        </Segment.Group>
+        </Segment>
     }
 
 }
