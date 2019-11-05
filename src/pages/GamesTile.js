@@ -19,28 +19,30 @@ class GamesTile extends React.Component {
     handleAllVotesClick = () => this.setState({ allVotes: !this.state.allVotes}) 
 
     colour = (score) => {
-        // let score = this.game.score
-        let homeScore = parseInt(score.split('-')[0] );
-        let awayScore = parseInt(score.split('-')[1] );
-        if (homeScore > awayScore) {
-            return 'green'
-        } else if (homeScore < awayScore) { 
-            return  'red' 
-        } else if (homeScore === awayScore) { 
-            return 'blue'
-        } else {
+        if (!score) {
             return ''
+        }
+        else {
+            let homeScore = parseInt(score.split('-')[0] );
+            let awayScore = parseInt(score.split('-')[1] );
+            if (homeScore > awayScore) {
+                return 'ui green segment'
+            } else if (homeScore < awayScore) { 
+                return  'ui red segment' 
+            } else if (homeScore === awayScore) { 
+                return 'ui blue segment'
+            } 
         }
     }
 
-    mom = (game) => {
-        let votes = game.votes.filter(vote => vote.category_id === 1 && vote.game_id === this.props.game.id)
-    }
+
     
     render(){
+        
         return <div>
             <Segment.Group >
-            <Segment color={()=>this.colour(this.game.score)} onClick={this.handleClick} textAlign='center'>{this.props.game.opposition} <br></br>
+            {/* <Segment onClick={this.handleClick} textAlign='center'>{this.props.game.opposition} <br></br> */}
+            <Segment onClick={this.handleClick} className='{this.colour(this.game.score)} center aligned segment'>{this.props.game.opposition} <br></br>
             {this.props.game.score} 
             {this.state.visible && this.props.game.date} <br></br>
             {this.state.visible && this.props.game.venue}
@@ -61,11 +63,8 @@ class GamesTile extends React.Component {
                     {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
 
                     <Segment onClick={this.handleCommentClick}>Comments: </Segment>
-                    {this.state.comments && <Segment> 
-                        {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 
-                           <CommentForm game_id={this.props.game.id} currentUser= {this.props.currentUser}/>
-                    </Segment> 
-                    }
+                    {this.state.comments &&   <CommentForm game={this.props.game} game_id={this.props.game.id} currentUser= {this.props.currentUser} 
+                        pushCommentToState={this.props.pushCommentToState} handleClick={this.handleClick} handleCommentClick={this.handleCommentClick}/>  }
                    </Segment.Group>
 
                 : null }

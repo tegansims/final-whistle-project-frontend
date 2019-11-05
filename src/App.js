@@ -76,12 +76,15 @@ class App extends React.Component {
   // --- filtering just your team's games --- //
   filterGames = () => this.state.games.filter(game => game.team.id === this.state.currentUser.team_id)
 
-    // --- filtering just your team's players --- //
-    filterPlayers = () => this.state.players.filter(player => player.team.id === this.state.currentUser.team_id)
+  // --- filtering just your team's players --- //
+  filterPlayers = () => this.state.players.filter(player => player.team.id === this.state.currentUser.team_id)
 
 
   // --- changing team --- //
   setTeamId = (team) => {this.setState({ team_id: team.id})}
+
+  // --- push comment to state --- //
+  pushCommentToState = () => API.games().then(games => this.setState({ games }) )
   
 
   // --- rendering --- //
@@ -93,7 +96,8 @@ class App extends React.Component {
 
         <Container>
         <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
-        <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} games={this.filterGames()} />} />
+        <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
+            games={this.filterGames()} pushCommentToState={this.pushCommentToState} />} />
         <Route exact path="/stats" component={routerProps => <Stats {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />

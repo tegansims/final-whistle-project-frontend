@@ -15,9 +15,11 @@ class GamesList extends React.Component {
     //     }
     // }
 
+
+
     render(){
         return <div>
-        {this.props.games.map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser}/>)}
+        {this.props.games.map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser} pushCommentToState={this.props.pushCommentToState}/>)}
             </div>
     }
 

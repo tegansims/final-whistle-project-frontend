@@ -30,7 +30,8 @@ class LinkPlayer extends React.Component {
         console.log(event.target)
             this.setState({ 
                 user: {
-                    ...this.state.user,password : event.target.value }})
+                    ...this.state.user,
+                    password : event.target.value }})
         }
         
     handleDropdownChange = (event, data) => {

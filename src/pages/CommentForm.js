@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'semantic-ui-react'; 
+import { Form, Button, Segment } from 'semantic-ui-react'; 
 import API from '../adaptors/API'
 
 
@@ -20,7 +20,9 @@ class CommentForm extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-            //   this.props.history.push('/games')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
+              this.props.pushCommentToState()
+              this.props.handleClick()
+              this.props.handleCommentClick() // not working ()
             }
           })
           .catch(error => {
@@ -33,7 +35,10 @@ class CommentForm extends React.Component {
     render(){
         const { comment } = this.state
         const { handleChange, handleSubmit } = this
-        return  <Form onSubmit={handleSubmit}>
+        return  <Segment.Group>
+          {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 
+            
+          <Form onSubmit={handleSubmit}>
             <input type='text'
                 id='comment'
                 label='comment'
@@ -45,6 +50,7 @@ class CommentForm extends React.Component {
         <Form.Checkbox value={this.state.public} label='Make this public?' />
         <Button>Enter Comment</Button> 
         </Form>
+        </Segment.Group>
     }
 
 }
