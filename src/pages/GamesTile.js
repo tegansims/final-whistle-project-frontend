@@ -67,11 +67,14 @@ class GamesTile extends React.Component {
                         pushGameUpdateToState={this.props.pushGameUpdateToState} handleClick={this.handleClick} handleCommentClick={this.handleCommentClick}/>  }
 
                     {/* if admin */}
+                    {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleUpdateGameClick}> Update Game Details: </Segment> }
+                    {!this.props.game.completed && this.props.currentUser.admin && this.state.update && <UpdateGameForm currentUser= {this.props.currentUser} game_id={this.props.game.id} pushGameUpdateToState={this.props.pushGameUpdateToState}/>}
+
                     {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleAllVotesClick}> Show All Votes: </Segment> }
                     {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
                     
-                    {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleUpdateGameClick}> Update Game Details: </Segment> }
-                    {!this.props.game.completed && this.props.currentUser.admin && this.state.update && <UpdateGameForm currentUser= {this.props.currentUser} game_id={this.props.game.id} pushGameUpdateToState={this.props.pushGameUpdateToState}/>}
+                    {!this.props.game.completed && this.props.currentUser.admin && <Button fluid>Complete Game</Button>}
+
 
                    </Segment.Group>
 

@@ -35,12 +35,11 @@ class LinkPlayer extends React.Component {
 
     // ---- hanedling change and submits --- //
     handleChange = event => {
-        console.log(event.target.value)
-            this.setState({ 
-                user: {
-                    ...this.state.user,
-                    password : event.target.value }})
-        }
+        this.setState({ 
+            user: {
+                ...this.state.user,
+                password : event.target.value }})
+    }
         
     handleDropdownChange = (event, data) => {
         this.setState({

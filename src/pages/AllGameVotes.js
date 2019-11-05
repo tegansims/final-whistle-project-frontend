@@ -11,7 +11,11 @@ class AllGameVotes extends React.Component {
         momVotes: [],
         dodVotes: [], 
         momShow: false, 
-        dodShow: false
+        dodShow: false, 
+        game: {
+            category_id: '', 
+            game_id: this.props.game_id,
+        }
     }
     // const votes = game.votes.filter(vote => vote.category_id === 1 && vote.game_id === this.props.game.id)
 
@@ -21,7 +25,7 @@ class AllGameVotes extends React.Component {
               votes: allvotes.filter(vote => vote.game_id === this.props.game_id),
               momVotes: allvotes.filter(vote => vote.game_id === this.props.game_id && vote.category_id === 1), 
               dodVotes: allvotes.filter(vote => vote.game_id === this.props.game_id && vote.category_id === 2) 
-            }, () => console.log(this.votesRanked(this.mappedVotes(this.state.momVotes))))
+            })
         })
       } 
 
@@ -35,6 +39,29 @@ class AllGameVotes extends React.Component {
         momShow: false
     })    
 
+    handleCalculateSubmit = (event, category_id) => {
+        this.setState({ 
+            game: {
+                ...this.state.game, 
+                category_id: category_id} }
+            , () =>
+        
+        API.updateGame({game:this.state.game}, this.props.game_id)
+          .then(data => {
+            if (data.error) {
+              throw Error(data.error)
+            } else {
+              console.log("data: ", data)
+              alert('thanks for submitting the score')
+              this.props.pushGameUpdateToState()            
+            }
+          })
+          .catch(error => {
+            console.error(error)
+          })
+        )
+    }
+
     getRandomInt = (max) =>  Math.floor(Math.random() * Math.floor(max))
 
     showRandomVote = (array) => {
@@ -44,32 +71,19 @@ class AllGameVotes extends React.Component {
     // repeat until none left
     }
 
-    mappedVotes = (array) => {
-        let output = array.map(vote => vote.player.name)
-        return output
-    }
 
-    votesRanked = (array) => {
-        return array.reduce(function(prev,next){
-            prev[next] = (prev[next] + 1) || 1;
-            return prev;
-        },{});
-    }
-
-    // votesSorted = (obj) => {
-    //     obj.sort((a,b) => b - a)
-    // }
     
     render(){
         return <Segment>
+            
             <Button onClick={this.handleMomShowClick}>Man of the Match</Button> <Button onClick={this.handleDodShowClick}>Dick of the Day</Button>
             {this.state.momShow && <Segment> 
                 Man of the match:  {this.state.momVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>)} 
-                <Button>Calculate Winners</Button><Button>Publish</Button>
+                <Button onClick={(event)=>this.handleCalculateSubmit(event, 1)}> Calculate Winners</Button><Button>Publish</Button>
             </Segment> }
             {this.state.dodShow &&<Segment> 
                 Dick of the day:  {this.state.dodVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>)} 
-                <Button>Calculate Winners</Button> <Button>Publish</Button> 
+                <Button onClick={(event)=>this.handleCalculateSubmit(event, 2)}>Calculate Winners</Button> <Button>Publish</Button> 
             </Segment> }
                       
         </Segment>

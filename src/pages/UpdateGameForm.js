@@ -35,7 +35,8 @@ class UpdateGameForm extends React.Component {
             } else {
               console.log("data: ", data)
               alert('thanks for submitting the score')
-              this.props.pushGameUpdateToState()            }
+              this.props.pushGameUpdateToState()            
+            }
           })
           .catch(error => {
             console.error(error)
