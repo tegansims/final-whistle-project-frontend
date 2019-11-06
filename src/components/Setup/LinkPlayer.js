@@ -33,7 +33,7 @@ class LinkPlayer extends React.Component {
         // })
     } 
 
-    // ---- hanedling change and submits --- //
+    // ---- handling change and submits --- //
     handleChange = event => {
         this.setState({ 
             user: {
@@ -66,6 +66,7 @@ class LinkPlayer extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
+              this.props.pushUserUpdateToState(this.state.user.user_id)
               this.setState({
                   joinTeam: false,
                   linkPlayer: true

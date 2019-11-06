@@ -18,6 +18,7 @@ class VoteForm extends React.Component {
   }
 
   componentDidMount() {
+    
     API.players().then(allplayers => {
         this.setState({ players: allplayers.filter(player => player.team.id === this.props.currentUser.team_id) })
       })

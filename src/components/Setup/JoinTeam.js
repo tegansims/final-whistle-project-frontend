@@ -102,7 +102,7 @@ class JoinTeam extends React.Component {
         </Form> 
         }
 
-        { this.state.linkPlayer && <LinkPlayer  team_id = {this.state.team_id} currentUser={this.props.currentUser}/> }
+        { this.state.linkPlayer && <LinkPlayer  team_id = {this.state.team_id} currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState}/> }
 
         </div>
     }
