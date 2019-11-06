@@ -52,7 +52,7 @@ class AllGameVotes extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-              alert('thanks for submitting the score')
+              alert('results have been calculated!')
               this.props.pushGameUpdateToState()            
             }
           })

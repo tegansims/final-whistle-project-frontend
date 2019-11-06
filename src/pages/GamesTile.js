@@ -4,6 +4,8 @@ import VoteForm from './VoteForm'
 import CommentForm from './CommentForm'
 import AllGameVotes from './AllGameVotes'
 import UpdateGameForm from './UpdateGameForm'
+import API from '../adaptors/API'
+
 
 class GamesTile extends React.Component {
 
@@ -12,7 +14,12 @@ class GamesTile extends React.Component {
         comments: false,
         vote: false, 
         allVotes: false, 
-        update: false
+        update: false, 
+        game: {
+            completed: this.props.game.completed,
+            game_id: this.props.game.id
+
+        }
     }
 
     handleClick = () =>  this.setState({ visible: !this.state.visible}) 
@@ -20,6 +27,29 @@ class GamesTile extends React.Component {
     handleVoteClick = () => this.setState({ vote: !this.state.vote}) 
     handleAllVotesClick = () => this.setState({ allVotes: !this.state.allVotes}) 
     handleUpdateGameClick = () => this.setState({ update: !this.state.update}) 
+
+    handleCompleteClick = () => {
+        this.setState({ 
+            game: {
+                ...this.state.game, 
+                completed: !this.state.game.completed} }
+            , () =>
+        
+        API.updateGame({game:this.state.game}, this.props.game.id)
+          .then(data => {
+            if (data.error) {
+              throw Error(data.error)
+            } else {
+              console.log("data: ", data)
+              alert('successfully toggled state of game completedness')
+              this.props.pushGameUpdateToState()            
+            }
+          })
+          .catch(error => {
+            console.error(error)
+          })
+        )
+    }
 
     colour = (score) => {
         if (!score) {
@@ -56,8 +86,8 @@ class GamesTile extends React.Component {
                     
                     {this.props.game.completed && <Segment> Scorers:  {this.props.game.scorers.map(scorer => <li key={scorer.id}>{scorer.player.name}</li>)} </Segment> }
                     {this.props.game.completed && <Segment>Assists: {this.props.game.assists.map(assist => <li key={assist.id}>{assist.player.name}</li>)}</Segment> }   
-                    {this.props.game.completed && <Segment>Man Of The Match:   </Segment> }
-                    {this.props.game.completed && <Segment>Dick Of The Day: </Segment> }
+                    {this.props.game.completed && <Segment>Man Of The Match:  {this.props.game.mom_winner} </Segment> }
+                    {this.props.game.completed && <Segment>Dick Of The Day: {this.props.game.dod_winner}</Segment> }
                     
                     {!this.props.game.completed && <Segment onClick={this.handleVoteClick}> Vote </Segment> }
                     {!this.props.game.completed && this.state.vote && <VoteForm currentUser= {this.props.currentUser} game_id={this.props.game.id}/>}
@@ -73,7 +103,7 @@ class GamesTile extends React.Component {
                     {!this.props.game.completed && this.props.currentUser.admin && <Segment onClick={this.handleAllVotesClick}> Show All Votes: </Segment> }
                     {!this.props.game.completed && this.props.currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {this.props.currentUser} game={this.props.game} pushGameUpdateToState={this.props.pushGameUpdateToState} game_id={this.props.game.id}/>}
                     
-                    {!this.props.game.completed && this.props.currentUser.admin && <Button fluid>Complete Game</Button>}
+                    {this.props.currentUser.admin && <Button onClick={this.handleCompleteClick} fluid>{this.props.game.completed? 'Edit Game' : 'Complete Game'}</Button>}
 
 
                    </Segment.Group>
