@@ -1,4 +1,5 @@
 import React from 'react';
+import { Segment, Button } from 'semantic-ui-react';
 
 class Stats extends React.Component {
 
@@ -10,7 +11,8 @@ class Stats extends React.Component {
     
     render(){
         return <div>    
-            Stats Page
+            <Segment>Top Scorer</Segment>
+            <Segment>Top Assister</Segment>
         </div>
     }
 

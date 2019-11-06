@@ -47,20 +47,21 @@ class VoteForm extends React.Component {
     handleChange = event =>
       this.setState({ 
         vote: {
+          ...this.state.vote,
           [event.target.name]: event.target.value }
       })
 
-
-      
     handleDropdownMomChange = (event, data) => 
       this.setState({ 
         vote: {
+          ...this.state.vote,
           mom : data.value } 
         }) 
 
     handleDropdownDodChange = (event, data) => 
       this.setState({ 
         vote: {
+          ...this.state.vote,
           dod : data.value } 
         }) 
 

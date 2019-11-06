@@ -18,7 +18,7 @@ const generateItems = (color) => {
 
 const PitchImage = () => {
     const [image] = useImage('https://hi-static.z-dn.net/files/d6c/36f6579de2f3bcf58c6d5c4491cf7ba0.jpg');
-    return <Image image={image} height={window.innerHeight} x={100}/>;
+    return <Image image={image} height={window.innerHeight} x={0}/>;
   };
 
 
@@ -43,22 +43,18 @@ class Tactics extends React.Component {
     render() {
     return (
         <Stage width={window.innerWidth} height={window.innerHeight} border={isBlock}>
-        <Layer width={500} height={500} >
+        <Layer  >
         <PitchImage />
         {/* the big blue circle that has no meaning but does make note of the x and y axes */}
-        <Circle radius={50} fill={'blue'} x={this.x} y={this.y} draggable 
-            onDragStart={() => {
-              this.setState({
-                isDragging: true
-              });
-            }}
+        {/* <Circle radius={50} fill={'blue'} x={this.x} y={this.y} draggable 
+            onDragStart={() => this.setState({ isDragging: true })}
             onDragEnd={e => {
               this.setState({
                 isDragging: false,
                 x: e.target.x(),
                 y: e.target.y()
               });
-            }} />
+            }} /> */}
         {this.state.redItems.map(item => (
             <Circle
                 key={item.id}
