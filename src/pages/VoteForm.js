@@ -5,12 +5,14 @@ import API from '../adaptors/API'
 class VoteForm extends React.Component {
 
   state = {
+    vote: {
       mom: '',
       dod: '',
-      momComment: '',
-      dodComment: '', 
       game_id: this.props.game_id,
-      user_id: this.props.currentUser.id, 
+      user_id: this.props.currentUser.id,
+      momComment: '',
+      dodComment: ''
+    },
       players: [], 
       votes: []
   }
@@ -20,21 +22,20 @@ class VoteForm extends React.Component {
         this.setState({ players: allplayers.filter(player => player.team.id === this.props.currentUser.team_id) })
       })
     API.votes().then(allvotes => {
-      console.log(this.state.game_id);
-      console.log(allvotes);
-      this.setState({ votes: allvotes.filter(vote => vote.game_id === this.state.game_id) })
+      this.setState({ votes: allvotes.filter(vote => vote.game_id === this.state.vote.game_id) })
     })
   } 
 
   handleSubmit = (event) => {
       event.preventDefault()
-      API.createVote(this.state)
+      API.createVote({vote: this.state.vote})
         .then(data => {
           if (data.error) {
             throw Error(data.error)
           } else {
             console.log("data: ", data)
             alert('thanks for voting!')
+            this.props.pushGameUpdateToState() 
           //   this.props.history.push('/games')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
           }
         })
@@ -44,13 +45,24 @@ class VoteForm extends React.Component {
     }
     
     handleChange = event =>
-      this.setState({ [event.target.name]: event.target.value })
+      this.setState({ 
+        vote: {
+          [event.target.name]: event.target.value }
+      })
 
+
+      
     handleDropdownMomChange = (event, data) => 
-      this.setState({ mom : data.value } ) 
+      this.setState({ 
+        vote: {
+          mom : data.value } 
+        }) 
 
     handleDropdownDodChange = (event, data) => 
-      this.setState({ dod : data.value } ) 
+      this.setState({ 
+        vote: {
+          dod : data.value } 
+        }) 
 
     mappedPlayers = () => {
       let output = this.state.players.map(player => {
@@ -60,11 +72,11 @@ class VoteForm extends React.Component {
     }
 
     votedAlready = () => {
-      this.state.votes.filter(vote => vote.user_id === this.state.user_id)
+      this.state.votes.filter(vote => vote.user_id === this.state.vote.user_id)
     }
 
     render(){
-        const { momComment, dodComment } = this.state
+        const { momComment, dodComment } = this.state.vote
         const { handleChange, handleSubmit, handleDropdownMomChange, handleDropdownDodChange, mappedPlayers, votedAlready } = this
         return <Segment>
         {votedAlready.length >= 1 

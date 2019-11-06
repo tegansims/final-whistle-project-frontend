@@ -94,7 +94,7 @@ class UpdateGameForm extends React.Component {
                 />
             </Form.Field>
           </Form.Group>
-            <label>Scorers: </label><br></br>
+            {/* <label>Scorers: </label><br></br> */}
           {/* <Form.Group >
             <Dropdown
                 labeled
