@@ -103,7 +103,7 @@ class App extends React.Component {
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
         <Route exact path="/settings" component={routerProps => <Setup {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
-            setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState}/>}  />
+            setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState}/>} history={this.props.history} />
         <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.currentUser} signIn={this.signIn} logIn ={this.logIn}/>}  />
         </Container>
       </Router>

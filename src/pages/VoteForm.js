@@ -14,7 +14,8 @@ class VoteForm extends React.Component {
       dodComment: ''
     },
       players: [], 
-      votes: []
+      votes: [], 
+      alreadyVoted: []
   }
 
   componentDidMount() {
@@ -23,11 +24,11 @@ class VoteForm extends React.Component {
         this.setState({ players: allplayers.filter(player => player.team.id === this.props.currentUser.team_id) })
       })
     API.votes().then(allvotes => {
-      this.setState({ votes: allvotes.filter(vote => vote.game_id === this.state.vote.game_id) }, ()=> {
-        console.log(this.state.votes)
-        console.log(this.state.vote.user_id)
-      }
-    )
+        this.setState({  votes: allvotes.filter(vote => vote.game_id === this.state.vote.game_id)   
+      }, () => this.setState({
+        alreadyVoted: this.votedAlready()
+      }) )
+  
   } )
 }
 
@@ -41,7 +42,6 @@ class VoteForm extends React.Component {
             console.log("data: ", data)
             alert('thanks for voting!')
             this.props.pushGameUpdateToState() 
-          //   this.props.history.push('/games')   // CHANGE THIS URL TO WHATEVER YOU WANT TO REDIRECT TO WHEN SIGNED IN
           }
         })
         .catch(error => {
@@ -50,22 +50,19 @@ class VoteForm extends React.Component {
     }
     
     handleChange = event =>
-      this.setState({ 
-        vote: {
+      this.setState({  vote: {
           ...this.state.vote,
           [event.target.name]: event.target.value }
       })
 
     handleDropdownMomChange = (event, data) => 
-      this.setState({ 
-        vote: {
+      this.setState({  vote: {
           ...this.state.vote,
           mom : data.value } 
         }) 
 
     handleDropdownDodChange = (event, data) => 
-      this.setState({ 
-        vote: {
+      this.setState({ vote: {
           ...this.state.vote,
           dod : data.value } 
         }) 
@@ -78,14 +75,14 @@ class VoteForm extends React.Component {
     }
 
     votedAlready = () => {
-      return this.state.votes.filter(vote => vote.user_id === this.state.vote.user_id)
+      return this.state.votes.filter(vote => vote.user_id === this.state.vote.user_id && vote.game_id === this.state.vote.game_id)
     }
 
     render(){
         const { momComment, dodComment, mom, dod } = this.state.vote
         const { handleChange, handleSubmit, handleDropdownMomChange, handleDropdownDodChange, mappedPlayers, votedAlready } = this
         return <Segment>
-        {votedAlready() 
+        {this.state.alreadyVoted.length 
         ? <Segment className='center aligned segment'>you've already voted! </Segment>
         :
         <Form onSubmit={handleSubmit}>

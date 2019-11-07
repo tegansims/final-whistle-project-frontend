@@ -67,7 +67,7 @@ class Settings extends React.Component {
             {/* {this.state.create && <CreateSteps/>} */}
             
             {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId} 
-                currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState}/> }
+                currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }
 
         </div>
     }
