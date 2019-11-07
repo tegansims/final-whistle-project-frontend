@@ -57,7 +57,7 @@ class AllGameVotes extends React.Component {
             }
           })
           .catch(error => {
-            console.error(error)
+            alert(error)
           })
         )
     }
@@ -83,6 +83,7 @@ class AllGameVotes extends React.Component {
                 {this.props.game.mom_winner 
                 ? this.props.game.mom_winner
                 : this.state.momVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>) 
+            
             }
             {!this.props.game.mom_winner && <Button onClick={(event)=>this.handleCalculateSubmit(event, 1)}> Calculate and publish Winners</Button>}
             </Segment> }

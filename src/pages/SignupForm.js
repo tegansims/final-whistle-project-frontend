@@ -17,7 +17,7 @@ class SignupForm extends React.Component {
         if (this.props.username) {
             this.props.history.push('/')
         }
-    }
+    } 
   
     handleSubmit = (event) => {
       event.preventDefault()
@@ -32,7 +32,7 @@ class SignupForm extends React.Component {
           }
         })
         .catch(error => {
-          console.error(error)
+          alert(error)
         })
     }
   

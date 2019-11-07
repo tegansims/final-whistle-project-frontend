@@ -33,16 +33,14 @@ class App extends React.Component {
         if (data.error) {
           throw Error(data.error)
         } else {
-          console.log(data)
           this.logIn(data)
           this.setState({currentUser: data.user})
           this.props.history.push('/')
         }
       })
       .catch(error => {
-        console.error(error)
+        alert(error)
       })
-    }
     API.games().then(games => {
       this.setState({ games })
     })
@@ -52,11 +50,11 @@ class App extends React.Component {
     API.players().then(players => {
       this.setState({ players })
     })
+    }
   }
 
   // -- log in and out --- //
   logIn = user => {
-    console.log(user)
     this.setState({ currentUser: user.user } , () =>
     localStorage.setItem('token', user.token)
   );
