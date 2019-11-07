@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Step } from 'semantic-ui-react'
+import {  Step } from 'semantic-ui-react'
 
 
 class CreateSteps extends React.Component {

@@ -1,13 +1,7 @@
 import React from 'react';
 import { Form, Dropdown, Button } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
-import { Redirect } from 'react-router-dom';
 
-const usertypeOptions = [
-  { key: 'player', text: 'player', value: 'player' },
-  { key: 'coach', text: 'coach', value: 'coach' },
-  { key: 'supporter', text: 'supporter', value: 'supporter' },
-]
 
 class LinkPlayer extends React.Component {
     
@@ -28,9 +22,6 @@ class LinkPlayer extends React.Component {
         API.players().then(allplayers => {
             this.setState({ players: allplayers.filter(player => player.team.id === this.props.team_id) })
           })
-        // API.usertypes().then(usertypes => {
-        //   this.setState({ usertypes })
-        // })
     } 
 
     // ---- handling change and submits --- //
@@ -71,8 +62,7 @@ class LinkPlayer extends React.Component {
                   joinTeam: false,
                   linkPlayer: true
                 })
-
-              return <Redirect to= '/games'/> // REDIRECT TO GAMES
+                this.props.history.push('/')
             }
           })
           .catch(error => {
@@ -88,13 +78,6 @@ class LinkPlayer extends React.Component {
         return output
     }
 
-  //   mappedUsertypes = () => {
-  //     let output = this.state.usertypes.map(usertype => {
-  //         return {key: usertype.id, value:usertype.usertype, text: usertype.usertype }
-  //     })
-  //     return output
-  // }
-  
 
     render(){
         const { password } = this.state.user

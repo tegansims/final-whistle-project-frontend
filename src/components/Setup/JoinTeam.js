@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Dropdown, Button } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
-import { Redirect } from 'react-router-dom';
 import LinkPlayer from './LinkPlayer'
 
 
@@ -45,13 +44,12 @@ class JoinTeam extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
+              this.props.pushUserUpdateToState(this.state.user.user_id)
               this.setState({
                   team_id: data.user.team_id,
                   joinTeam: false,
                   linkPlayer: true
                 })
-
-              return <Redirect to= '/games'/> // REDIRECT TO GAMES
             }
           })
           .catch(error => {
@@ -102,7 +100,7 @@ class JoinTeam extends React.Component {
         </Form> 
         }
 
-        { this.state.linkPlayer && <LinkPlayer  team_id = {this.state.team_id} currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState}/> }
+        { this.state.linkPlayer && <LinkPlayer  team_id = {this.state.team_id} currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }
 
         </div>
     }
