@@ -4,12 +4,16 @@ import API from '../adaptors/API'
 
 class SignupForm extends React.Component {
     state = {
+      users: [],
       email: '',
       password: '',
       password_confirmation: ''
     }
 
     componentDidMount () {
+      API.users().then(allusers => {
+        this.setState({ users: allusers }, () => console.log(this.state.users))
+      })
         if (this.props.username) {
             this.props.history.push('/')
         }
@@ -36,10 +40,16 @@ class SignupForm extends React.Component {
     handleChange = event =>
       this.setState({ [event.target.name]: event.target.value })
   
-  
+    passwordValidation = (email) => email.includes('@') && email.includes('.')
+
+    emailUniqueness = (email) => {
+      let allEmails = this.state.users.map(user => user.email)
+      return allEmails.includes(email)
+    }
+
     render () {
       const { email, password, password_confirmation } = this.state
-      const { handleChange, handleSubmit } = this
+      const { handleChange, handleSubmit, passwordValidation, emailUniqueness } = this
   
       return (
          <Form onSubmit={handleSubmit}>
@@ -73,7 +83,7 @@ class SignupForm extends React.Component {
             placeholder='confirm your password'
           />
           <br />
-          <Button> Sign Up </Button>
+          {passwordValidation(email) && !emailUniqueness(email) && password === password_confirmation ? <Button > Sign Up </Button> : <Button disabled> Sign Up </Button>}
         </Form>
       )
     }

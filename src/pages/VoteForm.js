@@ -78,7 +78,7 @@ class VoteForm extends React.Component {
     }
 
     render(){
-        const { momComment, dodComment } = this.state.vote
+        const { momComment, dodComment, mom, dod } = this.state.vote
         const { handleChange, handleSubmit, handleDropdownMomChange, handleDropdownDodChange, mappedPlayers, votedAlready } = this
         return <Segment>
         {votedAlready.length >= 1 
@@ -126,7 +126,7 @@ class VoteForm extends React.Component {
                 placeholder='Reasons'
             />
           </Form.Group>
-        <Button> Submit </Button>
+          {mom && dod && momComment && dodComment ? <Button > Submit </Button> : <Button disabled> Submit </Button>}
         </Form>
         }
         </Segment>

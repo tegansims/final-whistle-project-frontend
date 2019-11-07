@@ -62,16 +62,17 @@ const games = () => get(gamesUrl)
 const teams = () => get(teamsUrl)
 const players = () => get(playersUrl)
 const votes = () => get(votesUrl)
+const users = () => get(usersUrl)
 const usertypes = () => get(usertypesUrl)
 const createVote = (vote) => post(newVoteUrl, vote)
 const joinTeam = (user, id) => patch(usersUrl, id, user)
 const updateGame = (game, id) => patch(gamesUrl, id, game)
 const currentUser = (id) => get(`usersUrl/${id}`)
 
-const topScorer = (id) => get(`topscorerUrl/${id}`)
+const topScorer = (id) => get(`topscorerUrl`)
 
 window.validate = validate
 window.topScorer = topScorer
 
-export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, 
+export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, users,
     createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, currentUser}

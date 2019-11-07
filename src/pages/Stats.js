@@ -15,8 +15,8 @@ class Stats extends React.Component {
         // if (!this.props.username) {
         //     this.props.history.push('/login')
         // }
-        console.log(this.props.currentUser)
-        API.topScorer(this.props.currentUser).then(scorer => {
+        console.log(this.props.currentUser.team_id)
+        API.topScorer(this.props.currentUser.team_id).then(scorer => {
             console.log(scorer)
             this.setState({ top_scorer: scorer })
         })
