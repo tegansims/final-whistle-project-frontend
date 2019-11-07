@@ -10,10 +10,12 @@ class Stats extends React.Component {
         this.state = {
             top_scorer: [], 
             top_scorers: [], 
+            top_assister: [], 
+            top_assisters: [],
             team_id: '',
             currentUser: this.props.currentUser, 
             showScorers: false,
-            showAssists: false
+            showAssisters: false
         }
     }
 
@@ -26,17 +28,25 @@ class Stats extends React.Component {
                 this.setState({ top_scorers: scorers, top_scorer: scorer }
                 )})
             })
+        API.topAssister(this.props.match.params.id).then(assister => {
+            API.topAssisters(this.props.match.params.id).then(assisters => {
+                console.log(assisters)
+                this.setState({ top_assisters: assisters, top_assister: assister }
+                )})
+            })
         } else {
             this.props.history.push("/login")
         }
     }
 
-    changeState=()=> this.setState({showScorers: !this.state.showScorers})
+    changeScorerState=()=> this.setState({showScorers: !this.state.showScorers, showAssisters: false})
+    changeAssisterState=()=> this.setState({showAssisters: !this.state.showAssisters, showScorers: false})
     
     
     render(){
         return <div>    
-            <Segment onClick={this.changeState}>Top Scorer: {this.state.top_scorer}</Segment>
+            <Segment onClick={this.changeScorerState}>Top Scorer: {this.state.top_scorer}</Segment>
+            <Segment onClick={this.changeAssisterState}>Top Assisters: {this.state.top_assister}</Segment>
             {this.state.showScorers &&
                 <Table basic='very' celled collapsing>
                 <Table.Header>
@@ -51,7 +61,21 @@ class Stats extends React.Component {
                 </Table.Body>
                 </Table>
             }
-            <Segment>Top Assister</Segment>
+            
+            {this.state.showAssisters &&
+                <Table basic='very' celled collapsing>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Player</Table.HeaderCell>
+                        <Table.HeaderCell>Assists</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {this.state.top_assisters.map(assister => <Table.Row><Table.Cell>{assister[0]}</Table.Cell><Table.Cell>{assister[1]}</Table.Cell></Table.Row>)}
+                    {/* {this.state.top_scorers.map(scorer => <Table.Row><Table.Cell><Header.Content>{scorer[1]}</Header.Content></Table.Cell></Table.Row>)} */}
+                </Table.Body>
+                </Table>
+            }
 
         </div>
     }

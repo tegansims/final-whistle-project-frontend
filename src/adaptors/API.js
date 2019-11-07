@@ -19,6 +19,8 @@ const usertypesUrl = baseUrl + 'usertypes'
 
 const topScorerUrl = baseUrl + 'topscorer'
 const topScorersUrl = baseUrl + 'topscorers'
+const topAssisterUrl = baseUrl + 'topassister'
+const topAssistersUrl = baseUrl + 'topassisters'
 
 const get = url => 
     fetch(url, {
@@ -71,10 +73,13 @@ const currentUser = (id) => get(`usersUrl/${id}`)
 
 const topScorer = (id) => get(`${topScorerUrl}/${id}`)
 const topScorers = (id) => get(`${topScorersUrl}/${id}`)
+const topAssister = (id) => get(`${topAssisterUrl}/${id}`)
+const topAssisters = (id) => get(`${topAssistersUrl}/${id}`)
 
 // const topScorer = (id ) => fetch(`${topScorerUrl}/${id}`).then(console.log)
 window.validate = validate
 window.topScorer = topScorer
 
 export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, users,
-    createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, topScorers, currentUser}
+    createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, topScorers, 
+    topAssister, topAssisters, currentUser}

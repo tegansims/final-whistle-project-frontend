@@ -1,10 +1,11 @@
-import React from 'react';
-import { Segment, Button } from 'semantic-ui-react';
+import React, {createRef} from 'react';
+import { Segment, Button, Sticky } from 'semantic-ui-react';
 import VoteForm from './VoteForm'
 import CommentForm from './CommentForm'
 import AllGameVotes from './AllGameVotes'
 import UpdateGameForm from './UpdateGameForm'
 import API from '../adaptors/API'
+import _ from 'lodash'
 
 
 class GamesTile extends React.Component {
@@ -18,10 +19,11 @@ class GamesTile extends React.Component {
         game: {
             completed: this.props.game.completed,
             game_id: this.props.game.id
-        }
+        }, 
+        attached: 'bottom'
     }
 
-    handleClick = () =>  this.setState({ visible: !this.state.visible}) 
+    handleClick = () =>  this.setState({ visible: !this.state.visible, attached: 'top'}) 
     handleCommentClick = () => this.setState({ comments: !this.state.comments}) 
     handleVoteClick = () => this.setState({ vote: !this.state.vote}) 
     handleAllVotesClick = () => this.setState({ allVotes: !this.state.allVotes}) 
@@ -67,20 +69,24 @@ class GamesTile extends React.Component {
         }
     }
 
+    contextRef = createRef()
 
     
     render(){
         const { game, currentUser } = this.props
 
-        return <div >
+        return <div ref={this.contextRef}>
             <Segment.Group >
-            <Segment onClick={this.handleClick} className='center aligned segment'>{game.opposition} <br></br>
-            {game.score} 
-            {this.state.visible && game.date} 
-            {this.state.visible && <br></br>}
-            {this.state.visible && game.venue}
+            <Sticky context={this.contextRef}>
+                <Segment attached={this.state.attached} onClick={this.handleClick} className='center aligned segment'>{game.opposition} <br></br>
+                {game.score} 
+                {this.state.visible && game.date} 
+                {this.state.visible && <br></br>}
+                {this.state.visible && game.venue}
 
-            </Segment>
+                </Segment>
+            </Sticky>
+
             {this.state.visible 
                 ?  <Segment.Group>
                     
