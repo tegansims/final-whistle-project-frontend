@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react'
-import { Form } from 'semantic-ui-react'
+import { Button, Form, Segment } from 'semantic-ui-react'
 
 import API from '../adaptors/API'
 
@@ -45,7 +44,8 @@ class LoginForm extends React.Component {
     const { email, password } = this.state
     const { handleChange, handleSubmit, handleSignUpClick } = this
 
-    return (
+    return ( <Segment.Group>
+       <Segment>
         <Form onSubmit={handleSubmit}>
      
        <input type='text'
@@ -67,8 +67,14 @@ class LoginForm extends React.Component {
           placeholder='password'
         />
         <br />
-        <Button> Log In </Button><Button onClick = {handleSignUpClick}>Sign up</Button>
+        <Button> Log In </Button> 
       </Form>
+      </Segment>
+      
+      <Segment>
+        <Button floated='right' onClick = {handleSignUpClick}>No account? Sign up!</Button>
+      </Segment>
+      </Segment.Group>
     )
   }
 }

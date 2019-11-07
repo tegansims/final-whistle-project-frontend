@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Segment } from 'semantic-ui-react'
 import API from '../adaptors/API'
 
 class SignupForm extends React.Component {
@@ -47,11 +47,14 @@ class SignupForm extends React.Component {
       return allEmails.includes(email)
     }
 
+    handleLoginClick = () => this.props.history.push('/login')
+
     render () {
       const { email, password, password_confirmation } = this.state
-      const { handleChange, handleSubmit, passwordValidation, emailUniqueness } = this
+      const { handleChange, handleSubmit, passwordValidation, emailUniqueness, handleLoginClick } = this
   
-      return (
+      return ( <Segment.Group>
+        <Segment>
          <Form onSubmit={handleSubmit}>
        
          <input type='text'
@@ -85,6 +88,10 @@ class SignupForm extends React.Component {
           <br />
           {passwordValidation(email) && !emailUniqueness(email) && password === password_confirmation ? <Button > Sign Up </Button> : <Button disabled> Sign Up </Button>}
         </Form>
+        </Segment><Segment>
+          <Button floated='right' onClick={handleLoginClick}>Back to log in page</Button>
+        </Segment>
+        </Segment.Group>
       )
     }
   }
