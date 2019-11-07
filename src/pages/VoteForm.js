@@ -23,9 +23,13 @@ class VoteForm extends React.Component {
         this.setState({ players: allplayers.filter(player => player.team.id === this.props.currentUser.team_id) })
       })
     API.votes().then(allvotes => {
-      this.setState({ votes: allvotes.filter(vote => vote.game_id === this.state.vote.game_id) })
-    })
-  } 
+      this.setState({ votes: allvotes.filter(vote => vote.game_id === this.state.vote.game_id) }, ()=> {
+        console.log(this.state.votes)
+        console.log(this.state.vote.user_id)
+      }
+    )
+  } )
+}
 
   handleSubmit = (event) => {
       event.preventDefault()
@@ -74,15 +78,15 @@ class VoteForm extends React.Component {
     }
 
     votedAlready = () => {
-      this.state.votes.filter(vote => vote.user_id === this.state.vote.user_id)
+      return this.state.votes.filter(vote => vote.user_id === this.state.vote.user_id)
     }
 
     render(){
         const { momComment, dodComment, mom, dod } = this.state.vote
         const { handleChange, handleSubmit, handleDropdownMomChange, handleDropdownDodChange, mappedPlayers, votedAlready } = this
         return <Segment>
-        {votedAlready.length >= 1 
-        ? "you've already voted!" 
+        {votedAlready() 
+        ? <Segment className='center aligned segment'>you've already voted! </Segment>
         :
         <Form onSubmit={handleSubmit}>
           <Form.Group>
