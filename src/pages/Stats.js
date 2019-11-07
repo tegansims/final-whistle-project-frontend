@@ -56,8 +56,7 @@ class Stats extends React.Component {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {this.state.top_scorers.map(scorer => <Table.Row><Table.Cell>{scorer[0]}</Table.Cell><Table.Cell>{scorer[1]}</Table.Cell></Table.Row>)}
-                    {/* {this.state.top_scorers.map(scorer => <Table.Row><Table.Cell><Header.Content>{scorer[1]}</Header.Content></Table.Cell></Table.Row>)} */}
+                    {this.state.top_scorers.map(scorer => <Table.Row><Table.Cell key={scorer.id}>{scorer[0]}</Table.Cell><Table.Cell>{scorer[1]}</Table.Cell></Table.Row>)}
                 </Table.Body>
                 </Table>
             }
@@ -71,8 +70,7 @@ class Stats extends React.Component {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {this.state.top_assisters.map(assister => <Table.Row><Table.Cell>{assister[0]}</Table.Cell><Table.Cell>{assister[1]}</Table.Cell></Table.Row>)}
-                    {/* {this.state.top_scorers.map(scorer => <Table.Row><Table.Cell><Header.Content>{scorer[1]}</Header.Content></Table.Cell></Table.Row>)} */}
+                    {this.state.top_assisters.map(assister => <Table.Row><Table.Cell key={assister.id}>{assister[0]}</Table.Cell><Table.Cell>{assister[1]}</Table.Cell></Table.Row>)}
                 </Table.Body>
                 </Table>
             }

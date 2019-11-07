@@ -62,7 +62,7 @@ class LinkPlayer extends React.Component {
                   joinTeam: false,
                   linkPlayer: true
                 })
-                this.props.history.push('/')
+                this.props.history.push('/games')
             }
           })
           .catch(error => {

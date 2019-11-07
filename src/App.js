@@ -39,7 +39,7 @@ class App extends React.Component {
         }
       })
       .catch(error => {
-        alert(error)
+        console.log(error)
       })
     API.games().then(games => {
       this.setState({ games })

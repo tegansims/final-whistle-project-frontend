@@ -26,9 +26,9 @@ class Home extends React.Component {
         const {history, currentUser} = this.props
         return <div>
             Home
-            {!this.token && history.push('/login')}
             {this.token && currentUser && !currentUser.team_id && history.push('/settings')}
             {/* {this.token && currentUser && currentUser.team_id && history.push('/games')} */}
+            {!this.token && history.push('/login')}
             </div>
     }
 
