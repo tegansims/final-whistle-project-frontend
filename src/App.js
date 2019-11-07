@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import { Container} from 'semantic-ui-react';
+import { Container, Sticky} from 'semantic-ui-react';
 
 import API from './adaptors/API'
 import NavBar from './components/NavBar'
 import Setup from './components/Settings'
 import 'semantic-ui-css/semantic.min.css'
+import _ from 'lodash'
 
 import pages from './pages/pages'
 const { GamesList, Stats, Tactics, Home, LoginForm, SignupForm } = pages
@@ -23,6 +24,7 @@ class App extends React.Component {
     teams: [], 
     players: []
   }
+  
 
   //  -- validating -- //
   componentDidMount () {
@@ -89,24 +91,30 @@ class App extends React.Component {
   
 
   // --- rendering --- //
+  contextRef = createRef()
+
   render () {
 
     return (
       <Router>
-        <NavBar currentUser={this.state.currentUser} logOut={this.logOut}/>
+        <div ref={this.contextRef}>
+        <Sticky context={this.contextRef}>
+          <NavBar attached ='top' currentUser={this.state.currentUser} logOut={this.logOut}/>
+        </Sticky>
 
-        <Container>
-        <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
-        <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
-            games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
+          <Container attached='bottom'>
+          <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
+          <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
+              games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
 
-        <Route exact path="/stats" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
-        <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
-        <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
-        <Route exact path="/settings" component={routerProps => <Setup {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
-            setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState}/>} history={this.props.history} />
-        <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.currentUser} signIn={this.signIn} logIn ={this.logIn}/>}  />
-        </Container>
+          <Route exact path="/stats/:id" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
+          <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
+          <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
+          <Route exact path="/settings" component={routerProps => <Setup {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
+              setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState}/>} history={this.props.history} />
+          <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.currentUser} signIn={this.signIn} logIn ={this.logIn}/>}  />
+          </Container>
+          </div>
       </Router>
     );
   }

@@ -20,8 +20,8 @@ class Stats extends React.Component {
     componentDidMount () {
         console.log(this.state.currentUser)
         if (localStorage.getItem("token")) {
-        API.topScorer(this.state.currentUser.team_id).then(scorer => {
-            API.topScorers(this.state.currentUser.team_id).then(scorers => {
+        API.topScorer(this.props.match.params.id).then(scorer => {
+            API.topScorers(this.props.match.params.id).then(scorers => {
                 console.log(scorers)
                 this.setState({ top_scorers: scorers, top_scorer: scorer }
                 )})

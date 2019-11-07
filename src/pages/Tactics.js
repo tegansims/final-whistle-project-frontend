@@ -3,12 +3,12 @@ import {Layer, Image, Stage, Circle, Rect} from 'react-konva'
 import { isBlock } from '@babel/types';
 import useImage from 'use-image';
 
-const generateItems = (color) => {
+const generateItems = (color, y) => {
     const items = [];
     for (let i = 0; i < 11; i++) {
         items.push({
-            x: 30,
-            y: (Math.random() * window.innerHeight / 2) + 30,
+            x: 10,
+            y: y,
             id: `node-${color}-${i}`,
             color: color
         });
@@ -32,8 +32,8 @@ class Tactics extends React.Component {
     
     state = {
         isDragging: false,
-        redItems: generateItems('#B01943'),
-        blueItems: generateItems('#2299e2'),
+        redItems: generateItems('#B01943', 10),
+        blueItems: generateItems('#2299e2', 35),
         image: '../src/images/hockey-pitch-copy.svg',
         x: 100,
         y: 100
