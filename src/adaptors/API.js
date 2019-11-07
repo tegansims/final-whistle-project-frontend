@@ -17,8 +17,8 @@ const playersUrl = baseUrl + 'players'
 const votesUrl = baseUrl + 'votes'
 const usertypesUrl = baseUrl + 'usertypes'
 
-const topscorerUrl = baseUrl + 'topscorer'
-
+const topScorerUrl = baseUrl + 'topscorer'
+const topScorersUrl = baseUrl + 'topscorers'
 
 const get = url => 
     fetch(url, {
@@ -69,10 +69,12 @@ const joinTeam = (user, id) => patch(usersUrl, id, user)
 const updateGame = (game, id) => patch(gamesUrl, id, game)
 const currentUser = (id) => get(`usersUrl/${id}`)
 
-const topScorer = (id) => get(`topscorerUrl`)
+const topScorer = (id) => get(`${topScorerUrl}/${id}`)
+const topScorers = (id) => get(`${topScorersUrl}/${id}`)
 
+// const topScorer = (id ) => fetch(`${topScorerUrl}/${id}`).then(console.log)
 window.validate = validate
 window.topScorer = topScorer
 
 export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, users,
-    createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, currentUser}
+    createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, topScorers, currentUser}

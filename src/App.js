@@ -33,8 +33,8 @@ class App extends React.Component {
         } else {
           console.log(data)
           this.logIn(data)
+          this.setState({currentUser: data.user})
           this.props.history.push('/')
-          this.setState({user: data})
         }
       })
       .catch(error => {
@@ -99,6 +99,7 @@ class App extends React.Component {
         <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
         <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
             games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
+
         <Route exact path="/stats" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
         <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
         <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />

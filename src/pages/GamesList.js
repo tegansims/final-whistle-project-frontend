@@ -4,7 +4,7 @@ import GamesTile from './GamesTile'
 class GamesList extends React.Component {
 
     componentDidMount () {
-        if (!this.props.currentUser) {
+        if (!localStorage.getItem("token")) {
             this.props.history.push('/login')
         }
     }
