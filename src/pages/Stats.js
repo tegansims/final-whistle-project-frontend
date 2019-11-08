@@ -44,9 +44,9 @@ class Stats extends React.Component {
     
     
     render(){
-        return <div>    
-            <Segment onClick={this.changeScorerState}>Top Scorer: {this.state.top_scorer}</Segment>
-            <Segment onClick={this.changeAssisterState}>Top Assisters: {this.state.top_assister}</Segment>
+        return <Segment.Group>    
+            <Segment size='huge' className='center aligned segment' onClick={this.changeScorerState}><strong>Top Scorer: </strong> {this.state.top_scorer}</Segment>
+            <Segment size='huge' className='center aligned segment' onClick={this.changeAssisterState}><strong>Top Assisters: </strong> {this.state.top_assister}</Segment>
             {this.state.showScorers &&
                 <Table basic='very' celled collapsing>
                 <Table.Header>
@@ -75,7 +75,7 @@ class Stats extends React.Component {
                 </Table>
             }
 
-        </div>
+        </Segment.Group>
     }
 
 }
