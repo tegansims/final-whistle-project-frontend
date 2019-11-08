@@ -63,8 +63,10 @@ class Settings extends React.Component {
                 </Grid.Row>
                 </Grid>
             </Segment> }
-            {this.state.create && <><Segment><CreateTeam /></Segment> <Segment><CreatePlayer/></Segment><Segment><CreateGame/></Segment></> }
-            {/* {this.state.create && <CreateSteps/>} */}
+            {this.state.create && <>
+            <Segment><CreateTeam /></Segment>
+             <Segment><CreatePlayer/></Segment>
+             <Segment><CreateGame pushGameUpdateToState={this.props.pushGameUpdateToState} /></Segment></> }
             
             {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId} 
                 currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }

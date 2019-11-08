@@ -1,19 +1,26 @@
 import React from 'react';
 import {Form, Button} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 class CreateGame extends React.Component {
 
     state = {
         team_id: 1,   // NEED TO NOT HARDCODE THIS
-        date: '', 
+        // date: '', 
         opposition: '',
-        venue: ''
+        venue: '', 
+        date: new Date()
     }
 
     handleChange = event =>
         this.setState({ [event.target.name]: event.target.value })
+
+    handleDateChange = date => {
+        this.setState({ date: date  });
+    };   
 
     handleSubmit = (event) => {
         event.preventDefault()
@@ -23,6 +30,7 @@ class CreateGame extends React.Component {
                 throw Error(data.error)
             } else {
                 console.log("data: ", data)
+                this.props.pushGameUpdateToState()
             }
             })
             .catch(error => {
@@ -32,19 +40,18 @@ class CreateGame extends React.Component {
 
     render () {
         const { date, opposition, venue } = this.state
-        const { handleChange, handleSubmit } = this
+        const { handleChange, handleSubmit, handleDateChange } = this
     
         return (
             <Form onSubmit={handleSubmit}>
-            
-            <input type='date'
-                id='dateInput'
-                label='Date'
+            <DatePicker
+                selected={date}
+                onChange={handleDateChange}
+                showTimeSelect
+                dateFormat="dd/MM/yyyy, h:mm"
                 value={date}
-                onChange={handleChange}
                 name='date'
-                placeholder='date'
-            />
+             />
             <br />
                 <input type='text'
                 id='opposition'

@@ -8,7 +8,7 @@ class CreateTeam extends React.Component {
         name: '',
         password: '',
         password_confirmation: '',
-        sport_id: 1    // NEED TO NOT HARDCODE THIS
+        sport_id: ''
       }
 
     

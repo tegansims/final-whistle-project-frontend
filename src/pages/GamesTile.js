@@ -7,6 +7,8 @@ import UpdateGameForm from './UpdateGameForm'
 import API from '../adaptors/API'
 import _ from 'lodash'
 
+const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 
 class GamesTile extends React.Component {
 
@@ -69,18 +71,29 @@ class GamesTile extends React.Component {
         }
     }
 
+    // gameDate = (date) => date.getDate() + " " + date[date.getMonth()] + " " + date.getFullYear()
+    gameDate = (date) => date.split('T')[0];
+    
+    gameTime = (date) => {
+        let time = date.split('T')[1].split('.')[0].split(':')
+        return "  " + time[0]+":"+time[1]
+    }
+
     contextRef = createRef()
 
     
     render(){
         const { game, currentUser } = this.props
+        const { gameDate, gameTime } = this
 
         return <div ref={this.contextRef}>
             <Segment.Group >
             <Sticky context={this.contextRef}>
                 <Segment attached={this.state.attached} onClick={this.handleClick} className='center aligned segment'>{game.opposition} <br></br>
                 {game.score} 
-                {this.state.visible && game.date} 
+                {this.state.visible && <br></br>}
+                {this.state.visible && gameDate(game.date)} 
+                {this.state.visible && gameTime(game.date)} 
                 {this.state.visible && <br></br>}
                 {this.state.visible && game.venue}
 
