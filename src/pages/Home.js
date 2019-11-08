@@ -1,5 +1,10 @@
 import React from 'react';
 import LoginForm from './LoginForm'
+import GamesShowPage from './GamesShowPage'
+import {
+    BrowserRouter as Router,
+    Route
+  } from 'react-router-dom';
 
 class Home extends React.Component {
 
@@ -20,7 +25,9 @@ class Home extends React.Component {
         localStorage.getItem('token')
     }
 
+    nextMatch = () => {
 
+    }
 
     render(){
         const {history, currentUser} = this.props
@@ -29,6 +36,7 @@ class Home extends React.Component {
             {this.token && currentUser && !currentUser.team_id && history.push('/settings')}
             {/* {this.token && currentUser && currentUser.team_id && history.push('/games')} */}
             {!this.token && history.push('/login')}
+             {/* <GamesTile history={this.props.history}  /> */}
             </div>
     }
 

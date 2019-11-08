@@ -79,7 +79,7 @@ class GamesShowPage extends React.Component {
         const { game, comments, scorers, assists, mom, dod} = this.state
         const { gameDate, gameTime, handleClick, handleCommentClick, handleUpdateGameClick, handleAllVotesClick, handleCompleteClick, handleVoteClick ,
              handleScorersClick, handleAssistsClick, handleMomClick, handleDodClick} = this
-
+        
         if (!this.props.currentUser) {
             return (<Loading/>)
         } else {
@@ -89,8 +89,7 @@ class GamesShowPage extends React.Component {
            <Segment size = 'huge' className='center aligned segment'><Header>{game.opposition} </Header>
                 {game.score} <br></br>
                 {game.date}<br></br>
-                {/* {gameDate(game.date)} 
-                { gameTime(game.date)}  */}
+                {/* { gameTime(game.date)}  */}
                 {game.venue}<br></br>
                 </Segment>
             </Segment.Group>

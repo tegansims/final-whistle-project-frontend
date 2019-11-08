@@ -64,6 +64,14 @@ class Tactics extends React.Component {
                 y={item.y}
                 fill={item.color}
                 radius={20}
+                onDragStart={() => this.setState({ isDragging: true })}
+                onDragEnd={e => {
+                    this.setState({
+                      isDragging: false,
+                      x: e.target.x(),
+                      y: e.target.y()
+                    });
+                  }}
             //   onDragStart={this.handleDragStart}
             //   onDragEnd={this.handleDragEnd}
             />

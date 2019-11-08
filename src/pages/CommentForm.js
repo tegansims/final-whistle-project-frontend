@@ -27,8 +27,10 @@ class CommentForm extends React.Component {
             alert(error)
           })
     }
-    handleChange = event =>
+    handleChange = event => {
+    console.log(event.target.name)
         this.setState({ [event.target.name]: event.target.value })
+    }
 
     render(){
         const { comment } = this.state
@@ -45,7 +47,7 @@ class CommentForm extends React.Component {
                 name='comment'
                 placeholder='comment'
             />
-        <Form.Checkbox value={this.state.public} label='Make this public?' />
+        <Form.Checkbox value={this.state.public} name='public' label='Make this public?' />
         <Button>Enter Comment</Button> 
         </Form>
         </Segment>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Button, Table, Header } from 'semantic-ui-react';
+import { Segment, Button, Table, Header, SegmentGroup } from 'semantic-ui-react';
 import API from '../adaptors/API'
 
 
@@ -47,11 +47,12 @@ class Stats extends React.Component {
         return <Segment.Group>    
             <Segment size='huge' className='center aligned segment' onClick={this.changeScorerState}><strong>Top Scorer: </strong> {this.state.top_scorer}</Segment>
             <Segment size='huge' className='center aligned segment' onClick={this.changeAssisterState}><strong>Top Assisters: </strong> {this.state.top_assister}</Segment>
+           <div></div>
             {this.state.showScorers &&
                 <Table basic='very' celled collapsing>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Player</Table.HeaderCell>
+                        <Table.HeaderCell  >Player</Table.HeaderCell>
                         <Table.HeaderCell>Goals</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
@@ -75,7 +76,7 @@ class Stats extends React.Component {
                 </Table>
             }
 
-        </Segment.Group>
+            </Segment.Group>
     }
 
 }
