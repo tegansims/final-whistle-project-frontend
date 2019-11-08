@@ -1,6 +1,7 @@
 import React, {createRef} from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, Sticky, Message, Icon } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
+import Loading from '../components/Loading'
 
 const link = {
   background: '#B01943', 
@@ -12,13 +13,7 @@ class NavBar extends React.Component {
 
   render() { if (!this.props.currentUser) {
     return (
-      <Message icon>
-        <Icon name='circle notched' loading />
-        <Message.Content>
-          <Message.Header>Stattr Dattr</Message.Header>
-          Content coming soon...
-        </Message.Content>
-    </Message>
+      <Loading/>
     )
   } else {
     return (

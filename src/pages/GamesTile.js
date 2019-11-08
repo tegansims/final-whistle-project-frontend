@@ -25,7 +25,10 @@ class GamesTile extends React.Component {
         attached: 'bottom'
     }
 
-    handleClick = () =>  this.setState({ visible: !this.state.visible, attached: 'top'}) 
+    // handleClick = () =>  this.setState({ visible: !this.state.visible, attached: 'top'}) 
+
+    handleClick = () =>  this.props.history.push(`/games/${this.props.game.id}`)
+
     handleCommentClick = () => this.setState({ comments: !this.state.comments}) 
     handleVoteClick = () => this.setState({ vote: !this.state.vote}) 
     handleAllVotesClick = () => this.setState({ allVotes: !this.state.allVotes}) 

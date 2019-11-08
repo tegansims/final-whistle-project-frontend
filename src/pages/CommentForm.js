@@ -13,7 +13,7 @@ class CommentForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-    
+        
         API.createComment(this.state)
           .then(data => {
             if (data.error) {
@@ -21,8 +21,6 @@ class CommentForm extends React.Component {
             } else {
               console.log("data: ", data)
               this.props.pushGameUpdateToState()
-              this.props.handleClick()
-              this.props.handleCommentClick() // not working ()
             }
           })
           .catch(error => {

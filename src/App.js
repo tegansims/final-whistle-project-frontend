@@ -13,7 +13,7 @@ import 'semantic-ui-css/semantic.min.css'
 import _ from 'lodash'
 
 import pages from './pages/pages'
-const { GamesList, Stats, Tactics, Home, LoginForm, SignupForm } = pages
+const { GamesList, Stats, Tactics, Home, LoginForm, SignupForm, GamesShowPage } = pages
 
 class App extends React.Component {
 
@@ -104,6 +104,9 @@ class App extends React.Component {
             <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
             <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
                 games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
+
+            <Route exact path="/games/:id" component={routerProps => <GamesShowPage {...routerProps} currentUser={this.state.currentUser} 
+                 pushGameUpdateToState={this.pushGameUpdateToState} />} />
 
             <Route exact path="/stats/:id" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
             <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />

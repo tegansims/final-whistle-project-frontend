@@ -7,12 +7,14 @@ import SignupForm from '../pages/SignupForm'
 
 import Settings from '../components/Settings'
 
+import GamesShowPage from './GamesShowPage'
+
 export default {
     GamesList,
     Stats, 
     Tactics, 
-    Home, 
-
+    Home,
     LoginForm, 
-    SignupForm
+    SignupForm, 
+    GamesShowPage
 }
