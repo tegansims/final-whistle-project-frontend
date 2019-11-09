@@ -2,13 +2,14 @@ import React, {createRef} from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
-  Route
+  Route, 
+  Switch
 } from 'react-router-dom';
 import { Container, Sticky} from 'semantic-ui-react';
 
 import API from './adaptors/API'
 import NavBar from './components/NavBar'
-import Setup from './components/Settings'
+import Settings from './components/Settings'
 import 'semantic-ui-css/semantic.min.css'
 import _ from 'lodash'
 
@@ -109,6 +110,7 @@ class App extends React.Component {
         </Sticky>
 
           <Container attached='bottom'>
+            <Switch>
             <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser} nextMatch={this.nextMatch()}/>}  />
             <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
                 games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
@@ -119,10 +121,10 @@ class App extends React.Component {
             <Route exact path="/stats/:id" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
             <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
             <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
-            <Route exact path="/settings" component={routerProps => <Setup {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
-                setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState} pushGameUpdateToState={this.pushGameUpdateToState} history={this.props.history}/>}   />
+            <Route exact path="/settings" component={routerProps => <Settings {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
+                setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState} pushGameUpdateToState={this.pushGameUpdateToState} />}   />
             <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.currentUser} signIn={this.signIn} logIn ={this.logIn}/>}  />
-         
+            </Switch>
           </Container>
           </div>
       </Router>

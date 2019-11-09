@@ -17,11 +17,11 @@ class Settings extends React.Component {
         options: true
     }
     
-    // componentDidMount () {
-    //     if (!this.props.currentUser) {
-    //         this.props.history.push('/login')
-    //     }
-    // }
+    componentDidMount () {
+        if (!localStorage.getItem("token")) {
+            this.props.history.push('/login')
+        }
+    }
 
     handleCreateClick = () => this.setState({ 
         create: !this.state.create,

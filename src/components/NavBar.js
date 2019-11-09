@@ -12,9 +12,8 @@ class NavBar extends React.Component {
 
 
   render() { if (!this.props.currentUser) {
-    return (
-      <Loading/>
-    )
+    return  <Loading/>
+    
   } else {
     return (
       

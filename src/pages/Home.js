@@ -5,14 +5,12 @@ import { Segment } from 'semantic-ui-react';
 class Home extends React.Component {
 
 
-    
-    // RENDER LOGIC:
-    // if no token
-        // login/signup 
-    // if token and !this.props.username and !user.team_id
-        // setup
-    // else (token and this.props.username and user.team_id)
-        // home 
+    componentDidMount () {
+        if (!localStorage.getItem("token")) {
+            this.props.history.push('/login')
+        }
+    }
+  
 
     token = () => {
         localStorage.getItem('token')
@@ -30,7 +28,7 @@ class Home extends React.Component {
         const {handleClick} = this
         return <Segment.Group className='center aligned segment'>
 
-            {!this.token && history.push('/login')}
+            
 
             <Segment></Segment>
              <Segment size='huge'>Welcome back!</Segment>
