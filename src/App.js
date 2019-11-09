@@ -75,6 +75,14 @@ class App extends React.Component {
 
   // --- filtering just your team's games --- //
   filterGames = () => this.state.games.filter(game => game.team.id === this.state.currentUser.team_id)
+  gamesSortedByDate = (games) => {
+    return games.sort(function(a, b) {
+        a = new Date(a.date);
+        b = new Date(b.date);
+        return a>b ? 1 : a<b ? -1 : 0;
+    });
+}
+  nextMatch = () => this.gamesSortedByDate(this.filterGames()).find(game => !game.completed )
 
   // --- filtering just your team's players --- //
   filterPlayers = () => this.state.players.filter(player => player.team.id === this.state.currentUser.team_id)
@@ -101,7 +109,7 @@ class App extends React.Component {
         </Sticky>
 
           <Container attached='bottom'>
-            <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser}/>}  />
+            <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser} nextMatch={this.nextMatch()}/>}  />
             <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
                 games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
 

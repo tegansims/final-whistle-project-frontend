@@ -1,18 +1,10 @@
 import React from 'react';
-import LoginForm from './LoginForm'
-import GamesShowPage from './GamesShowPage'
-import {
-    BrowserRouter as Router,
-    Route
-  } from 'react-router-dom';
+import Loading from '../components/Loading'
+import { Segment } from 'semantic-ui-react';
 
 class Home extends React.Component {
 
-    // componentDidMount () {
-    //     if (!this.props.username) {
-    //         history.push('/login')
-    //     }
-    // }
+
     
     // RENDER LOGIC:
     // if no token
@@ -20,24 +12,33 @@ class Home extends React.Component {
     // if token and !this.props.username and !user.team_id
         // setup
     // else (token and this.props.username and user.team_id)
-        // home
+        // home 
+
     token = () => {
         localStorage.getItem('token')
     }
 
-    nextMatch = () => {
+    handleClick = () => {this.props.history.push(`/games/${this.props.nextMatch.id}`)}
 
-    }
+    render(){ 
+        if (!this.props.nextMatch) {
+        return (
+          <Loading/>
+        )
+      } else {
+        const {history, currentUser, nextMatch} = this.props
+        const {handleClick} = this
+        return <Segment.Group className='center aligned segment'>
 
-    render(){
-        const {history, currentUser} = this.props
-        return <div>
-            Home
-            {this.token && currentUser && !currentUser.team_id && history.push('/settings')}
-            {/* {this.token && currentUser && currentUser.team_id && history.push('/games')} */}
             {!this.token && history.push('/login')}
-             {/* <GamesTile history={this.props.history}  /> */}
-            </div>
+
+            <Segment></Segment>
+             <Segment size='huge'>Welcome back!</Segment>
+             <Segment></Segment>
+             <Segment onClick={handleClick}>Your Next Game is against {nextMatch.opposition} on {nextMatch.date.split('T')[0]}</Segment>
+             <Segment></Segment>
+            </Segment.Group>
+       }
     }
 
 }
