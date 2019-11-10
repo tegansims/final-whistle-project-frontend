@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Dropdown, Button } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
-
+import Loading from '../Loading'
 
 class LinkPlayer extends React.Component {
     
@@ -9,20 +9,14 @@ class LinkPlayer extends React.Component {
         user: {
             player: '',
             password: '', 
-            user_id: this.props.currentUser.id,
-            team_id: this.props.team_id, 
+            user_id: '',
+            team_id: '', 
             usertype: ''
         },
-        players: [], 
-        // usertypes: [], 
+        players: [],  
         dropdown: false
     }
-
-    componentDidMount() {
-        API.players().then(allplayers => {
-            this.setState({ players: allplayers.filter(player => player.team.id === this.props.team_id) })
-          })
-    } 
+ 
 
     // ---- handling change and submits --- //
     handleChange = event => {
@@ -40,17 +34,24 @@ class LinkPlayer extends React.Component {
     }
 
     handleRadioChange = (event, data) => {
-      console.log(data.value)
-          this.setState({ 
-              user: {
-                  ...this.state.user,
-                  usertype : data.value }})
+      this.setState({ 
+          user: {
+              ...this.state.user,
+              usertype : data.value }}, () => {
+                this.state.user.usertype === 'player' && API.players().then(allplayers => {
+                  this.setState({ players: allplayers.filter(player => player.team.id === this.props.currentUser.team_id) })
+                })
+              })
       }
 
     handleSubmit = (event) => {
-        console.log(this.state)
         event.preventDefault()
-
+        this.setState({
+          user: {
+            ...this.state.user,
+            user_id : this.props.currentUser.id,
+            team_id: this.props.currentUser.team_id }}, () => {
+    
         API.joinTeam({user:this.state.user}, this.state.user.user_id)
           .then(data => {
             if (data.error) {
@@ -68,7 +69,9 @@ class LinkPlayer extends React.Component {
           .catch(error => {
             alert(error)
           })
-    }
+        
+    })
+  }
 
     // --- mapping players and usertypes --- //
     mappedPlayers = () => {
@@ -83,7 +86,12 @@ class LinkPlayer extends React.Component {
         const { password } = this.state.user
         const { handleChange, handleSubmit, handleDropdownChange, handleRadioChange } = this
 
-        return <div>
+         
+      { if (!this.props.currentUser) {
+            return  <Loading/>
+            
+      } else { 
+            return <div>
             <Form onSubmit={handleSubmit}>
         <Form.Group>
         <Form.Radio
@@ -129,10 +137,8 @@ class LinkPlayer extends React.Component {
 
         </Form> 
     
-
-
-
         </div>
+      }}
     }
 
 }

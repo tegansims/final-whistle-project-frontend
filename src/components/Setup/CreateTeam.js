@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, Button, Segment} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
+import Loading from '../Loading'
 
 class CreateTeam extends React.Component {
 
@@ -60,7 +61,11 @@ class CreateTeam extends React.Component {
     render () {
         const { name, password, password_confirmation } = this.state
         const { handleChange, handleSubmit, handleCreatePlayers } = this
-    
+        
+        { if (!this.props.currentUser) {
+          return  <Loading/>
+          
+        } else {
         return (<Segment.Group>
           <Segment>
            <Form onSubmit={handleSubmit}>
@@ -105,6 +110,8 @@ class CreateTeam extends React.Component {
     
       </Segment.Group>
         )
+    }
+  }
       }
 }
 

@@ -5,7 +5,8 @@ import CreatePlayer from './Setup/CreatePlayer'
 import CreateGame from './Setup/CreateGame'
 import JoinTeam from './Setup/JoinTeam'
 import Welcome from './Setup/Welcome'
-import CreateSteps from './Setup/CreateSteps'
+import Loading from './Loading'
+
 
 import { BrowserRouter as Router, Route  } from 'react-router-dom';
 
@@ -34,7 +35,11 @@ class Settings extends React.Component {
     
     
     render(){
-        return <div>
+        { if (!this.props.currentUser) {
+            return  <Loading/>
+            
+        } else {
+            return <div>
             {this.state.options && <Welcome/> }
             {this.state.options && 
 
@@ -57,7 +62,7 @@ class Settings extends React.Component {
                     <Header icon>
                         Join Team
                     </Header>
-                    <Button primary onClick={this.handleJoinClick}>Join Team</Button>
+                    <Button primary onClick={this.handleJoinClick}>Join Team </Button>
                     </Grid.Column>
                 </Grid.Row>
                 </Grid>
@@ -69,8 +74,8 @@ class Settings extends React.Component {
             
             {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId} 
                 currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }
-
-        </div>
+            </div>
+            }}
     }
 
 }

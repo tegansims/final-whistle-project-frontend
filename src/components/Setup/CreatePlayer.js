@@ -11,9 +11,6 @@ class CreatePlayer extends React.Component {
         team_id: ''
     }
 
-    componentDidMount(){
-        this.setState({team_id: this.props.team_id})
-    }
 
     handleChange = event =>
         this.setState({ [event.target.name]: event.target.value })
@@ -21,16 +18,19 @@ class CreatePlayer extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault()
         console.log(this.state)
+        this.setState({team_id: this.props.currentUser.team_id}, () => 
         API.createPlayer({player: this.state}).then(data => {
             if (data.error) {
                 throw Error(data.error)
             } else {
                 console.log("data: ", data)
+                this.props.history.push('/settings')
             }
             })
             .catch(error => {
                 alert(error)
             })
+        )
     }
 
     render () {
