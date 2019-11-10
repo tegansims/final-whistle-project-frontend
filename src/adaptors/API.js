@@ -16,6 +16,7 @@ const usersUrl = baseUrl + 'users'
 const playersUrl = baseUrl + 'players'
 const votesUrl = baseUrl + 'votes'
 const usertypesUrl = baseUrl + 'usertypes'
+const boardsUrl = baseUrl + 'boards'
 
 const topScorerUrl = baseUrl + 'topscorer'
 const topScorersUrl = baseUrl + 'topscorers'
@@ -66,6 +67,7 @@ const teams = () => get(teamsUrl)
 const players = () => get(playersUrl)
 const votes = () => get(votesUrl)
 const users = () => get(usersUrl)
+const boards = () => get(boardsUrl)
 const usertypes = () => get(usertypesUrl)
 const createVote = (vote) => post(newVoteUrl, vote)
 const joinTeam = (user, id) => patch(usersUrl, id, user)
@@ -84,4 +86,4 @@ window.topScorer = topScorer
 
 export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, users,
     createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, topScorers, 
-    topAssister, topAssisters, currentUser, game, updateUser}
+    topAssister, topAssisters, currentUser, game, updateUser, boards}

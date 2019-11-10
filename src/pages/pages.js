@@ -1,6 +1,6 @@
 import GamesList from './GamesList'
 import Stats from '../pages/Stats'
-import Tactics from '../pages/Tactics'
+import Tactics2 from '../pages/Tactics2'
 import Home from '../pages/Home'
 import LoginForm from '../pages/LoginForm'
 import SignupForm from '../pages/SignupForm'
@@ -17,7 +17,7 @@ import GamesShowPage from './GamesShowPage'
 export default {
     GamesList,
     Stats, 
-    Tactics, 
+    Tactics2, 
     Home,
     LoginForm, 
     SignupForm, 
