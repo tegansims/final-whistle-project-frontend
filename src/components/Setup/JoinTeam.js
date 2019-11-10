@@ -49,7 +49,7 @@ class JoinTeam extends React.Component {
                   team_id: data.user.team_id,
                   joinTeam: false,
                   linkPlayer: true
-                })
+                }, () => this.props.history.push('/'))
             }
           })
           .catch(error => {

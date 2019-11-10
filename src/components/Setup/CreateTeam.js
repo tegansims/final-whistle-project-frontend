@@ -35,8 +35,8 @@ class CreateTeam extends React.Component {
                   if (data.error) {
                     throw Error(data.error)
                   } else {
-                    this.props.pushUserUpdateToState(this.state.user.user_id)
                     this.props.history.push('/settings')
+                    this.props.pushUserUpdateToState(this.state.user.user_id)
                   }
                 })
                 .catch(error => {
