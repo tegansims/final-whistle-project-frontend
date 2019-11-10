@@ -14,7 +14,8 @@ class CreateTeam extends React.Component {
         user: {
           user_id: '',
           team_id: '', 
-          password: ''
+          password: '',
+          admin: true
         }
       }
 

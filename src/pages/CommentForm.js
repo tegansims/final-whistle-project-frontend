@@ -48,7 +48,8 @@ class CommentForm extends React.Component {
                 placeholder='comment'
             />
         <Form.Checkbox onChange={handleCheckboxChange} value={this.state.publicOrNot} name='publicOrNot' defaultChecked label='Make this public?' />
-        <Button>Enter Comment</Button> 
+        {comment ? <Button > Enter Comment </Button> : <Button disabled> Enter Comment </Button>}
+
         </Form>
         </Segment>
     }
