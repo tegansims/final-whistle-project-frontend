@@ -14,7 +14,7 @@ import 'semantic-ui-css/semantic.min.css'
 import _ from 'lodash'
 
 import pages from './pages/pages'
-const { GamesList, Stats, Tactics, Home, LoginForm, SignupForm, GamesShowPage } = pages
+const { GamesList, Stats, Tactics, Home, LoginForm, SignupForm, GamesShowPage, CreateTeam, CreatePlayer } = pages
 
 class App extends React.Component {
 
@@ -94,8 +94,8 @@ class App extends React.Component {
 
   // --- push update to state --- //
   pushGameUpdateToState = () => API.games().then(games => this.setState({ games }) )
-  pushUserUpdateToState = (id) => API.currentUser(id).then(user=> console.log(user))
-  
+  pushUserUpdateToState = (id) =>  API.currentUser(id).then(user=>  this.setState({ currentUser: user } ) )
+      
 
   // --- rendering --- //
   contextRef = createRef()
@@ -112,12 +112,15 @@ class App extends React.Component {
           <Container attached='bottom'>
             <Switch>
             <Route exact path="/" component={routerProps => <Home {...routerProps} currentUser={this.state.currentUser} nextMatch={this.nextMatch()}/>}  />
+            
             <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
                 games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
-
             <Route exact path="/games/:id" component={routerProps => <GamesShowPage {...routerProps} currentUser={this.state.currentUser} 
                  pushGameUpdateToState={this.pushGameUpdateToState} />} />
-
+            
+            <Route exact path="/teams/new" component={routerProps => <CreateTeam {...routerProps} currentUser={this.state.currentUser} pushUserUpdateToState={this.pushUserUpdateToState}/>} />
+            <Route exact path="/players/new" component={routerProps => <CreatePlayer {...routerProps} currentUser={this.state.currentUser}/>} />
+            
             <Route exact path="/stats/:id" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
             <Route exact path="/tactics" component={routerProps => <Tactics {...routerProps} username={this.state.currentUser}/>} />
             <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />

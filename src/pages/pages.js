@@ -4,6 +4,8 @@ import Tactics from '../pages/Tactics'
 import Home from '../pages/Home'
 import LoginForm from '../pages/LoginForm'
 import SignupForm from '../pages/SignupForm'
+import CreateTeam from '../components/Setup/CreateTeam'
+import CreatePlayer from '../components/Setup/CreatePlayer'
 
 import Settings from '../components/Settings'
 
@@ -16,5 +18,7 @@ export default {
     Home,
     LoginForm, 
     SignupForm, 
-    GamesShowPage
+    GamesShowPage, 
+    CreateTeam, 
+    CreatePlayer
 }

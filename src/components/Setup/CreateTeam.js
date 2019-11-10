@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button} from 'semantic-ui-react'
+import {Form, Button, Segment} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
 
 class CreateTeam extends React.Component {
@@ -8,36 +8,61 @@ class CreateTeam extends React.Component {
         name: '',
         password: '',
         password_confirmation: '',
-        sport_id: ''
+        sport_id: 1, 
+        team_id: '', 
+        user: {
+          user_id: '',
+          team_id: '', 
+          password: ''
+        }
       }
 
     
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state)
         API.createTeam({team: this.state}).then(data => {
             if (data.error) {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-              this.props.history.push(`/teams/${data.id}`) // this will work once that route is set up!
+              this.setState({
+                user: {
+                  team_id: data.id,
+                  user_id:this.props.currentUser.id, 
+                  password: this.state.password }
+               }, () => {
+                API.updateUser({user: this.state.user}, this.state.user.user_id).then(data => {
+                  if (data.error) {
+                    throw Error(data.error)
+                  } else {
+                    this.props.pushUserUpdateToState(this.state.user.user_id)
+                    this.props.history.push('/settings')
+                  }
+                })
+                .catch(error => {
+                  alert(error)
+                })
+              })
             }
           })
           .catch(error => {
             alert(error)
           })
+        
     }
 
 
     handleChange = event =>
         this.setState({ [event.target.name]: event.target.value })
 
+    handleCreatePlayers = () => this.props.history.push('/players/new')
 
     render () {
         const { name, password, password_confirmation } = this.state
-        const { handleChange, handleSubmit } = this
+        const { handleChange, handleSubmit, handleCreatePlayers } = this
     
-        return (
+        return (<Segment.Group>
+          <Segment>
            <Form onSubmit={handleSubmit}>
          
            <input type='text'
@@ -70,7 +95,15 @@ class CreateTeam extends React.Component {
             />
             <br />
             <Button> Create Team </Button>
-          </Form>
+
+            </Form>
+      </Segment>
+{/*       
+      <Segment>
+        <Button onClick={handleCreatePlayers} floated='right' >Create Players</Button>
+      </Segment> */}
+    
+      </Segment.Group>
         )
       }
 }

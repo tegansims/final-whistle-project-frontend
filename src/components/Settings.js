@@ -23,11 +23,8 @@ class Settings extends React.Component {
         }
     }
 
-    handleCreateClick = () => this.setState({ 
-        create: !this.state.create,
-        join: false,
-        options: false
-    })
+    handleCreateClick = () => this.props.history.push('/teams/new')
+    
     handleJoinClick = () =>  this.setState({ 
         join: !this.state.join,
         create: false, 
@@ -64,7 +61,7 @@ class Settings extends React.Component {
                 </Grid>
             </Segment> }
             {this.state.create && <>
-            <Segment><CreateTeam /></Segment>
+          
              <Segment><CreatePlayer/></Segment>
              <Segment><CreateGame pushGameUpdateToState={this.props.pushGameUpdateToState} /></Segment></> }
             

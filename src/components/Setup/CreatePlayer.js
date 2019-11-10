@@ -7,7 +7,11 @@ class CreatePlayer extends React.Component {
 
     state = {
         name: '', 
-        team_id: 1   // NEED TO NOT HARDCODE THIS
+        team_id: ''   // NEED TO NOT HARDCODE THIS
+    }
+
+    componentDidMount(){
+        this.setState({team_id: this.props.team_id})
     }
 
     handleChange = event =>
