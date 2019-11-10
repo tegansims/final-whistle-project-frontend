@@ -6,14 +6,14 @@ import API from '../adaptors/API'
 class CommentForm extends React.Component {
     state = {
         comment: '',
-        public: true,
+        publicOrNot: true,
         game_id: this.props.game_id,
         user_id: this.props.currentUser.id
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        
+        console.log(this.state)
         API.createComment(this.state)
           .then(data => {
             if (data.error) {
@@ -27,14 +27,14 @@ class CommentForm extends React.Component {
             alert(error)
           })
     }
-    handleChange = event => {
-    console.log(event.target.name)
-        this.setState({ [event.target.name]: event.target.value })
-    }
+    handleChange = event => this.setState({ [event.target.name]: event.target.value })
+
+
+    handleCheckboxChange = () => this.setState({publicOrNot: !this.state.publicOrNot})
 
     render(){
         const { comment } = this.state
-        const { handleChange, handleSubmit } = this
+        const { handleChange, handleSubmit , handleCheckboxChange} = this
         return  <Segment>
           {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 
             <br></br>
@@ -47,8 +47,9 @@ class CommentForm extends React.Component {
                 name='comment'
                 placeholder='comment'
             />
-        <Form.Checkbox value={this.state.public} name='public' label='Make this public?' />
-        <Button>Enter Comment</Button> 
+        <Form.Checkbox onChange={handleCheckboxChange} value={this.state.publicOrNot} name='publicOrNot' defaultChecked label='Make this public?' />
+        {comment ? <Button > Enter Comment </Button> : <Button disabled> Enter Comment </Button>}
+
         </Form>
         </Segment>
     }
