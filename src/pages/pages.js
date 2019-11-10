@@ -6,6 +6,8 @@ import LoginForm from '../pages/LoginForm'
 import SignupForm from '../pages/SignupForm'
 import CreateTeam from '../components/Setup/CreateTeam'
 import CreatePlayer from '../components/Setup/CreatePlayer'
+import CreateGame from '../components/Setup/CreateGame'
+
 
 import Settings from '../components/Settings'
 
@@ -20,5 +22,6 @@ export default {
     SignupForm, 
     GamesShowPage, 
     CreateTeam, 
-    CreatePlayer
+    CreatePlayer, 
+    CreateGame
 }

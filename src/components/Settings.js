@@ -23,7 +23,7 @@ class Settings extends React.Component {
         }
     }
 
-    handleCreateClick = () => this.props.history.push('/teams/new')
+    handleCreateClick = (item) => this.props.history.push(`/${item}/new`)
     
     handleJoinClick = () =>  this.setState({ 
         join: !this.state.join,
@@ -47,7 +47,9 @@ class Settings extends React.Component {
                     <Header icon>
                         Create Team
                     </Header>
-                    <Button primary onClick={this.handleCreateClick}>Create Team</Button>
+                    <Button primary onClick={()=>this.handleCreateClick('teams')}>Create Team</Button>
+                    {this.props.currentUser.admin && <Button primary onClick={()=>this.handleCreateClick('players')}>Create Players</Button> }
+                    {this.props.currentUser.admin &&<Button primary onClick={()=>this.handleCreateClick('games')}>Create Games</Button> }
 
                     </Grid.Column>
                         Or

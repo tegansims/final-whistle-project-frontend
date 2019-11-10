@@ -1,13 +1,14 @@
 import React from 'react';
 import {Form, Button} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
+import Loading from '../Loading'
 
 
 class CreatePlayer extends React.Component {
 
     state = {
         name: '', 
-        team_id: ''   // NEED TO NOT HARDCODE THIS
+        team_id: ''
     }
 
     componentDidMount(){
@@ -36,8 +37,11 @@ class CreatePlayer extends React.Component {
         const { name } = this.state
         const { handleChange, handleSubmit } = this
     
-        return (
-           <Form onSubmit={handleSubmit}>
+        { if (!this.props.currentUser) {
+            return  <Loading/>
+            
+          } else {
+         return (   <Form onSubmit={handleSubmit}>
          
            <input type='text'
               id='nameInput'
@@ -52,7 +56,7 @@ class CreatePlayer extends React.Component {
           </Form>
         )
       }
-
+    }}
 }
 
 export default CreatePlayer;
