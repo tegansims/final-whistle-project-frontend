@@ -94,10 +94,7 @@ class App extends React.Component {
 
   // --- push update to state --- //
   pushGameUpdateToState = () => API.games().then(games => this.setState({ games }) )
-  pushUserUpdateToState = (id) =>  API.currentUser(id).then(user=>  {
-    console.log(user)
-    this.setState({ currentUser: user } ) 
-  })
+  pushUserUpdateToState = (id) =>  API.currentUser(id).then(user=> this.setState({ currentUser: user } ) )
       
 
   // --- rendering --- //
@@ -128,7 +125,7 @@ class App extends React.Component {
                  pushGameUpdateToState={this.pushGameUpdateToState} />} />
             
             <Route exact path="/stats/:id" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
-            <Route exact path="/tactics" component={routerProps => <Tactics2 {...routerProps} username={this.state.currentUser}/>} />
+            <Route exact path="/tactics" component={routerProps => <Tactics2 {...routerProps} currentUser={this.state.currentUser}/>} />
             <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
             <Route exact path="/settings" component={routerProps => <Settings {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
                 setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState} pushGameUpdateToState={this.pushGameUpdateToState} />}   />

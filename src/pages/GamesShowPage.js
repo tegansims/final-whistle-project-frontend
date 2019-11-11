@@ -100,7 +100,7 @@ class GamesShowPage extends React.Component {
         return (<div>
            <Segment.Group>
            <Segment size = 'huge' className='center aligned segment' onClick={handleHeaderClick}><Header>{gameToShow.opposition} </Header>
-           {gameToShow.team.name} <span style={{ fontWeight: 'bold' }}>{gameToShow.score}</span> {gameToShow.opposition} <br></br>
+           <span   style={{ fontWeight: 'bold' }}>{gameToShow.team.name} {gameToShow.score} {gameToShow.opposition} </span> <br></br>
                 {/* <Segment.Group horizontal width='equal'>
                     <Segment>{gameToShow.team.name}</Segment>
                     <Segment>{gameToShow.score}</Segment>

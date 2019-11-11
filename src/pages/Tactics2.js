@@ -2,7 +2,8 @@ import React from 'react';
 import {Layer, Image, Stage, Circle, Rect} from 'react-konva'
 import { isBlock } from '@babel/types';
 import useImage from 'use-image';
-import { Button} from 'semantic-ui-react';
+import { Button, Dropdown, Form} from 'semantic-ui-react';
+import Loading from '../components/Loading'
 import API from '../adaptors/API'
 
 
@@ -59,10 +60,16 @@ class Tactics2 extends React.Component {
     };
 
    componentDidMount(){
-       API.boards().then(boards => {
-        this.setState({  boards: boards })
-      })
+       API.boards().then(boards =>  this.setState({  boards: boards }) )
    }
+
+   mappedBoards = () => {
+       let teamBoards = this.state.boards.filter(board => board.team_id === this.props.currentUser.team_id)
+        let output = teamBoards.map(board => {
+            return {key: board.id, value:board.id, text: board.name }
+        })
+    return output
+}
 
    handleClick = (board) => {
        this.setState({
@@ -72,7 +79,6 @@ class Tactics2 extends React.Component {
    }
 
    handleBlankClick = () => {
-       console.log('clicked')
        this.setState({
         showBlank: !this.state.showBlank,
         redItems: generateItems('#B01943', 10),
@@ -80,12 +86,35 @@ class Tactics2 extends React.Component {
     })
    }
 
-    render() {
-    return ( <div>
-         <Button onClick={()=> this.handleClick(boardOne)}>Load Board One</Button>
-         <Button onClick={()=> this.handleClick(boardTwo)}>Load Board Two</Button>
-         <Button onClick={this.handleBlankClick}>Load Blank Board</Button>
+   handleDropdownChange = (event, data) => {
+       console.log(data)
+       API.boardCoords(data.value).then(coords =>  this.setState({  
+            items: loadBoard(coords),
+            showBlank: false
+        }) )
+    }
 
+
+
+
+    render() { 
+        if (!this.props.currentUser) {
+            return  <Loading/>
+        } else { 
+    return ( <div>
+        <Form>
+            <Dropdown
+                labeled
+                floating
+                selection
+                search
+                options={this.mappedBoards()}
+                name='team'
+                placeholder='choose a board to load'
+                onChange={this.handleDropdownChange}>
+            </Dropdown> 
+         <Button onClick={this.handleBlankClick}>Load New Board</Button>
+         </Form>
         <Stage width={window.innerWidth} height={window.innerHeight} border={isBlock}>
         <Layer  >
         <PitchImage />
@@ -128,9 +157,10 @@ class Tactics2 extends React.Component {
         
         </Layer>
         </Stage>
+       
         </div>
     );
-    }
+    } }
 }
 
 export default Tactics2;
