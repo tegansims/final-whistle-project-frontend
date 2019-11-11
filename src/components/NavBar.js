@@ -1,6 +1,6 @@
 import React, {createRef} from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+import { Menu , Icon} from 'semantic-ui-react';
 import Loading from '../components/Loading'
 
 const link = {
@@ -18,7 +18,7 @@ class NavBar extends React.Component {
     return (
       
       <Menu>
-        <Menu.Item as={NavLink} to='/' exact style={link}>Home</Menu.Item>
+        <Menu.Item as={NavLink} to='/' exact style={link}><Icon name='bowling ball'/> </Menu.Item>
     {this.props.currentUser.team_id &&  <Menu.Item as={NavLink} to='/games' exact style={link}>Games</Menu.Item> }
     {this.props.currentUser.team_id && <Menu.Item as={NavLink} to={`/stats/${this.props.currentUser.team_id}`} exact style={link}>Stats</Menu.Item> }
         <Menu.Item as={NavLink} to='/tactics' exact style={link}>Tactics</Menu.Item>
