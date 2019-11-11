@@ -39,7 +39,9 @@ class SignupForm extends React.Component {
     handleChange = event =>
       this.setState({ [event.target.name]: event.target.value })
   
-    passwordValidation = (email) => email.includes('@') && email.includes('.')
+    emailValidation = (email) => email.includes('@') && email.includes('.')
+
+    passwordValidation = () => this.state.password === this.state.password_confirmation && this.state.password
 
     emailUniqueness = (email) => {
       let allEmails = this.state.users.map(user => user.email)
@@ -50,7 +52,7 @@ class SignupForm extends React.Component {
 
     render () {
       const { email, password, password_confirmation } = this.state
-      const { handleChange, handleSubmit, passwordValidation, emailUniqueness, handleLoginClick } = this
+      const { handleChange, handleSubmit, emailValidation, emailUniqueness, handleLoginClick, passwordValidation } = this
   
       return ( <Segment.Group>
         <Segment>
@@ -87,7 +89,7 @@ class SignupForm extends React.Component {
             error
           />
           <br />
-          {passwordValidation(email) && !emailUniqueness(email) && password === password_confirmation ? <Button > Sign Up </Button> : <Button disabled> Sign Up </Button>}
+          {emailValidation(email) && !emailUniqueness(email) && passwordValidation() ? <Button > Sign Up </Button> : <Button disabled> Sign Up </Button>}
         </Form>
         </Segment><Segment>
           <Button floated='right' onClick={handleLoginClick}>Back to log in page</Button>
