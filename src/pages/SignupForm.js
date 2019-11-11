@@ -73,6 +73,7 @@ class SignupForm extends React.Component {
             name='password'
             type='password'
             placeholder='password'
+            error
           />
           <br />
           <input 
@@ -83,6 +84,7 @@ class SignupForm extends React.Component {
             name='password_confirmation'
             type='password'
             placeholder='confirm your password'
+            error
           />
           <br />
           {passwordValidation(email) && !emailUniqueness(email) && password === password_confirmation ? <Button > Sign Up </Button> : <Button disabled> Sign Up </Button>}

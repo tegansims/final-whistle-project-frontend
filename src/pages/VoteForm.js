@@ -47,7 +47,7 @@ class VoteForm extends React.Component {
         .catch(error => {
           alert(error)
         })
-    }
+    } 
     
     handleChange = event =>
       this.setState({  vote: {

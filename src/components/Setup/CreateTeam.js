@@ -31,8 +31,10 @@ class CreateTeam extends React.Component {
                 user: {
                   team_id: data.id,
                   user_id:this.props.currentUser.id, 
-                  password: this.state.password }
+                  password: this.state.password, 
+                  admin: true }
                }, () => {
+                 console.log(this.state.user)
                 API.updateUser({user: this.state.user}, this.state.user.user_id).then(data => {
                   if (data.error) {
                     throw Error(data.error)
