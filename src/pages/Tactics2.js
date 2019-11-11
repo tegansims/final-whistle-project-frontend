@@ -7,10 +7,6 @@ import Loading from '../components/Loading'
 import API from '../adaptors/API'
 
 
-const boardOne =  [ 25, 50, 50, 100, 75, 150, 100, 60]
-
-const boardTwo = [ 14, 42,47, 80,73, 49]
-
 const loadBoard=(board)=> {
     const items = []
     for (let i = 0; i < board.length; i=i+2) {
@@ -19,10 +15,8 @@ const loadBoard=(board)=> {
             y: board[i+1],
             id: `node-${i}`,
             color: 'yellow'
-            
         })
     }
-    console.log(items)
     return items
 }
 
@@ -55,8 +49,8 @@ class Tactics2 extends React.Component {
         items: [],
         showBlank: false,
         redItems: [],
-        blueItems: []
-
+        blueItems: [],
+        newBoard: []
     };
 
    componentDidMount(){
@@ -68,7 +62,6 @@ class Tactics2 extends React.Component {
         let output = teamBoards.map(board => {
             return {key: board.id, value:board.id, text: board.name }
         })
-        console.log(output)
         return output.sort((a,b) => a.text.localeCompare(b.text))
 }
 
@@ -88,7 +81,6 @@ class Tactics2 extends React.Component {
    }
 
    handleDropdownChange = (event, data) => {
-       console.log(data)
        API.boardCoords(data.value).then(coords =>  this.setState({  
             items: loadBoard(coords),
             showBlank: false
@@ -131,14 +123,24 @@ class Tactics2 extends React.Component {
                 fill={item.color}
                 radius={10}
                 onDragEnd={e => {
+                    console.log(e.target)
                     this.setState({
                       isDragging: false,
-                      x: e.target.x(),
-                      y: e.target.y()
+                      newBoard: {
+                          ...this.state.newBoard,
+                          [e.target.attrs.name]: {
+                            node: e.target.attrs.name, /* DO I ACTUALLY WANT TO DISTINGUISH THEM BY THIS? */
+                            /* CAN POSS ALSO USER e.target._id */
+                            x: e.target.x(),
+                            y: e.target.y()
+                          }        
+                      }
                     });
                 }}
             />
             ))}
+
+
         {this.state.showBlank && this.state.redItems.map(item => (
             <Circle
                 key={item.id}
@@ -163,6 +165,7 @@ class Tactics2 extends React.Component {
                 onDragEnd={e => {
                     this.setState({
                       isDragging: false,
+                      
                       x: e.target.x(),
                       y: e.target.y()
                     });
