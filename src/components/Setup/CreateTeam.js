@@ -34,13 +34,13 @@ class CreateTeam extends React.Component {
                   password: this.state.password, 
                   admin: true }
                }, () => {
-                 console.log(this.state.user)
                 API.updateUser({user: this.state.user}, this.state.user.user_id).then(data => {
                   if (data.error) {
                     throw Error(data.error)
                   } else {
-                    this.props.history.push('/settings')
+                    console.log(this.state)
                     this.props.pushUserUpdateToState(this.state.user.user_id)
+                    this.props.history.push('/settings')
                   }
                 })
                 .catch(error => {
@@ -55,6 +55,7 @@ class CreateTeam extends React.Component {
         
     }
 
+   
 
     handleChange = event =>
         this.setState({ [event.target.name]: event.target.value })

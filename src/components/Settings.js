@@ -15,7 +15,8 @@ class Settings extends React.Component {
     state = {
         create: false,
         join: false, 
-        options: true
+        options: true, 
+        user: this.props.currentUser
     }
     
     componentDidMount () {
@@ -32,6 +33,11 @@ class Settings extends React.Component {
         options: false   
     })
 
+    componentDidUpdate(prevProps, prevState){
+        if (this.state.user.admin !== prevState.user.admin) {
+          
+        }
+      }
     
     
     render(){

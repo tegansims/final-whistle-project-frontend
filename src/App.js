@@ -94,7 +94,10 @@ class App extends React.Component {
 
   // --- push update to state --- //
   pushGameUpdateToState = () => API.games().then(games => this.setState({ games }) )
-  pushUserUpdateToState = (id) =>  API.currentUser(id).then(user=>  this.setState({ currentUser: user } ) )
+  pushUserUpdateToState = (id) =>  API.currentUser(id).then(user=>  {
+    console.log(user)
+    this.setState({ currentUser: user } ) 
+  })
       
 
   // --- rendering --- //
