@@ -89,7 +89,7 @@ class GamesShowPage extends React.Component {
     
     render(){
         const { currentUser, pushGameUpdateToState } = this.props
-        const { gameToShow, comments, scorers, assists, mom, dod} = this.state
+        const { gameToShow, comments, scorers, assists, mom, dod, teams} = this.state
         const { gameDate, gameTime, handleClick, handleCommentClick, handleUpdateGameClick, handleAllVotesClick, handleCompleteClick, handleVoteClick ,
              handleScorersClick, handleAssistsClick, handleMomClick, handleDodClick, handleHeaderClick} = this
         
@@ -100,7 +100,12 @@ class GamesShowPage extends React.Component {
         return (<div>
            <Segment.Group>
            <Segment size = 'huge' className='center aligned segment' onClick={handleHeaderClick}><Header>{gameToShow.opposition} </Header>
-                {gameToShow.score} <br></br>
+           {gameToShow.team.name} <span style={{ fontWeight: 'bold' }}>{gameToShow.score}</span> {gameToShow.opposition} <br></br>
+                {/* <Segment.Group horizontal width='equal'>
+                    <Segment>{gameToShow.team.name}</Segment>
+                    <Segment>{gameToShow.score}</Segment>
+                    <Segment>{gameToShow.opposition}</Segment>
+                </Segment.Group> */}
                 { gameDate(gameToShow.date)} {gameTime(gameToShow.date)}  <br></br>
                 {gameToShow.venue}<br></br>
                 </Segment>
