@@ -68,7 +68,8 @@ class Tactics2 extends React.Component {
         let output = teamBoards.map(board => {
             return {key: board.id, value:board.id, text: board.name }
         })
-    return output
+        console.log(output)
+        return output.sort((a,b) => a.text.localeCompare(b.text))
 }
 
    handleClick = (board) => {
@@ -113,7 +114,8 @@ class Tactics2 extends React.Component {
                 placeholder='choose a board to load'
                 onChange={this.handleDropdownChange}>
             </Dropdown> 
-         <Button onClick={this.handleBlankClick}>Load New Board</Button>
+         <Button onClick={this.handleBlankClick}>Load New</Button>
+         <Button>Save</Button>
          </Form>
         <Stage width={window.innerWidth} height={window.innerHeight} border={isBlock}>
         <Layer  >
@@ -127,7 +129,14 @@ class Tactics2 extends React.Component {
                 x={item.x}
                 y={item.y}
                 fill={item.color}
-                radius={15}
+                radius={10}
+                onDragEnd={e => {
+                    this.setState({
+                      isDragging: false,
+                      x: e.target.x(),
+                      y: e.target.y()
+                    });
+                }}
             />
             ))}
         {this.state.showBlank && this.state.redItems.map(item => (
@@ -138,7 +147,7 @@ class Tactics2 extends React.Component {
                 x={item.x}
                 y={item.y}
                 fill={item.color}
-                radius={15}
+                radius={10}
                
             />
             ))}
@@ -150,8 +159,14 @@ class Tactics2 extends React.Component {
                 x={item.x}
                 y={item.y}
                 fill={item.color}
-                radius={15}
-    
+                radius={10}
+                onDragEnd={e => {
+                    this.setState({
+                      isDragging: false,
+                      x: e.target.x(),
+                      y: e.target.y()
+                    });
+                }}
             />
             ))}
         
