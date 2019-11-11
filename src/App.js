@@ -104,7 +104,7 @@ class App extends React.Component {
 
     return (
       <Router>
-        <div ref={this.contextRef}>
+        <div ref={this.contextRef}  >
         <Sticky context={this.contextRef}>
           <NavBar attached ='top' currentUser={this.state.currentUser} logOut={this.logOut}/>
         </Sticky>
