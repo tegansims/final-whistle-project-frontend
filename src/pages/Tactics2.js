@@ -151,7 +151,8 @@ class Tactics2 extends React.Component {
         } else { 
             return ( <div>
                 <Segment.Group>
-         <Segment onClick={this.handleIconClick} textAlign='center'> <Icon disabled name='bars'  link /> </Segment>
+         <Segment onClick={this.handleIconClick} textAlign='center'> {this.state.options? <Icon disabled name='angle double up'  link /> : <Icon name='angle double down'/>}
+         </Segment>
                {this.state.options && <Form>
             <Dropdown
                 labeled
