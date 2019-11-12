@@ -20,6 +20,9 @@ const playersUrl = baseUrl + 'players'
 const votesUrl = baseUrl + 'votes'
 const usertypesUrl = baseUrl + 'usertypes'
 const boardsUrl = baseUrl + 'boards'
+const scorersUrl = baseUrl +'scorers'
+const assistsUrl = baseUrl + 'assists'
+
 
 const topScorerUrl = baseUrl + 'topscorer'
 const topScorersUrl = baseUrl + 'topscorers'
@@ -58,6 +61,13 @@ fetch(`${url}/${id}`, {
 }).then(response => response.json())
 
 
+const destroy = (url, id) =>
+fetch(`${url}/${id}`, {
+    method: 'DELETE'
+}).then(response => response.json())
+
+
+
 
 const logIn = user => post(logInUrl, user)
 const validate = () => get(validateUrl)
@@ -83,6 +93,9 @@ const updateGame = (game, id) => patch(gamesUrl, id, game)
 const updateUser = (user, id) => patch(usersUrl, id, user)
 const currentUser = (id) => get(`${usersUrl}/${id}`)
 
+const deleteScorer = (scorer, id) => destroy(scorersUrl, id, scorer)
+const deleteAssist = (assist, id) => destroy(assistsUrl, id, assist)
+
 const topScorer = (id) => get(`${topScorerUrl}/${id}`)
 const topScorers = (id) => get(`${topScorersUrl}/${id}`)
 const topAssister = (id) => get(`${topAssisterUrl}/${id}`)
@@ -96,4 +109,5 @@ window.topScorer = topScorer
 
 export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, users,
     createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, topScorers, 
-    topAssister, topAssisters, currentUser, game, updateUser, boards, boardCoords, createBoard, createScorer, createAssist}
+    topAssister, topAssisters, currentUser, game, updateUser, boards, boardCoords, createBoard, createScorer, 
+    createAssist, deleteScorer, deleteAssist}

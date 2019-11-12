@@ -66,7 +66,6 @@ class GamesShowPage extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-              alert('successfully toggled state of game completedness')
               this.props.pushGameUpdateToState()            
             }
           })
@@ -129,7 +128,7 @@ class GamesShowPage extends React.Component {
 
                     {/* if admin */}
                     {!gameToShow.completed && currentUser.admin && <Segment size = 'big' onClick={handleUpdateGameClick}> Update Game Details: <Icon disabled name='caret right' /></Segment> }
-                    {!gameToShow.completed && currentUser.admin && this.state.update && <UpdateGameForm currentUser= {currentUser} game_id={gameToShow.id} pushGameUpdateToState={pushGameUpdateToState}/>}
+                    {!gameToShow.completed && currentUser.admin && this.state.update && <UpdateGameForm game={gameToShow} currentUser= {currentUser} game_id={gameToShow.id} pushGameUpdateToState={pushGameUpdateToState}/>}
 
                     {!gameToShow.completed && currentUser.admin && <Segment size = 'big'  onClick={handleAllVotesClick}> Show All Votes: <Icon disabled name='caret right' /> </Segment> }
                     {!gameToShow.completed && currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {currentUser} game={gameToShow} pushGameUpdateToState={pushGameUpdateToState} game_id={gameToShow.id}/>}

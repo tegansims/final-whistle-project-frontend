@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form , Segment, Dropdown, Button} from 'semantic-ui-react';
+import { Form , Segment, Dropdown, Button, Icon} from 'semantic-ui-react';
 import API from '../adaptors/API' 
 
 class UpdateGameForm extends React.Component {
@@ -56,6 +56,7 @@ class UpdateGameForm extends React.Component {
       event.preventDefault()
       API.createScorer({scorer: this.state.scorers}).then(data =>{
        alert(`Thanks for submitting ${data.player.name}`)
+       this.props.pushGameUpdateToState()
       })
     }
 
@@ -63,6 +64,7 @@ class UpdateGameForm extends React.Component {
       event.preventDefault()
       API.createAssist({assist: this.state.assists}).then(data =>{
        alert(`Thanks for submitting ${data.player.name}`)
+       this.props.pushGameUpdateToState() 
       })
     }
 
@@ -87,6 +89,38 @@ class UpdateGameForm extends React.Component {
               player : data.value }})
   }
 
+    deleteScorer =(scorerObj) => {
+      console.log(scorerObj)
+      this.setState({
+        scorers: {
+            ...this.state.scorers, 
+            player : scorerObj.player.name, 
+            scorer_id: scorerObj.id }
+          }, () =>
+              API.deleteScorer({scorer: this.state.scorers}, this.state.scorers.scorer_id)
+              .then(data => { 
+                alert(`Thanks for removing ${data.player.name}`)
+                this.props.pushGameUpdateToState() 
+        })
+      )}
+
+    deleteAssist =(assistObj) => {
+      console.log(assistObj)
+      this.setState({
+        assists: {
+            ...this.state.assists, 
+            player : assistObj.player.name, 
+            assist_id: assistObj.id }
+          }, () =>
+              API.deleteAssist({assist: this.state.assists}, this.state.assists.assist_id)
+              .then(data => { 
+                alert(`Thanks for removing ${data.player.name}`)
+                this.props.pushGameUpdateToState() 
+        })
+      )}
+
+
+
     // --- mapped players --- //
     mappedPlayers = () => {
         let output = this.state.players.map(player => {
@@ -98,7 +132,7 @@ class UpdateGameForm extends React.Component {
     render(){
         const { homeScore, awayScore} = this.state.game
        
-        const { handleGameChange, handleSubmit, handleDropdownChange ,handleDropdownAssistsChange,  handleScorerSubmit, handleAssistSubmit} = this
+        const { handleGameChange, handleSubmit, handleDropdownChange ,handleDropdownAssistsChange,  handleScorerSubmit, handleAssistSubmit, deleteScorer, deleteAssist} = this
         return <Segment className='center aligned segment'>
         <Form unstackable onSubmit={handleSubmit}>
           <Form.Group  widths={2}>
@@ -127,6 +161,7 @@ class UpdateGameForm extends React.Component {
         </Form>
 
             <label>Scorers: </label><br></br>
+      {this.props.game.scorers.map(scorer => <p onClick={() => deleteScorer(scorer)} key={scorer.id}>{scorer.player.name} <Icon name='delete'/></p>)}
           <Form onSubmit={handleScorerSubmit}>
             <Dropdown
                 labeled
@@ -142,6 +177,8 @@ class UpdateGameForm extends React.Component {
           {this.state.scorers.player ? <Button >Submit Scorers</Button> : <Button disabled >Submit Scorers</Button> }
           </Form>  
           <label>Assists: </label><br></br>
+          {this.props.game.assists.map(assist => <p onClick={() => deleteAssist(assist)} key={assist.id}>{assist.player.name} <Icon name='delete'/></p>)}
+
           <Form onSubmit={handleAssistSubmit}>
             <Dropdown
                 labeled
