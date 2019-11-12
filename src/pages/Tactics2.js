@@ -40,7 +40,9 @@ class Tactics2 extends React.Component {
         showBlank: false,
         redItems: [],
         blueItems: [],
-        newBoard: []
+        newBoard: [], 
+        name: ''
+
     };
 
    componentDidMount(){
@@ -101,14 +103,33 @@ class Tactics2 extends React.Component {
          showBlank: false
      }) )
     )
- }
+    }
 
+    handleChange = event => this.setState({ [event.target.name]: event.target.value })
+
+    newBoardNameUniqueness = (name) => {
+        let allTeamBoards = this.state.boards.filter(board => board.team_id === this.props.currentUser.team_id)
+        let allTeamBoardsNames = allTeamBoards.map(board => board.name)
+
+        return allTeamBoardsNames.includes(name)
+      }
+
+    handleSaveAsClick = (event) => {
+        event.preventDefault()
+        let boardToCreate = {
+            team_id: this.props.currentUser.team_id, 
+            coordinates: this.state.newBoard, 
+            name: this.state.name
+        }
+        API.createBoard(boardToCreate).then( )
+        
+    } 
 
     render() { 
         if (!this.props.currentUser) {
             return  <Loading/>
         } else { 
-    return ( <div>
+            return ( <div>
         <Form>
             <Dropdown
                 labeled
@@ -120,8 +141,18 @@ class Tactics2 extends React.Component {
                 placeholder='choose a board to load'
                 onChange={this.handleDropdownChange}>
             </Dropdown> 
-         <Button onClick={this.handleBlankClick}>Load New</Button>
-         <Button>Save</Button>
+         <Button onClick={this.handleBlankClick}>New</Button>
+         <input type='text'
+                id='name'
+                label='name'
+                value={this.state.name}
+                onChange={this.handleChange}
+                name='name'
+                placeholder='name of your new board'
+            />
+         {!this.newBoardNameUniqueness(this.state.name) && this.state.name ? <Button onClick={this.handleSaveAsClick}>Save As</Button> : <Button disabled>Save As</Button> }
+
+         <Button>Save Changes</Button>
          </Form>
         <Stage width={window.innerWidth} height={window.innerHeight} border={isBlock}>
         <Layer  >
