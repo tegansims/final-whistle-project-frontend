@@ -8,18 +8,6 @@ import API from '../adaptors/API'
 
 
 
-const generateItems = (color, y) => {
-    const items = [];
-    for (let i = 0; i < 11; i++) {
-        items.push({
-            x: 10,
-            y: y,
-            id: `node-${color}-${i}`,
-            color: color
-        });
-    }
-    return items;
-}
 
 
 
@@ -47,7 +35,7 @@ class Tactics2 extends React.Component {
        API.boards().then(boards =>  this.setState({  boards: boards }) )
    }
 
-   loadBoard=(board, color='ff0')=> {
+    loadBoard=(board, color='ff0')=> {
     const items = []
     for (let i = 0; i < board.length; i=i+2) {
         items.push({
@@ -56,18 +44,16 @@ class Tactics2 extends React.Component {
             id: `node-${color}-${i}`,
             color: `#${color}`, 
         })
+    }
     this.setState({
         newBoard: {
             ...this.state.newBoard,
-            [`node-${color}-${i}`]:  {
-                x: board[i], 
-                y: board[i+1]
-            } 
+            [`#${color}`]:  items 
         }
     })
-    }
     return items
 }
+
 
 
    mappedBoards = () => {
@@ -76,32 +62,36 @@ class Tactics2 extends React.Component {
             return {key: board.id, value:board.id, text: board.name }
         })
         return output.sort((a,b) => a.text.localeCompare(b.text))
-}
-    
-    handleClick = (board) => {
-    this.setState({
-        items: this.loadBoard(board),
-        showBlank: false
-        })
     }
+
+
+    blankBlueBoard = [10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35]
+    blankRedBoard = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
    handleBlankClick = () => {
     this.setState({newBoard: []}, () => 
        this.setState({
         showBlank: !this.state.showBlank,
-        redItems: generateItems('#B01943', 10),
-        blueItems: generateItems('#2299e2', 35)
-    })
+        redItems: this.loadBoard(this.blankRedBoard, 'B01943'),
+        blueItems: this.loadBoard(this.blankBlueBoard, '2299e2')
+            }, () => this.setState({ 
+                newBoard: {
+                    ...this.state.newBoard,
+                    '#2299e2':  this.state.blueItems, 
+                    '#B01943': this.state.redItems
+                }
+            }) 
+        ) 
     )}
 
    handleDropdownChange = (event, data) => {
-    this.setState({newBoard: []}, () => 
-    API.boardCoords(data.value).then(coords =>  this.setState({  
-         items: this.loadBoard(coords),
-         showBlank: false
-     }) )
-    )
- }
+       this.setState({newBoard: []}, () => 
+       API.boardCoords(data.value).then(coords =>  this.setState({  
+            items: this.loadBoard(coords),
+            showBlank: false
+        }) )
+       )
+    }
 
 
     render() { 
@@ -150,13 +140,12 @@ class Tactics2 extends React.Component {
                       isDragging: false,
                       newBoard: {
                           ...this.state.newBoard,
-                          [e.target.attrs.name]: {
-                            // node: e.target.attrs.name,
+                          [e.target.attrs.fill]: {
+                            node: e.target.attrs.name,
                             x: e.target.x(),
                             y: e.target.y()
                           }        
                       }
-                    
                     });
                 }}
             />
@@ -187,26 +176,55 @@ class Tactics2 extends React.Component {
                 onDragEnd={e => {
                     console.log(e.target)
                     this.setState({
-                      isDragging: false,
-                      newBoard: {
-                          ...this.state.newBoard,
-                          [e.target.attrs.name]: {
-                            node: e.target.attrs.name, /* DO I ACTUALLY WANT TO DISTINGUISH THEM BY THIS? */
-                            /* CAN POSS ALSO USER e.target._id */
-                            x: e.target.x(),
-                            y: e.target.y()
-                          }        
-                      }
-                    });
+                        isDragging: false,
+                        newBoard: {
+                            ...this.state.newBoard,
+                            [e.target.attrs.fill]: {
+                            ...[e.target.attrs.fill], 
+                                [e.target.attrs.name]: {
+                                    x: e.target.x(),
+                                    y: e.target.y() 
+                                }
+                            }
+                    
+                        }
+                      });
                 }}
             />
             ))}
         
-            </Layer>
-            </Stage>
-           
-            </div>
-        );
-        } }
-    }
-    export default Tactics2;
+        </Layer>
+        </Stage>
+       
+        </div>
+    );
+    } }
+}
+
+export default Tactics2;
+
+// this.setState({
+//     isDragging: false,
+//     newBoard: {
+//         ...this.state.newBoard,
+//         ...[e.target.attrs.fill], 
+//             [e.target.atts.name]: {
+//                 x: e.target.x(),
+//                 y: e.target.y() 
+//             }
+        
+
+//     }
+//   });
+
+//   this.setState({
+//     isDragging: false,
+//     newBoard: {
+//         ...this.state.newBoard,
+//         [e.target.attrs.fill]: {
+//           node: e.target.attrs.name,
+//           x: e.target.x(),
+//           y: e.target.y()
+//         }        
+//     }
+//   });
