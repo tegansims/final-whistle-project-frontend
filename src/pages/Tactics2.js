@@ -48,7 +48,7 @@ class Tactics2 extends React.Component {
     this.setState({
         newBoard: {
             ...this.state.newBoard,
-            [`${color}`]:  items 
+            [`#${color}`]:  items 
         }
     })
     return items
@@ -77,7 +77,8 @@ class Tactics2 extends React.Component {
             }, () => this.setState({ 
                 newBoard: {
                     ...this.state.newBoard,
-                    2299e2:  this.state.blueItems 
+                    '#2299e2':  this.state.blueItems, 
+                    '#B01943': this.state.redItems
                 }
             }) 
         ) 
