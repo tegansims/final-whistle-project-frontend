@@ -125,7 +125,7 @@ class App extends React.Component {
                  pushGameUpdateToState={this.pushGameUpdateToState} />} />
             
             <Route exact path="/stats/:id" component={routerProps => <Stats {...routerProps} currentUser={this.state.currentUser}/>} />
-            <Route exact path="/tactics" component={routerProps => <Tactics2 {...routerProps} currentUser={this.state.currentUser}/>} />
+            <Route exact path="/tactics" component={routerProps => <Tactics2 {...routerProps} currentUser={this.state.currentUser} pushUserUpdateToState={this.pushUserUpdateToState}/>} />
             <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
             <Route exact path="/settings" component={routerProps => <Settings {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
                 setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState} pushGameUpdateToState={this.pushGameUpdateToState} />}   />

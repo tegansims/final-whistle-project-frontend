@@ -121,7 +121,7 @@ class Tactics2 extends React.Component {
             coordinates: this.state.newBoard, 
             name: this.state.name
         }
-        API.createBoard(boardToCreate).then( )
+        API.createBoard(boardToCreate).then(this.props.pushUserUpdateToState(this.props.currentUser.id) )
         
     } 
 
@@ -176,13 +176,11 @@ class Tactics2 extends React.Component {
                 fill={item.color}
                 radius={10}
                 onDragEnd={e => {
-                    console.log(e.target)
                     this.setState({
                       isDragging: false,
                       newBoard: {
                           ...this.state.newBoard,
                           [e.target.attrs.name]: {
-                            // node: e.target.attrs.name,
                             x: e.target.x(),
                             y: e.target.y()
                           }        
