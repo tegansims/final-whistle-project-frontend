@@ -107,13 +107,6 @@ class Tactics2 extends React.Component {
 
     handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
-    newBoardNameUniqueness = (name) => {
-        let allTeamBoards = this.state.boards.filter(board => board.team_id === this.props.currentUser.team_id)
-        let allTeamBoardsNames = allTeamBoards.map(board => board.name)
-
-        return allTeamBoardsNames.includes(name)
-      }
-
     handleSaveAsClick = (event) => {
         event.preventDefault()
         let boardToCreate = {
@@ -123,6 +116,27 @@ class Tactics2 extends React.Component {
         }
         API.createBoard(boardToCreate).then(this.props.pushUserUpdateToState(this.props.currentUser.id) )
         
+    } 
+
+    newBoardNameUniqueness = (name) => {
+        let allTeamBoards = this.state.boards.filter(board => board.team_id === this.props.currentUser.team_id)
+        let allTeamBoardsNames = allTeamBoards.map(board => board.name)
+
+        return allTeamBoardsNames.includes(name)
+      }
+
+    onDragEnd =(e) => {
+        this.setState({
+            isDragging: false,
+            newBoard: {
+                ...this.state.newBoard,
+                [e.target.attrs.name]: {
+                x: e.target.x(),
+                y: e.target.y()
+                }        
+            }
+        
+        });
     } 
 
     render() { 
@@ -158,14 +172,6 @@ class Tactics2 extends React.Component {
         <Layer  >
         <PitchImage />
 
-        {/* <Line 
-            x={20}
-            y={200}
-            points={[0, 0, 100, 100, 100, 100]}
-            closed
-            stroke="black"
-            draggable
-        />  */}
         {!this.state.showBlank && this.state.items.map(item => (
             <Circle
                 key={item.id}
@@ -175,19 +181,7 @@ class Tactics2 extends React.Component {
                 y={item.y}
                 fill={item.color}
                 radius={10}
-                onDragEnd={e => {
-                    this.setState({
-                      isDragging: false,
-                      newBoard: {
-                          ...this.state.newBoard,
-                          [e.target.attrs.name]: {
-                            x: e.target.x(),
-                            y: e.target.y()
-                          }        
-                      }
-                    
-                    });
-                }}
+                onDragEnd={this.onDragEnd}
             />
             ))}
 
@@ -201,6 +195,7 @@ class Tactics2 extends React.Component {
                 y={item.y}
                 fill={item.color}
                 radius={10}
+                onDragEnd={this.onDragEnd}
                
             />
             ))}
@@ -213,21 +208,7 @@ class Tactics2 extends React.Component {
                 y={item.y}
                 fill={item.color}
                 radius={10}
-                onDragEnd={e => {
-                    console.log(e.target)
-                    this.setState({
-                      isDragging: false,
-                      newBoard: {
-                          ...this.state.newBoard,
-                          [e.target.attrs.name]: {
-                            node: e.target.attrs.name, /* DO I ACTUALLY WANT TO DISTINGUISH THEM BY THIS? */
-                            /* CAN POSS ALSO USER e.target._id */
-                            x: e.target.x(),
-                            y: e.target.y()
-                          }        
-                      }
-                    });
-                }}
+                onDragEnd={this.onDragEnd}
             />
             ))}
         
