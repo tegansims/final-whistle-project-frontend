@@ -10,6 +10,8 @@ const newCommentUrl = baseUrl + 'createcomment'
 const newVoteUrl = baseUrl + 'createvote'
 const joinTeamUrl = baseUrl + 'jointeam'
 const newBoardUrl = baseUrl + 'boards/new'
+const newScorerUrl = baseUrl + 'scorers/new'
+const newAssistUrl = baseUrl + 'assists/new'
 
 const gamesUrl = baseUrl + 'games'
 const teamsUrl = baseUrl + 'teams'
@@ -65,6 +67,8 @@ const createPlayer = (player) => post(newPlayerUrl, player)
 const createGame = (game) => post(newGameUrl, game)
 const createComment = (comment) => post(newCommentUrl, comment)
 const createBoard = (board) => post(newBoardUrl, board)
+const createScorer = (scorer) => post(newScorerUrl, scorer)
+const createAssist = (assist) => post(newAssistUrl, assist)
 const games = () => get(gamesUrl)
 const game = (id) => get(`${gamesUrl}/${id}`)
 const teams = () => get(teamsUrl)
@@ -92,4 +96,4 @@ window.topScorer = topScorer
 
 export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, users,
     createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, topScorers, 
-    topAssister, topAssisters, currentUser, game, updateUser, boards, boardCoords, createBoard}
+    topAssister, topAssisters, currentUser, game, updateUser, boards, boardCoords, createBoard, createScorer, createAssist}

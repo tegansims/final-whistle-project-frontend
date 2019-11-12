@@ -11,7 +11,16 @@ class UpdateGameForm extends React.Component {
             awayScore: '', 
             game_id: this.props.game_id
         },
-        scorers: []
+        scorers: {
+          player: '', 
+          game_id: this.props.game_id,
+          team_id: this.props.currentUser.team_id
+        }, 
+        assists: {
+          player: '', 
+          game_id: this.props.game_id,
+          team_id: this.props.currentUser.team_id
+        }
     }
 
     componentDidMount() {
@@ -43,21 +52,40 @@ class UpdateGameForm extends React.Component {
           })
     }
 
-    updateScoreOnClient = (data) => {console.log(data.score)}
+    handleScorerSubmit = (event) => {
+      event.preventDefault()
+      API.createScorer({scorer: this.state.scorers}).then(data =>{
+       alert(`Thanks for submitting ${data.player.name}`)
+      })
+    }
 
-    handleChange = event => this.setState({ 
+    handleAssistSubmit = (event) => {
+      event.preventDefault()
+      API.createAssist({assist: this.state.assists}).then(data =>{
+       alert(`Thanks for submitting ${data.player.name}`)
+      })
+    }
+
+
+    handleGameChange = event => this.setState({ 
         game: {
             ...this.state.game, 
             [event.target.name]: event.target.value  }
     })
 
-
     handleDropdownChange = (event, data) => {
         this.setState({
             scorers: {
                 ...this.state.scorers, 
-                scorers : data.value }})
+                player : data.value }})
     }
+
+    handleDropdownAssistsChange = (event, data) => {
+      this.setState({
+          assists: {
+              ...this.state.assists, 
+              player : data.value }})
+  }
 
     // --- mapped players --- //
     mappedPlayers = () => {
@@ -68,9 +96,10 @@ class UpdateGameForm extends React.Component {
     }
 
     render(){
-        const { homeScore, awayScore } = this.state
-        const { handleChange, handleSubmit, handleDropdownChange } = this
-        return <Segment>
+        const { homeScore, awayScore} = this.state.game
+       
+        const { handleGameChange, handleSubmit, handleDropdownChange ,handleDropdownAssistsChange,  handleScorerSubmit, handleAssistSubmit} = this
+        return <Segment className='center aligned segment'>
         <Form unstackable onSubmit={handleSubmit}>
           <Form.Group  widths={2}>
             <Form.Field>
@@ -78,7 +107,7 @@ class UpdateGameForm extends React.Component {
                 id='homeScoreInput'
                 label='homeScore'
                 value={homeScore}
-                onChange={handleChange}
+                onChange={handleGameChange}
                 name='homeScore'
                 placeholder='your score'
                 />
@@ -88,37 +117,46 @@ class UpdateGameForm extends React.Component {
                 id='awayScoreInput'
                 label='awayScore'
                 value={awayScore}
-                onChange={handleChange}
+                onChange={handleGameChange}
                 name='awayScore'
                 placeholder='their score'
                 />
             </Form.Field>
-          </Form.Group>
-            {/* <label>Scorers: </label><br></br> */}
-          {/* <Form.Group >
+            </Form.Group>
+          {homeScore && awayScore ? <Button >Submit Details</Button> : <Button disabled>Submit Details</Button> }
+        </Form>
+
+            <label>Scorers: </label><br></br>
+          <Form onSubmit={handleScorerSubmit}>
             <Dropdown
                 labeled
                 floating
                 selection
                 search
                 options={this.mappedPlayers()}
-                name='team'
-                placeholder='link your player account'
+                name='player'
+                value={this.state.scorers.player}
+                placeholder='scorer'
                 onChange={handleDropdownChange}>
             </Dropdown>
-            <Form.Field>
-            <input type='number'
-                id='numberOfGoalsInput'
-                label='numberOfGoals'
-                value={awayScore}
-                onChange={handleChange}
-                name='numberOfGoals'
-                placeholder='#'
-                />
-            </Form.Field>
-          </Form.Group>   */}
-        <Button>Submit Details</Button>
-        </Form>
+          {this.state.scorers.player ? <Button >Submit Scorers</Button> : <Button disabled >Submit Scorers</Button> }
+          </Form>  
+          <label>Assists: </label><br></br>
+          <Form onSubmit={handleAssistSubmit}>
+            <Dropdown
+                labeled
+                floating
+                selection
+                search
+                options={this.mappedPlayers()}
+                name='player'
+                value={this.state.assists.player}
+                placeholder='assist'
+                onChange={handleDropdownAssistsChange}>
+            </Dropdown>
+            {this.state.assists.player ? <Button >Submit Assists</Button> : <Button disabled >Submit Assists</Button> }
+          </Form> 
+        
         </Segment>
     }
 
