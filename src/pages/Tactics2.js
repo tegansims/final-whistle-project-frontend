@@ -2,7 +2,7 @@ import React from 'react';
 import {Layer, Image, Stage, Circle, Line} from 'react-konva'
 import { isBlock } from '@babel/types';
 import useImage from 'use-image';
-import { Button, Dropdown, Form} from 'semantic-ui-react';
+import { Button, Dropdown, Form, Icon, Segment} from 'semantic-ui-react';
 import Loading from '../components/Loading'
 import API from '../adaptors/API'
 
@@ -34,6 +34,7 @@ const PitchImage = () => {
 class Tactics2 extends React.Component {
 
     state = {
+        options: false,
         boards: [],
         isDragging: false,
         items: [],
@@ -118,6 +119,11 @@ class Tactics2 extends React.Component {
         
     } 
 
+    handleIconClick = () => {
+        console.log('clicking')
+        this.setState({options: !this.state.options})
+    }
+
     newBoardNameUniqueness = (name) => {
         let allTeamBoards = this.state.boards.filter(board => board.team_id === this.props.currentUser.team_id)
         let allTeamBoardsNames = allTeamBoards.map(board => board.name)
@@ -144,7 +150,9 @@ class Tactics2 extends React.Component {
             return  <Loading/>
         } else { 
             return ( <div>
-        <Form>
+                <Segment.Group>
+         <Segment onClick={this.handleIconClick} textAlign='center'> <Icon disabled name='bars'  link /> </Segment>
+               {this.state.options && <Form>
             <Dropdown
                 labeled
                 floating
@@ -167,7 +175,9 @@ class Tactics2 extends React.Component {
          {!this.newBoardNameUniqueness(this.state.name) && this.state.name ? <Button onClick={this.handleSaveAsClick}>Save As</Button> : <Button disabled>Save As</Button> }
 
          <Button>Save Changes</Button>
-         </Form>
+        </Form> }
+        </Segment.Group>
+
         <Stage width={window.innerWidth} height={window.innerHeight} border={isBlock}>
         <Layer  >
         <PitchImage />
