@@ -7,22 +7,6 @@ import Loading from '../components/Loading'
 import API from '../adaptors/API'
 
 
-
-const generateItems = (color, y) => {
-    const items = [];
-    for (let i = 0; i < 11; i++) {
-        items.push({
-            x: 10,
-            y: y,
-            id: `node-${color}-${i}`,
-            color: color
-        });
-    }
-    return items;
-}
-
-
-
 const PitchImage = () => {
     const [image] = useImage('https://hi-static.z-dn.net/files/d6c/36f6579de2f3bcf58c6d5c4491cf7ba0.jpg');
     return <Image image={image} 
@@ -51,24 +35,26 @@ class Tactics2 extends React.Component {
    }
 
    loadBoard=(board, color='ff0')=> {
-    const items = []
-    for (let i = 0; i < board.length; i=i+2) {
-        items.push({
-            x: board[i],
-            y: board[i+1],
-            id: `node-${color}-${i}`,
-            color: `#${color}`, 
-        })
-    this.setState({
-        newBoard: {
-            ...this.state.newBoard,
-            [`node-${color}-${i}`]:  {
-                x: board[i], 
-                y: board[i+1]
-            } 
+        const items = []
+        for (let i=0; i < board.length; i++) {
+            for (let j=1; j < board[i].length; j=j+2){
+                items.push({
+                    x: board[i][j],
+                    y: board[i][j+1],
+                    id: `node-${board[i][0]}-${j}`,
+                    color: board[i][0] === 'blue' ? '#2299e2' : '#B01943'
+                })
+                this.setState({
+                     newBoard: {
+                         ...this.state.newBoard,
+                         [`node-${board[i][0]}-${j}`]:  {
+                            x: board[i][j],
+                            y: board[i][j+1]
+                         } 
+                     }
+                 })
+            };   
         }
-    })
-    }
     return items
 }
 
@@ -88,14 +74,9 @@ class Tactics2 extends React.Component {
         })
     }
 
-   handleBlankClick = () => {
-    this.setState({newBoard: []}, () => 
-       this.setState({
-        showBlank: !this.state.showBlank,
-        redItems: generateItems('#B01943', 10),
-        blueItems: generateItems('#2299e2', 35)
-    })
-    )}
+
+
+   
 
    handleDropdownChange = (event, data) => {
     this.setState({newBoard: []}, () => 
@@ -109,6 +90,7 @@ class Tactics2 extends React.Component {
     handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
     handleSaveAsClick = (event) => {
+        console.log(this.state.newBoard)
         event.preventDefault()
         let boardToCreate = {
             team_id: this.props.currentUser.team_id, 
@@ -151,7 +133,7 @@ class Tactics2 extends React.Component {
         } else { 
             return ( <div>
                 <Segment.Group>
-         <Segment onClick={this.handleIconClick} textAlign='center'> {this.state.options? <Icon disabled name='angle double up'  link /> : <Icon name='angle double down'/>}
+         <Segment onClick={this.handleIconClick} textAlign='center'> {this.state.options ? <Icon disabled name='angle double up'  link /> : <Icon name='angle double down'/>}
          </Segment>
                {this.state.options && <Form>
             <Dropdown
@@ -164,7 +146,7 @@ class Tactics2 extends React.Component {
                 placeholder='choose a board to load'
                 onChange={this.handleDropdownChange}>
             </Dropdown> 
-         <Button onClick={this.handleBlankClick}>New</Button>
+         
          <input type='text'
                 id='name'
                 label='name'
