@@ -78,7 +78,7 @@ class Settings extends React.Component {
              <Segment><CreatePlayer/></Segment>
              <Segment><CreateGame pushGameUpdateToState={this.props.pushGameUpdateToState} /></Segment></> }
             
-            {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId} 
+            {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams}
                 currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }
             </div>
             }}
