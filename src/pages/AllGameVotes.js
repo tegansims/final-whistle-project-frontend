@@ -85,23 +85,23 @@ class AllGameVotes extends React.Component {
             </Form.Group>
             </Form>
 
-            {this.state.momShow && <Segment  animation={animation} duration={duration}>  Man of the match: <br></br>
+            {this.state.momShow && <Segment  animation={animation} duration={duration}> <h2> Man of the match: </h2>
                 
                 {this.props.game.mom_winner 
-                ? this.props.game.mom_winner
+                ? <h4>{this.props.game.mom_winner} </h4>
                 : this.state.momVotes.map(vote => 
-                    <p key={vote.id}>{vote.player.name}: {vote.comment}</p>
+                    <h4 key={vote.id}>{vote.player.name}: {vote.comment}</h4>
                 ) 
             
             }
             {!this.props.game.mom_winner && <Button onClick={(event)=>this.handleCalculateSubmit(event, 1)}> Calculate and publish Winners</Button>}
             </Segment> }
 
-            {this.state.dodShow &&<Segment> Dick of the day: <br></br>
+            {this.state.dodShow &&<Segment> <h2>Dick of the day: </h2>
 
                 {this.props.game.dod_winner 
-                ? this.props.game.dod_winner
-                : this.state.dodVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>)
+                ? <h4>{this.props.game.dod_winner}</h4>
+                : this.state.dodVotes.map(vote => <h4 key={vote.id}>{vote.player.name}: {vote.comment}</h4>)
                 }
                
             {!this.props.game.dod_winner && <Button onClick={(event)=>this.handleCalculateSubmit(event, 2)}>Calculate and publish Winners</Button> }

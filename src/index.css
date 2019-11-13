@@ -5,7 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+  background: rgb(2,0,36)!important;
+  background: linear-gradient(45deg, rgba(2,0,36,1) 0%, rgba(62,78,86,1) 65%, rgba(109,109,109,1) 100%)!important;
 }
 
 code {
@@ -13,3 +14,10 @@ code {
     monospace;
 }
 
+.ui .menu {
+  background: #B01943!important;
+}
+/* 
+.ui .inverted .center .aligned .header {
+  font-family: Didot!important;
+} */

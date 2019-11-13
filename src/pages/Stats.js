@@ -36,7 +36,10 @@ class Stats extends React.Component {
         }
     }
 
-    changeScorerState=()=> this.setState({showScorers: !this.state.showScorers, showAssisters: false})
+    changeScorerState=()=> {
+        console.log('change scorer state clicked')
+        this.setState({showScorers: !this.state.showScorers, showAssisters: false})
+    }
     changeAssisterState=()=> this.setState({showAssisters: !this.state.showAssisters, showScorers: false})
     
     
@@ -67,7 +70,7 @@ class Stats extends React.Component {
 
 
             {this.state.showScorers &&
-                <Table basic='very' celled collapsing>
+                <Table basic='very' celled collapsing style={{backgroundColor: 'white'}}>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell  >Player</Table.HeaderCell>
@@ -81,7 +84,7 @@ class Stats extends React.Component {
             }
             
             {this.state.showAssisters &&
-                <Table basic='very' celled collapsing>
+                <Table basic='very' celled collapsing style={{backgroundColor: 'white'}}>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Player</Table.HeaderCell>

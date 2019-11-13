@@ -36,16 +36,18 @@ class Home extends React.Component {
         } else {
             const { nextMatch} = this.props
             const {handleClick} = this
-            return <Segment.Group className='center aligned segment'>
+            return <div>
+            <br></br><br></br><br></br><br></br>
 
                 
-
+            <Segment.Group className='center aligned segment'>
+                
+                <Header size='huge'>Welcome back!</Header>
                 <Segment></Segment>
-                <Segment size='huge'>Welcome back!</Segment>
+                {nextMatch &&  <Header as='h2' onClick={handleClick}>Your next game is against {nextMatch.opposition} on {nextMatch.date.split('T')[0]}</Header> }
                 <Segment></Segment>
-                {nextMatch &&  <Segment onClick={handleClick}>Your Next Game is against {nextMatch.opposition} on {nextMatch.date.split('T')[0]}</Segment> }
-                <Segment></Segment>
-                </Segment.Group>
+            </Segment.Group>
+            </div>
         }
     }
 

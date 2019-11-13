@@ -43,7 +43,6 @@ class UpdateGameForm extends React.Component {
               throw Error(data.error)
             } else {
               console.log("data: ", data)
-              alert('thanks for submitting the score')
               this.props.pushGameUpdateToState()            
             }
           })
@@ -55,7 +54,6 @@ class UpdateGameForm extends React.Component {
     handleScorerSubmit = (event) => {
       event.preventDefault()
       API.createScorer({scorer: this.state.scorers}).then(data =>{
-       alert(`Thanks for submitting ${data.player.name}`)
        this.props.pushGameUpdateToState()
       })
     }
@@ -63,7 +61,6 @@ class UpdateGameForm extends React.Component {
     handleAssistSubmit = (event) => {
       event.preventDefault()
       API.createAssist({assist: this.state.assists}).then(data =>{
-       alert(`Thanks for submitting ${data.player.name}`)
        this.props.pushGameUpdateToState() 
       })
     }
@@ -99,7 +96,6 @@ class UpdateGameForm extends React.Component {
           }, () =>
               API.deleteScorer({scorer: this.state.scorers}, this.state.scorers.scorer_id)
               .then(data => { 
-                alert(`Thanks for removing ${data.player.name}`)
                 this.props.pushGameUpdateToState() 
         })
       )}
@@ -114,7 +110,6 @@ class UpdateGameForm extends React.Component {
           }, () =>
               API.deleteAssist({assist: this.state.assists}, this.state.assists.assist_id)
               .then(data => { 
-                alert(`Thanks for removing ${data.player.name}`)
                 this.props.pushGameUpdateToState() 
         })
       )}
