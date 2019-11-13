@@ -12,7 +12,7 @@ class SignupForm extends React.Component {
 
     componentDidMount () {
       API.users().then(allusers => {
-        this.setState({ users: allusers }, () => console.log(this.state.users))
+        this.setState({ users: allusers })
       })
         if (this.props.username) {
             this.props.history.push('/')
