@@ -1,14 +1,8 @@
 import React from 'react';
-import { Button, Form, Segment, Header, Image, Container } from 'semantic-ui-react'
+import { Button, Form, Segment, Container } from 'semantic-ui-react'
 import HeaderTop from './HeaderTop'
 import API from '../adaptors/API'
 
-const style = {
-  background: '#3E4E56', 
-  color: 'white',
-  marginBottom: 0,
-  minHeight: 220  
-} 
 
 
 class LoginForm extends React.Component {
