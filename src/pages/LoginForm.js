@@ -1,8 +1,14 @@
 import React from 'react';
-import { Button, Form, Segment } from 'semantic-ui-react'
-
+import { Button, Form, Segment, Header, Image, Container } from 'semantic-ui-react'
+import HeaderTop from './HeaderTop'
 import API from '../adaptors/API'
 
+const style = {
+  background: '#3E4E56', 
+  color: 'white',
+  marginBottom: 0,
+  minHeight: 220  
+} 
 
 
 class LoginForm extends React.Component {
@@ -44,37 +50,42 @@ class LoginForm extends React.Component {
     const { email, password } = this.state
     const { handleChange, handleSubmit, handleSignUpClick } = this
 
-    return ( <Segment.Group>
-       <Segment>
-        <Form onSubmit={handleSubmit}>
-     
-       <input type='text'
-          id='emailInput'
-          label='Email'
-          value={email}
-          onChange={handleChange}
-          name='email'
-          placeholder='email'
-        />
-        <br />
-         <input 
-          id='passwordInput'
-          label='Password'
-          value={password}
-          onChange={handleChange}
-          name='password'
-          type='password'
-          placeholder='password'
-        />
-        <br />
-        <Button> Log In </Button> 
-      </Form>
-      </Segment>
-      
-      <Segment>
-        <Button floated='right' onClick = {handleSignUpClick}>No account? Sign up!</Button>
-      </Segment>
-      </Segment.Group>
+    return ( <Container text >
+        <Segment.Group >
+
+          <HeaderTop/>
+          
+          <Segment>
+            <Form onSubmit={handleSubmit}>
+        
+          <input type='text'
+              id='emailInput'
+              label='Email'
+              value={email}
+              onChange={handleChange}
+              name='email'
+              placeholder='email'
+            />
+            <br />
+            <input 
+              id='passwordInput'
+              label='Password'
+              value={password}
+              onChange={handleChange}
+              name='password'
+              type='password'
+              placeholder='password'
+            />
+            <br />
+            <Button> Log In </Button> 
+          </Form>
+          </Segment>
+          
+          <Segment>
+            <Button floated='right' onClick = {handleSignUpClick}>No account? Sign up!</Button>
+          </Segment>
+          </Segment.Group>
+      </Container>
     )
   }
 }

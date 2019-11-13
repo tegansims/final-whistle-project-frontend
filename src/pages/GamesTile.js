@@ -34,15 +34,22 @@ class GamesTile extends React.Component {
         const { gameDate, gameTime } = this
 
         return   <div>
-            {/* <Segment.Group > */}
-                <Segment attached={this.state.attached} onClick={this.handleClick} className='center aligned segment'><h3>{game.opposition} </h3>
+            { game.completed
+            ?    <Segment secondary attached={this.state.attached} onClick={this.handleClick} className='center aligned segment'><h3>{game.opposition} </h3>
                     {game.score}
                     {game.completed && <br></br>}
                     { gameDate(game.date)} {gameTime(game.date)} 
-                    {/* <br></br>
-                    { game.venue} */}
+    
                 </Segment>
-            {/* </Segment.Group> */}
+            :   <Segment  attached={this.state.attached} onClick={this.handleClick} className='center aligned segment'><h3>{game.opposition} </h3>
+                    {game.score}
+                    {game.completed && <br></br>}
+                    { gameDate(game.date)} {gameTime(game.date)} 
+
+                </Segment>
+            }
+
+ 
             </div>
     }
 

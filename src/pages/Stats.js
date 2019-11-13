@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Icon, Table} from 'semantic-ui-react';
+import { Segment, Icon, Table, Grid, Divider, Header} from 'semantic-ui-react';
 import API from '../adaptors/API'
 
 
@@ -42,9 +42,30 @@ class Stats extends React.Component {
     
     render(){
         return <Segment.Group>    
-            <Segment size='huge' className='center aligned segment' onClick={this.changeScorerState}><strong>Top Scorer: </strong> {this.state.top_scorer}  <Icon disabled name='caret right' /></Segment>
-            <Segment size='huge' className='center aligned segment' onClick={this.changeAssisterState}><strong>Top Assisters: </strong> {this.state.top_assister}  <Icon disabled name='caret right' /></Segment>
+            {/* <Segment size='huge' className='center aligned segment' onClick={this.changeScorerState}><strong>Top Scorer: </strong> {this.state.top_scorer}  <Icon disabled name='caret right' /></Segment>
+            <Segment size='huge' className='center aligned segment' onClick={this.changeAssisterState}><strong>Top Assisters: </strong> {this.state.top_assister}  <Icon disabled name='caret right' /></Segment> */}
+           <Segment placeholder>
+            <Grid columns={2} stackable textAlign='center'>
+                <Divider vertical></Divider>
+
+                <Grid.Row verticalAlign='middle'>
+                    <Grid.Column>
+                    <Header icon  onClick={this.changeScorerState}>
+                        <strong>Top Scorer: </strong> <br></br> {this.state.top_scorer}  <Icon  size='small' name='caret right' />
+                    </Header>
+                    </Grid.Column>
+                        
+                    <Grid.Column>
+                    <Header icon onClick={this.changeAssisterState}>
+                        <strong>Top Assisters: </strong> <br></br> {this.state.top_assister}  <Icon   size='small' name='caret right' />
+                    </Header>
+                    </Grid.Column>
+                </Grid.Row>
+             </Grid>
+            </Segment>
            <div></div>
+
+
             {this.state.showScorers &&
                 <Table basic='very' celled collapsing>
                 <Table.Header>

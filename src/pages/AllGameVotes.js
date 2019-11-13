@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment , Button} from 'semantic-ui-react';
+import { Segment , Button, Form, Transition} from 'semantic-ui-react';
 import API from '../adaptors/API'
 
 
@@ -15,7 +15,9 @@ class AllGameVotes extends React.Component {
         game: {
             category_id: '', 
             game_id: this.props.game_id,
-        }
+        }, 
+        animation: 'fade', 
+        duration: 500
     }
     // const votes = game.votes.filter(vote => vote.category_id === 1 && vote.game_id === this.props.game.id)
 
@@ -74,15 +76,22 @@ class AllGameVotes extends React.Component {
 
     
     render(){
+        const { animation, duration } = this.state
         return <Segment>
-            
-            <Button onClick={this.handleMomShowClick}>Man of the Match</Button> <Button onClick={this.handleDodShowClick}>Dick of the Day</Button>
 
-            {this.state.momShow && <Segment>  Man of the match: <br></br>
+            <Form unstackable>
+            <Form.Group  widths={2}>
+                <Button onClick={this.handleMomShowClick}>Man of the Match</Button> <Button onClick={this.handleDodShowClick}>Dick of the Day</Button>
+            </Form.Group>
+            </Form>
+
+            {this.state.momShow && <Segment  animation={animation} duration={duration}>  Man of the match: <br></br>
                 
                 {this.props.game.mom_winner 
                 ? this.props.game.mom_winner
-                : this.state.momVotes.map(vote => <li key={vote.id}>{vote.player.name}: {vote.comment}</li>) 
+                : this.state.momVotes.map(vote => 
+                    <p key={vote.id}>{vote.player.name}: {vote.comment}</p>
+                ) 
             
             }
             {!this.props.game.mom_winner && <Button onClick={(event)=>this.handleCalculateSubmit(event, 1)}> Calculate and publish Winners</Button>}

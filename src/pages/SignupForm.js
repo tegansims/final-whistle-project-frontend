@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, Button, Segment } from 'semantic-ui-react'
+import { Form, Button, Segment, Container } from 'semantic-ui-react'
 import API from '../adaptors/API'
+import HeaderTop from './HeaderTop'
+
 
 class SignupForm extends React.Component {
     state = {
@@ -54,47 +56,52 @@ class SignupForm extends React.Component {
       const { email, password, password_confirmation } = this.state
       const { handleChange, handleSubmit, emailValidation, emailUniqueness, handleLoginClick, passwordValidation } = this
   
-      return ( <Segment.Group>
-        <Segment>
-         <Form onSubmit={handleSubmit}>
-       
-         <input type='text'
-            id='emailInput'
-            label='Email'
-            value={email}
-            onChange={handleChange}
-            name='email'
-            placeholder='email'
-          />
-          <br />
-           <input 
-            id='passwordInput'
-            label='Password'
-            value={password}
-            onChange={handleChange}
-            name='password'
-            type='password'
-            placeholder='password'
-            error
-          />
-          <br />
-          <input 
-            id='passwordConfirm'
-            label='Password Confirmation'
-            value={password_confirmation}
-            onChange={handleChange}
-            name='password_confirmation'
-            type='password'
-            placeholder='confirm your password'
-            error
-          />
-          <br />
-          {emailValidation(email) && !emailUniqueness(email) && passwordValidation() ? <Button > Sign Up </Button> : <Button disabled> Sign Up </Button>}
-        </Form>
-        </Segment><Segment>
-          <Button floated='right' onClick={handleLoginClick}>Back to log in page</Button>
-        </Segment>
-        </Segment.Group>
+      return ( <Container text>
+        <Segment.Group>
+
+            <HeaderTop/> 
+
+            <Segment>
+            <Form onSubmit={handleSubmit}>
+          
+            <input type='text'
+                id='emailInput'
+                label='Email'
+                value={email}
+                onChange={handleChange}
+                name='email'
+                placeholder='email'
+              />
+              <br />
+              <input 
+                id='passwordInput'
+                label='Password'
+                value={password}
+                onChange={handleChange}
+                name='password'
+                type='password'
+                placeholder='password'
+                error
+              />
+              <br />
+              <input 
+                id='passwordConfirm'
+                label='Password Confirmation'
+                value={password_confirmation}
+                onChange={handleChange}
+                name='password_confirmation'
+                type='password'
+                placeholder='confirm your password'
+                error
+              />
+              <br />
+              {emailValidation(email) && !emailUniqueness(email) && passwordValidation() ? <Button > Sign Up </Button> : <Button disabled> Sign Up </Button>}
+            </Form>
+            </Segment><Segment>
+              <Button floated='right' onClick={handleLoginClick}>Back to log in page</Button>
+            </Segment>
+          </Segment.Group>
+        </Container>
       )
     }
   }
