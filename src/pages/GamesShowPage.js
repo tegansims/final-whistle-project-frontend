@@ -43,15 +43,7 @@ class GamesShowPage extends React.Component {
         }
     }
 
-    handleClick = () =>  this.setState({ visible: !this.state.visible}) 
-    handleVoteClick = () => this.setState({ vote: !this.state.vote}) 
-    handleCommentClick = () => this.setState({ comments: !this.state.comments}) 
-    handleUpdateGameClick = () => this.setState({ update: !this.state.update}) 
-    handleAllVotesClick = () => this.setState({ allVotes: !this.state.allVotes}) 
-    handleScorersClick = () => this.setState({scorers: !this.state.scorers})
-    handleAssistsClick = () => this.setState({assists: !this.state.assists})
-    handleMomClick = () => this.setState({mom: !this.state.mom})
-    handleDodClick = () => this.setState({dod: !this.state.dod})
+    handleClick = (item) =>  this.setState({ [item]: !this.state[item]}) 
 
     handleCompleteClick = () => {
         this.setState({ 
@@ -88,9 +80,8 @@ class GamesShowPage extends React.Component {
     
     render(){
         const { currentUser, pushGameUpdateToState } = this.props
-        const { gameToShow, comments, scorers, assists, mom, dod, teams} = this.state
-        const { gameDate, gameTime, handleClick, handleCommentClick, handleUpdateGameClick, handleAllVotesClick, handleCompleteClick, handleVoteClick ,
-             handleScorersClick, handleAssistsClick, handleMomClick, handleDodClick, handleHeaderClick} = this
+        const { gameToShow, comments, scorers, assists, mom, dod} = this.state
+        const { gameDate, gameTime, handleClick, handleCompleteClick , handleHeaderClick} = this
         
         if (!this.props.currentUser || !this.state.gameToShow) {
             return (<Loading/>)
@@ -106,31 +97,31 @@ class GamesShowPage extends React.Component {
                 </Segment>
             </Segment.Group>
             <Segment.Group className='center aligned segment'>
-                {gameToShow.completed && <Segment onClick={handleScorersClick} size = 'big' className='center aligned segment'> Scorers: <Icon disabled name='caret right' />
+                {gameToShow.completed && <Segment onClick={()=>handleClick('scorers')} size = 'big'> Scorers: <Icon disabled name='caret right' />
                     {scorers && <Segment>{gameToShow.scorers.map(scorer => <p key={scorer.id}>{scorer.player.name}</p>)}</Segment>  }
                     </Segment> }
-                {gameToShow.completed && <Segment onClick={handleAssistsClick} size = 'big' className='center aligned segment'>Assists: <Icon disabled name='caret right' />
+                {gameToShow.completed && <Segment onClick={()=>handleClick('assists')} size = 'big' >Assists: <Icon disabled name='caret right' />
                     {assists && <Segment>{gameToShow.assists.map(assist => <p key={assist.id}>{assist.player.name}</p>)}</Segment> }
                     </Segment>}   
-                {gameToShow.completed && <Segment onClick={handleMomClick} size = 'big' className='center aligned segment'>Man Of The Match:  <Icon disabled name='caret right' />
+                {gameToShow.completed && <Segment onClick={()=>handleClick('mom')} size = 'big' >Man Of The Match:  <Icon disabled name='caret right' />
                     {mom && <Segment>{gameToShow.mom_winner} </Segment> }
                     </Segment> }
-                {gameToShow.completed && <Segment onClick={handleDodClick} size = 'big' className='center aligned segment'>Dick Of The Day: <Icon disabled name='caret right' />
+                {gameToShow.completed && <Segment onClick={()=>handleClick('dod')} size = 'big' >Dick Of The Day: <Icon disabled name='caret right' />
                     {dod && <Segment>{gameToShow.dod_winner}</Segment>}
                     </Segment> }
 
-                {!gameToShow.completed && <Segment onClick={handleVoteClick} size = 'big'> Vote <Icon disabled name='caret right' /></Segment> }
+                {!gameToShow.completed && <Segment onClick={()=>handleClick('vote')} size = 'big'> Vote <Icon disabled name='caret right' /></Segment> }
                 {!gameToShow.completed && this.state.vote && <VoteForm currentUser= {currentUser} game_id={gameToShow.id} pushGameUpdateToState={this.props.pushGameUpdateToState}/>}
 
-                <Segment size = 'big' className='center aligned segment' onClick={handleCommentClick}>Comments: <Icon disabled name='caret right' /></Segment>
+                <Segment size = 'big'  onClick={()=>handleClick('comments')}>Comments: <Icon disabled name='caret right' /></Segment>
                     {comments &&   <CommentForm game={gameToShow} game_id={gameToShow.id} currentUser= {currentUser} 
-                        pushGameUpdateToState={pushGameUpdateToState} handleCommentClick={handleCommentClick}/>  }
+                        pushGameUpdateToState={pushGameUpdateToState} />  }
 
                     {/* if admin */}
-                    {!gameToShow.completed && currentUser.admin && <Segment size = 'big' onClick={handleUpdateGameClick}> Update Game Details: <Icon disabled name='caret right' /></Segment> }
+                    {!gameToShow.completed && currentUser.admin && <Segment size = 'big' onClick={()=>handleClick('update')}> Update Game Details: <Icon disabled name='caret right' /></Segment> }
                     {!gameToShow.completed && currentUser.admin && this.state.update && <UpdateGameForm game={gameToShow} currentUser= {currentUser} game_id={gameToShow.id} pushGameUpdateToState={pushGameUpdateToState}/>}
 
-                    {!gameToShow.completed && currentUser.admin && <Segment size = 'big'  onClick={handleAllVotesClick}> Show All Votes: <Icon disabled name='caret right' /> </Segment> }
+                    {!gameToShow.completed && currentUser.admin && <Segment size = 'big'  onClick={()=>handleClick('allVotes')}> Show All Votes: <Icon disabled name='caret right' /> </Segment> }
                     {!gameToShow.completed && currentUser.admin && this.state.allVotes && <AllGameVotes currentUser= {currentUser} game={gameToShow} pushGameUpdateToState={pushGameUpdateToState} game_id={gameToShow.id}/>}
                     
                     {currentUser.admin && <Button size = 'big' onClick={handleCompleteClick} fluid>{gameToShow.completed? 'Edit Game' : 'Complete Game'}</Button>}

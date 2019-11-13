@@ -1,6 +1,5 @@
 import React from 'react';
-import {Button, Segment, Grid, Divider, Header, Icon} from 'semantic-ui-react'
-import CreateTeam from './Setup/CreateTeam'
+import {Button, Segment, Grid, Divider, Header} from 'semantic-ui-react'
 import CreatePlayer from './Setup/CreatePlayer'
 import CreateGame from './Setup/CreateGame'
 import JoinTeam from './Setup/JoinTeam'
@@ -8,7 +7,6 @@ import Welcome from './Setup/Welcome'
 import Loading from './Loading'
 
 
-import { BrowserRouter as Router, Route  } from 'react-router-dom';
 
 class Settings extends React.Component {
 
@@ -78,7 +76,7 @@ class Settings extends React.Component {
              <Segment><CreatePlayer/></Segment>
              <Segment><CreateGame pushGameUpdateToState={this.props.pushGameUpdateToState} /></Segment></> }
             
-            {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams} setTeamId={this.props.setTeamId} 
+            {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams}
                 currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }
             </div>
             }}

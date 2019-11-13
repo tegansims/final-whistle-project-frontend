@@ -10,7 +10,6 @@ import CreateGame from '../components/Setup/CreateGame'
 import LinkPlayer from '../components/Setup/LinkPlayer'
 
 
-import Settings from '../components/Settings'
 
 import GamesShowPage from './GamesShowPage'
 

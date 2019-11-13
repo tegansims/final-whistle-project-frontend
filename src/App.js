@@ -11,7 +11,6 @@ import API from './adaptors/API'
 import NavBar from './components/NavBar'
 import Settings from './components/Settings'
 import 'semantic-ui-css/semantic.min.css'
-import _ from 'lodash'
 
 import pages from './pages/pages'
 const { GamesList, Stats, Tactics2, Home, LoginForm, SignupForm, GamesShowPage, CreateTeam, CreatePlayer, CreateGame, LinkPlayer } = pages
@@ -20,7 +19,6 @@ class App extends React.Component {
 
   state = {
     currentUser: null,
-    team_id: 1, // NEED TO NOT HARDCODE THIS
     games: [],
     teams: [], 
     players: []
@@ -89,9 +87,6 @@ class App extends React.Component {
   filterPlayers = () => this.state.players.filter(player => player.team.id === this.state.currentUser.team_id)
 
 
-  // --- changing team --- //
-  setTeamId = (team) => {this.setState({ team_id: team.id})}
-
   // --- push update to state --- //
   pushGameUpdateToState = () => API.games().then(games => this.setState({ games }) )
   pushUserUpdateToState = (id) =>  API.currentUser(id).then(user=> this.setState({ currentUser: user } ) )
@@ -128,7 +123,7 @@ class App extends React.Component {
             <Route exact path="/tactics" component={routerProps => <Tactics2 {...routerProps} currentUser={this.state.currentUser} pushUserUpdateToState={this.pushUserUpdateToState}/>} />
             <Route exact path="/login" component={routerProps => <LoginForm {...routerProps} logIn ={this.logIn} username={this.state.currentUser}/> } />
             <Route exact path="/settings" component={routerProps => <Settings {...routerProps} currentUser={this.state.currentUser} teams={this.state.teams} players={this.filterPlayers()}  
-                setTeamId={this.setTeamId} pushUserUpdateToState={this.pushUserUpdateToState} pushGameUpdateToState={this.pushGameUpdateToState} />}   />
+                 pushUserUpdateToState={this.pushUserUpdateToState} pushGameUpdateToState={this.pushGameUpdateToState} />}   />
             <Route exact path="/signup" component={routerProps => <SignupForm {...routerProps} username={this.state.currentUser} signIn={this.signIn} logIn ={this.logIn}/>}  />
             </Switch>
           </Container>

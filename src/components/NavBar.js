@@ -1,4 +1,4 @@
-import React, {createRef} from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Menu , Icon, Container} from 'semantic-ui-react';
 import Loading from '../components/Loading'
