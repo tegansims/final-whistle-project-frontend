@@ -80,7 +80,7 @@ class GamesShowPage extends React.Component {
     
     render(){
         const { currentUser, pushGameUpdateToState } = this.props
-        const { gameToShow, comments, scorers, assists, mom, dod, teams} = this.state
+        const { gameToShow, comments, scorers, assists, mom, dod} = this.state
         const { gameDate, gameTime, handleClick, handleCompleteClick , handleHeaderClick} = this
         
         if (!this.props.currentUser || !this.state.gameToShow) {

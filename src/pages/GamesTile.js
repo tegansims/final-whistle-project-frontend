@@ -1,7 +1,6 @@
 import React from 'react';
-import { Segment, Button, Container } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
-const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 
 class GamesTile extends React.Component {

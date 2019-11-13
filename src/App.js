@@ -11,7 +11,6 @@ import API from './adaptors/API'
 import NavBar from './components/NavBar'
 import Settings from './components/Settings'
 import 'semantic-ui-css/semantic.min.css'
-import _ from 'lodash'
 
 import pages from './pages/pages'
 const { GamesList, Stats, Tactics2, Home, LoginForm, SignupForm, GamesShowPage, CreateTeam, CreatePlayer, CreateGame, LinkPlayer } = pages
