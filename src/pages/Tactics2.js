@@ -51,24 +51,30 @@ class Tactics2 extends React.Component {
    }
 
    loadBoard=(board, color='ff0')=> {
-    const items = []
-    for (let i = 0; i < board.length; i=i+2) {
-        items.push({
-            x: board[i],
-            y: board[i+1],
-            id: `node-${color}-${i}`,
-            color: `#${color}`, 
-        })
-    this.setState({
-        newBoard: {
-            ...this.state.newBoard,
-            [`node-${color}-${i}`]:  {
-                x: board[i], 
-                y: board[i+1]
-            } 
+       console.log(board) 
+        const items = []
+        for (let i=0; i < board.length; i++) {
+            console.log(board[i])
+            for (let j=1; j < board[i].length; j=j+2){
+                console.log(`color: ${board[i][0]}`)
+                console.log(`coords: ${board[i][j]}, ${board[i][j+1]}`)
+                items.push({
+                    x: board[i][j],
+                    y: board[i][j+1],
+                    id: `node-${board[i][0]}-${j}`,
+                    color: board[i][0]
+                })
+                this.setState({
+                     newBoard: {
+                         ...this.state.newBoard,
+                         [`node-${board[i][0]}-${j}`]:  {
+                            x: board[i][j],
+                            y: board[i][j+1]
+                         } 
+                     }
+                 })
+            };   
         }
-    })
-    }
     return items
 }
 
