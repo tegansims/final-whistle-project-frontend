@@ -42,7 +42,7 @@ class Tactics2 extends React.Component {
                     x: board[i][j],
                     y: board[i][j+1],
                     id: `node-${board[i][0]}-${j}`,
-                    color: board[i][0] === 'blue' ? '#B01943' : '#2299e2'
+                    color: board[i][0] === 'blue' ? '#2299e2' : '#B01943'
                 })
                 this.setState({
                      newBoard: {
@@ -58,23 +58,6 @@ class Tactics2 extends React.Component {
     return items
 }
 
- blankBoardCoords= [["red", 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 ], ['blue', 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35, 10, 35]]
-testCoords = [
-    [
-      "red",
-      72,
-      148,
-      165,
-      125
-    ],
-    [
-      "blue",
-      37,
-      48,
-      49,
-      393
-    ]
-  ]
 
    mappedBoards = () => {
        let teamBoards = this.state.boards.filter(board => board.team_id === this.props.currentUser.team_id)
@@ -107,6 +90,7 @@ testCoords = [
     handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
     handleSaveAsClick = (event) => {
+        console.log(this.state.newBoard)
         event.preventDefault()
         let boardToCreate = {
             team_id: this.props.currentUser.team_id, 
