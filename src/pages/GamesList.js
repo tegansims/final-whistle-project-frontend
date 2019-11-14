@@ -23,6 +23,10 @@ class GamesList extends React.Component {
         });
     }
 
+    gameIds = () => {
+        this.gamesSortedByDate().map(game => game.id)
+    }
+
     render(){
         return <div>
         {this.gamesSortedByDate().map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser} pushGameUpdateToState={this.props.pushGameUpdateToState} history={this.props.history}/>)}

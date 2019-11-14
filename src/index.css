@@ -15,8 +15,11 @@ code {
 }
 
 .ui .menu {
-  background: #B01943!important;
+  background: #B01943!important;  
+  color: '#fff'!important;
 }
+
+
 /* 
 .ui .inverted .center .aligned .header {
   font-family: Didot!important;

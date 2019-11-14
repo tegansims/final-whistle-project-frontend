@@ -78,16 +78,20 @@ class GamesShowPage extends React.Component {
         return "  " + time[0]+":"+time[1]
     }
     
+    allowed = () => this.props.gameIds.filter(id => id === this.props.match.params.id)
+
     render(){
         const { currentUser, pushGameUpdateToState } = this.props
         const { gameToShow, comments, scorers, assists, mom, dod} = this.state
         const { gameDate, gameTime, handleClick, handleCompleteClick , handleHeaderClick} = this
         
-        if (!this.props.currentUser || !this.state.gameToShow) {
+        if (!this.props.currentUser || !this.state.gameToShow  ) {
             return (<Loading/>)
+
         } else {
 
         return (<div>
+   
            <Segment.Group>
            <Segment size = 'huge' className='center aligned segment' onClick={handleHeaderClick}><Header>{gameToShow.opposition} </Header>
            <span   style={{ fontWeight: 'bold' }}>{gameToShow.team.name} {gameToShow.score} {gameToShow.opposition} </span> <br></br>
