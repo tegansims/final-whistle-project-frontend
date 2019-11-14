@@ -102,17 +102,15 @@ class GamesShowPage extends React.Component {
             </Segment.Group>
             <Segment.Group className='center aligned segment'>
                 {gameToShow.completed && <Segment onClick={()=>handleClick('scorers')} size = 'big'> Scorers: <Icon disabled name='caret right' />
-                    {scorers && <Segment>{gameToShow.scorers.map(scorer => <p key={scorer.id}>{scorer.player.name}</p>)}</Segment>  }
-                    </Segment> }
+                    {scorers && gameToShow.scorers.map(scorer => <h3 key={scorer.id}>{scorer.player.name}</h3>)}</Segment>  }
                 {gameToShow.completed && <Segment onClick={()=>handleClick('assists')} size = 'big' >Assists: <Icon disabled name='caret right' />
-                    {assists && <Segment>{gameToShow.assists.map(assist => <p key={assist.id}>{assist.player.name}</p>)}</Segment> }
-                    </Segment>}   
+                    {assists && gameToShow.assists.map(assist => <h3 key={assist.id}>{assist.player.name}</h3>)}</Segment> }       
                 {gameToShow.completed && <Segment onClick={()=>handleClick('mom')} size = 'big' >Man Of The Match:  <Icon disabled name='caret right' />
-                    {mom && <Segment>{gameToShow.mom_winner} </Segment> }
-                    </Segment> }
+                    {mom && <h3>{gameToShow.mom_winner} </h3> }</Segment> }
+                 
                 {gameToShow.completed && <Segment onClick={()=>handleClick('dod')} size = 'big' >Dick Of The Day: <Icon disabled name='caret right' />
-                    {dod && <Segment>{gameToShow.dod_winner}</Segment>}
-                    </Segment> }
+                    {dod && <h3>{gameToShow.dod_winner}</h3> } </Segment>  }
+                  
 
                 {!gameToShow.completed && <Segment onClick={()=>handleClick('vote')} size = 'big'> Vote <Icon disabled name='caret right' /></Segment> }
                 {!gameToShow.completed && this.state.vote && <VoteForm currentUser= {currentUser} game_id={gameToShow.id} pushGameUpdateToState={this.props.pushGameUpdateToState}/>}

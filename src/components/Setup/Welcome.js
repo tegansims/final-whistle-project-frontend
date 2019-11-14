@@ -33,9 +33,10 @@ class Welcome extends Component {
         <Segment
           style={{   zIndex: 1000 }}
         >
-          <Header>Welcome to Stattr Dattr! </Header>
+          <Header>Welcome to Final Whistle! </Header>
           <p>To get started, click on either Create Team or Join Team.</p>
-          <p>To close, simply click the close button or click away</p>
+          <p><span style={{color: '#B01943'}}>Warning!</span> You can only be a member of one team, 
+            so if you are already part of a team and you create a new one, you will lose access to your old team's data.</p>
         </Segment>
       </TransitionablePortal>
     )

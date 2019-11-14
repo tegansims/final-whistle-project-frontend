@@ -146,7 +146,7 @@ class Tactics2 extends React.Component {
                 placeholder='choose a board to load'
                 onChange={this.handleDropdownChange}>
             </Dropdown> 
-         
+         <br></br>
          <input type='text'
                 id='name'
                 label='name'
@@ -157,7 +157,7 @@ class Tactics2 extends React.Component {
             />
          {!this.newBoardNameUniqueness(this.state.name) && this.state.name ? <Button onClick={this.handleSaveAsClick}>Save As</Button> : <Button disabled>Save As</Button> }
 
-         <Button>Save Changes</Button>
+         {/* <Button>Save Changes</Button> */}
         </Form> }
         </Segment.Group>
 

@@ -43,7 +43,9 @@ class About extends React.Component {
 
            
 
-           {getStarted && <h3 onClick={()=>handleClick('getStarted')}> <br></br>To get started, head over to the Settings tab, where you can either join a team or create a new one. </h3> }
+           {getStarted && <h3 onClick={()=>handleClick('getStarted')}> <br></br>
+            To get started, head over to the Settings tab, where you can either join a team or create a new one. <br></br>
+            </h3> }
 
             <h4><span onClick={()=>handleClick('createTeam')} >Creating a team  </span> 
                 || <span onClick={()=>handleClick('createPlayer')} >Creating a Player  </span> 
