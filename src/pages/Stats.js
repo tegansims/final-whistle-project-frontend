@@ -52,50 +52,45 @@ class Stats extends React.Component {
                 <Divider vertical></Divider>
 
                 <Grid.Row verticalAlign='middle'>
-                    <Grid.Column>
-                    <Header icon  onClick={this.changeScorerState}>
-                        <strong>Top Scorer: </strong> <br></br> {this.state.top_scorer}  <Icon  size='small' name='caret right' />
-                    </Header>
+                    <Grid.Column className='center aligned segment' onClick={this.changeScorerState}>
+                    <Header icon  >Top Scorer: </Header>
+                    <h2>{this.state.top_scorer}</h2>
+                    <Icon    name='caret right' />
                     </Grid.Column>
                         
-                    <Grid.Column>
-                    <Header icon onClick={this.changeAssisterState}>
-                        <strong>Top Assisters: </strong> <br></br> {this.state.top_assister}  <Icon   size='small' name='caret right' />
-                    </Header>
+                    <Grid.Column className='center aligned segment' onClick={this.changeAssisterState}>
+                    <Header icon >Top Assister: </Header>
+                    <h2 >{this.state.top_assister}</h2>
+                    <Icon   name='caret right' />
                     </Grid.Column>
                 </Grid.Row>
              </Grid>
             </Segment>
            <div></div>
 
+           { this.state.showScorers && <Grid style={{color:'white'}}>
+           <Grid.Row columns={2}>
+                <Grid.Column className='center aligned segment'>
+                {this.state.top_scorers.map(scorer => <h3 key={scorer.id}>{scorer[1]}</h3>)}
+                </Grid.Column>
+                <Grid.Column>
+                {this.state.top_scorers.map(scorer => <h3 key={scorer.id}>{scorer[0]}</h3>)}
+                </Grid.Column>
+            </Grid.Row>    
+            </Grid>
+        }
 
-            {this.state.showScorers &&
-                <Table basic='very' celled collapsing style={{backgroundColor: 'white'}}>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell  >Player</Table.HeaderCell>
-                        <Table.HeaderCell>Goals</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {this.state.top_scorers.map(scorer => <Table.Row><Table.Cell key={scorer.id}>{scorer[0]}</Table.Cell><Table.Cell>{scorer[1]}</Table.Cell></Table.Row>)}
-                </Table.Body>
-                </Table>
-            }
-            
-            {this.state.showAssisters &&
-                <Table basic='very' celled collapsing style={{backgroundColor: 'white'}}>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Player</Table.HeaderCell>
-                        <Table.HeaderCell>Assists</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {this.state.top_assisters.map(assister => <Table.Row><Table.Cell key={assister.id}>{assister[0]}</Table.Cell><Table.Cell>{assister[1]}</Table.Cell></Table.Row>)}
-                </Table.Body>
-                </Table>
-            }
+            { this.state.showAssisters && <Grid style={{color:'white'}}>
+           <Grid.Row columns={2}>
+                <Grid.Column className='center aligned segment'>
+                {this.state.top_assisters.map(assister => <h3 key={assister.id}>{assister[1]}</h3>)}
+                </Grid.Column>
+                <Grid.Column>
+                {this.state.top_assisters.map(assister => <h3 key={assister.id}>{assister[0]}</h3>)}
+                </Grid.Column>
+            </Grid.Row>    
+            </Grid>
+        }
 
             </Segment.Group>
     }
