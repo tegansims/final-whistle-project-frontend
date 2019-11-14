@@ -36,7 +36,12 @@ class CommentForm extends React.Component {
         const { comment } = this.state
         const { handleChange, handleSubmit , handleCheckboxChange} = this
         return  <Segment>
-          {this.props.game.notes.filter(note=>note.public === true).map(note => <li key={note.id}>{note.comment}</li>)} 
+          {console.log(this.props.game.notes)}
+          {this.props.game.notes.filter(note=>note.public === true).map(note => 
+          <Segment.Group>
+            <Segment textAlign='left' size='large' key={note.id}> {note.comment} </Segment>
+            <Segment secondary textAlign='right' size='small'></Segment>
+            </Segment.Group>)} 
             <br></br>
           <Form onSubmit={handleSubmit}>
             <input type='text'
