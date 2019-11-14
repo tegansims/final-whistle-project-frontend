@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000/'
+const baseUrl = 'https://damp-caverns-67228.herokuapp.com/'
 const logInUrl = baseUrl + 'login'
 const validateUrl = baseUrl + 'validate'
 
