@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Segment, Container } from 'semantic-ui-react'
+import { Form, Button, Segment, Container, Popup } from 'semantic-ui-react'
 import API from '../adaptors/API'
 import HeaderTop from './HeaderTop'
 
@@ -101,6 +101,12 @@ class SignupForm extends React.Component {
               <Button floated='right' onClick={handleLoginClick}>Back to log in page</Button>
             </Segment>
           </Segment.Group>
+          <Popup position='bottom left' 
+            content="Final Whistle is an app designed to help sports teams log their data. 
+            Make use of our interactive tactics board to create and share tactics with the rest of your team. 
+            Once you've joined a team, you'll also be able to track top scorers and top assists, post comments, and vote for man of the match."
+            trigger={<Button icon='question' />} 
+          />
         </Container>
       )
     }
