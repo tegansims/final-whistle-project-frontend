@@ -5,6 +5,7 @@ import useImage from 'use-image';
 import { Button, Dropdown, Form, Icon, Segment} from 'semantic-ui-react';
 import Loading from '../components/Loading'
 import API from '../adaptors/API'
+// import hockey_pitch from './'
 
 
 const PitchImage = () => {
@@ -161,54 +162,56 @@ class Tactics2 extends React.Component {
         </Form> }
         </Segment.Group>
 
-        <Stage width={window.innerWidth} height={window.innerHeight} border={isBlock}>
-        <Layer  >
-        <PitchImage />
+        <div className='pitch'>
+            <Stage width={window.innerWidth} height={window.innerHeight} border={isBlock}>
+            <Layer  >
 
-        {!this.state.showBlank && this.state.items.map(item => (
-            <Circle
-                key={item.id}
-                name={item.id}
-                draggable
-                x={item.x}
-                y={item.y}
-                fill={item.color}
-                radius={10}
-                onDragEnd={this.onDragEnd}
-            />
-            ))}
+            {!this.state.showBlank && this.state.items.map(item => (
+                <Circle
+                    key={item.id}
+                    name={item.id}
+                    draggable
+                    x={item.x}
+                    y={item.y}
+                    fill={item.color}
+                    radius={10}
+                    onDragEnd={this.onDragEnd}
+                />
+                ))}
 
 
-        {this.state.showBlank && this.state.redItems.map(item => (
-            <Circle
-                key={item.id}
-                name={item.id}
-                draggable
-                x={item.x}
-                y={item.y}
-                fill={item.color}
-                radius={10}
-                onDragEnd={this.onDragEnd}
-               
-            />
-            ))}
-            {this.state.showBlank && this.state.blueItems.map(item => (
-            <Circle
-                key={item.id}
-                name={item.id}
-                draggable
-                x={item.x}
-                y={item.y}
-                fill={item.color}
-                radius={10}
-                onDragEnd={this.onDragEnd}
-            />
-            ))}
-        
-            </Layer>
-            </Stage>
+            {this.state.showBlank && this.state.redItems.map(item => (
+                <Circle
+                    key={item.id}
+                    name={item.id}
+                    draggable
+                    x={item.x}
+                    y={item.y}
+                    fill={item.color}
+                    radius={10}
+                    onDragEnd={this.onDragEnd}
+                
+                />
+                ))}
+                {this.state.showBlank && this.state.blueItems.map(item => (
+                <Circle
+                    key={item.id}
+                    name={item.id}
+                    draggable
+                    x={item.x}
+                    y={item.y}
+                    fill={item.color}
+                    radius={10}
+                    onDragEnd={this.onDragEnd}
+                />
+                ))}
+            
+                </Layer>
+                </Stage>
            
             </div>
+            </div>
+
         );
         } }
     }

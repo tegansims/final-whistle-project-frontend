@@ -19,6 +19,12 @@ code {
   color: '#fff'!important;
 }
 
+.pitch {
+  background-image: url('./images/hockey_pitch.jpg')!important;
+  background-repeat: no-repeat!important;
+  /* background-position: center top!important; */
+}
+
 
 /* 
 .ui .inverted .center .aligned .header {
