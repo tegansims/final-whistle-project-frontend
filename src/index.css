@@ -23,7 +23,7 @@ code {
   background-image: url('./images/hockey_pitch.jpg')!important;
   background-repeat: no-repeat!important;
   /* background-position: top!important; */
-  background-size: contain!important;
+  background-size: auto!important;
 }
 
 
