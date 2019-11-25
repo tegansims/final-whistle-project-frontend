@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Dropdown, Button } from 'semantic-ui-react';
+import { Form, Dropdown, Button, Segment } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
 import LinkPlayer from './LinkPlayer'
 
@@ -21,8 +21,6 @@ class JoinTeam extends React.Component {
 
 
     handleChange = event => {
-        console.log(this.mappedTeams())
-        console.log(event.target)
         this.setState({ 
             user: {
                 ...this.state.user,password : event.target.value }})
@@ -71,32 +69,33 @@ class JoinTeam extends React.Component {
 
     return <div>
         {this.state.joinTeam && <Form onSubmit={handleSubmit}>
+        <Segment>
         <Form.Group>
             <Dropdown
             // id='team'
-            labeled
-            floating
-            selection
-            search
-            options={this.mappedTeams()}
-            name='team'
-            placeholder='choose your team'
-            onChange={handleDropdownChange}>
-
+              labeled
+              floating
+              selection
+              search
+              options={this.mappedTeams()}
+              name='team'
+              placeholder='choose your team'
+              onChange={handleDropdownChange}>
             </Dropdown>
+            
             <input 
-          id='passwordInput'
-          label='Password'
-          value={password}
-          name='password'
-          type='password'
-          onChange={handleChange}
+              id='passwordInput'
+              label='Password'
+              value={password}
+              name='password'
+              type='password'
+              onChange={handleChange}
 
-          placeholder='team password'
-        />
+              placeholder='team password'
+            />
         </Form.Group>
         <Button> Join </Button>
-
+        </Segment>
         </Form> 
         }
 

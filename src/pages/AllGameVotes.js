@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment , Button, Form, Transition} from 'semantic-ui-react';
+import { Segment , Button, Form} from 'semantic-ui-react';
 import API from '../adaptors/API'
 
 

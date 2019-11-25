@@ -55,18 +55,14 @@ class CreateTeam extends React.Component {
         
     }
 
-   
-
-    handleChange = event =>
-        this.setState({ [event.target.name]: event.target.value })
-
-    handleCreatePlayers = () => this.props.history.push('/players/new')
-
+    handleChange = event => this.setState({ [event.target.name]: event.target.value })
+    
+    
     render () {
         const { name, password, password_confirmation } = this.state
-        const { handleChange, handleSubmit, handleCreatePlayers } = this
+        const { handleChange, handleSubmit } = this
         
-        { if (!this.props.currentUser) {
+        if (!this.props.currentUser) {
           return  <Loading/>
           
         } else {
@@ -107,16 +103,12 @@ class CreateTeam extends React.Component {
 
             </Form>
       </Segment>
-{/*       
-      <Segment>
-        <Button onClick={handleCreatePlayers} floated='right' >Create Players</Button>
-      </Segment> */}
     
       </Segment.Group>
         )
-    }
-  }
       }
+  
+    }
 }
 
 export default CreateTeam;

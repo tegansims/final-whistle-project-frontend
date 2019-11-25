@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Dropdown, Button } from 'semantic-ui-react';
+import { Form, Dropdown, Button, Segment } from 'semantic-ui-react';
 import API from '../../adaptors/API' 
 import Loading from '../Loading'
 
@@ -87,58 +87,59 @@ class LinkPlayer extends React.Component {
         const { handleChange, handleSubmit, handleDropdownChange, handleRadioChange } = this
 
          
-      { if (!this.props.currentUser) {
-            return  <Loading/>
+      if (!this.props.currentUser) {
+       return  <Loading/>
             
       } else { 
-            return <div>
-            <Form onSubmit={handleSubmit}>
-        <Form.Group>
-        <Form.Radio
-            label='Player'
-            value='player'
-            checked={this.state.user.usertype === 'player'}
-            onChange={handleRadioChange}
-          />
-          <Form.Radio
-            label='Coach'
-            value='coach'
-            checked={this.state.user.usertype === 'coach'}
-            onChange={handleRadioChange}
-          />
-          <Form.Radio
-            label='Supporter'
-            value='supporter'
-            checked={this.state.user.usertype === 'supporter'}
-            onChange={handleRadioChange}
-          />
-           {this.state.user.usertype === 'player' && <Dropdown
-            labeled
-            floating
-            selection
-            search
-            options={this.mappedPlayers()}
-            name='team'
-            placeholder='link your player account'
-            onChange={handleDropdownChange}>
-         </Dropdown> }
-          <input 
-          id='passwordInput'
-          label='Password'
-          value={password}
-          name='password'
-          type='password'
-          onChange={handleChange}
-
-          placeholder='team password'
-    /> 
-        </Form.Group>
+        return <Segment>
+          <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Radio
+              label='Player'
+              value='player'
+              checked={this.state.user.usertype === 'player'}
+              onChange={handleRadioChange}
+            />
+            <Form.Radio
+              label='Coach'
+              value='coach'
+              checked={this.state.user.usertype === 'coach'}
+              onChange={handleRadioChange}
+            />
+            <Form.Radio
+              label='Supporter'
+              value='supporter'
+              checked={this.state.user.usertype === 'supporter'}
+              onChange={handleRadioChange}
+            />
+            {this.state.user.usertype === 'player' && 
+              <Dropdown
+                labeled
+                floating
+                selection
+                search
+                options={this.mappedPlayers()}
+                name='team'
+                placeholder='link your player account'
+                onChange={handleDropdownChange}>
+              </Dropdown> }
+            
+            <input 
+              id='passwordInput'
+              label='Password'
+              value={password}
+              name='password'
+              type='password'
+              onChange={handleChange}
+              placeholder='team password'
+           /> 
+          </Form.Group>
         <Button> Join </Button>
 
         </Form> 
     
-        </div>
-      }}
+        </Segment>
+      }
     }
 
 }

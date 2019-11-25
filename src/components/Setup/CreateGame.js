@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button} from 'semantic-ui-react'
+import {Form, Button, Segment} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -28,7 +28,6 @@ class CreateGame extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state)
         this.setState({team_id: this.props.currentUser.team_id}, () => 
         API.createGame({game: this.state}).then(data => {
             if (data.error) {
@@ -48,11 +47,12 @@ class CreateGame extends React.Component {
     render () {
         const { date, opposition, venue } = this.state
         const { handleChange, handleSubmit, handleDateChange } = this
-        { if (!this.props.currentUser) {
+        if (!this.props.currentUser) {
             return  <Loading/>
             
           } else {
         return (
+            <Segment>
             <Form onSubmit={handleSubmit}>
             <DatePicker
                 selected={date}
@@ -83,9 +83,9 @@ class CreateGame extends React.Component {
             <br />
             <Button> Create Game </Button>
             </Form>
-        )
+            </Segment>
+        )}
     }
-}}
 
 }
 

@@ -80,7 +80,7 @@ class VoteForm extends React.Component {
 
     render(){
         const { momComment, dodComment, mom, dod } = this.state.vote
-        const { handleChange, handleSubmit, handleDropdownMomChange, handleDropdownDodChange, mappedPlayers, votedAlready } = this
+        const { handleChange, handleSubmit, handleDropdownMomChange, handleDropdownDodChange, mappedPlayers } = this
         return <Segment>
         {this.state.alreadyVoted.length 
         ? <h3 className='center aligned segment'>You've already voted! </h3>

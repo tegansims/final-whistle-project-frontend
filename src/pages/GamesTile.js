@@ -30,7 +30,7 @@ class GamesTile extends React.Component {
 
     
     render(){
-        const { game, currentUser } = this.props
+        const { game } = this.props
         const { gameDate, gameTime } = this
 
         return   <div>

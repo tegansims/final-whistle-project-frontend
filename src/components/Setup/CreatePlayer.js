@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button} from 'semantic-ui-react'
+import {Form, Button, Segment} from 'semantic-ui-react'
 import API from '../../adaptors/API' 
 import Loading from '../Loading'
 
@@ -37,11 +37,12 @@ class CreatePlayer extends React.Component {
         const { name } = this.state
         const { handleChange, handleSubmit } = this
     
-        { if (!this.props.currentUser) {
+         if (!this.props.currentUser) {
             return  <Loading/>
             
           } else {
-         return (   <Form onSubmit={handleSubmit}>
+         return (  <Segment>
+            <Form onSubmit={handleSubmit}>
          
            <input type='text'
               id='nameInput'
@@ -54,9 +55,10 @@ class CreatePlayer extends React.Component {
             <br />
             <Button> Create Player </Button>
           </Form>
+          </Segment>
         )
       }
-    }}
+    }
 }
 
 export default CreatePlayer;

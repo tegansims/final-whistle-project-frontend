@@ -39,7 +39,7 @@ class Settings extends React.Component {
     
     
     render(){
-        { if (!this.props.currentUser) {
+        if (!this.props.currentUser) {
             return  <Loading/>
             
         } else {
@@ -79,7 +79,7 @@ class Settings extends React.Component {
             {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams}
                 currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }
             </div>
-            }}
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Segment, Container, Icon, Popup } from 'semantic-ui-react'
+import { Button, Form, Segment, Container, Popup } from 'semantic-ui-react'
 import HeaderTop from './HeaderTop'
 import API from '../adaptors/API'
 

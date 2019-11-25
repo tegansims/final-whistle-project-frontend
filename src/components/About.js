@@ -39,7 +39,7 @@ class About extends React.Component {
         <div>
             <div style={height}></div>
             <div style={style}>
-            <h1>Welcome to Full Time, the app that lets you track your team's data. </h1>
+            <h1>Welcome to <span style={{color: '#2299e2'}}>final whistle</span>, the app that lets you track your team's data. </h1>
 
            
 
