@@ -12,6 +12,7 @@ import NavBar from './components/NavBar'
 import Settings from './components/Settings'
 import About from './components/About'
 import 'semantic-ui-css/semantic.min.css'
+import Loading from './components/Loading'
 
 import pages from './pages/pages'
 const { GamesList, Stats, Tactics2, Home, LoginForm, SignupForm, GamesShowPage, CreateTeam, CreatePlayer, CreateGame, LinkPlayer } = pages
@@ -19,6 +20,7 @@ const { GamesList, Stats, Tactics2, Home, LoginForm, SignupForm, GamesShowPage, 
 class App extends React.Component {
 
   state = {
+    loaded: null,
     currentUser: null,
     games: [],
     teams: [], 
@@ -41,11 +43,14 @@ class App extends React.Component {
       .catch(error => {
         console.log(error)
       })
+    API.teams().then(teams => {
+      this.setState({ 
+        teams: teams,
+        loaded: true 
+      })
+    })
     API.games().then(games => {
       this.setState({ games })
-    })
-    API.teams().then(teams => {
-      this.setState({ teams })
     })
     API.players().then(players => {
       this.setState({ players })
@@ -99,7 +104,12 @@ class App extends React.Component {
   // --- rendering --- //
   contextRef = createRef()
 
-  render () {
+  render () {if (!this.state.loaded) {
+    return (
+      <Loading/>
+      )
+
+    } else { 
 
     return (
       <Router>
@@ -136,7 +146,7 @@ class App extends React.Component {
           </div>
       </Router>
     );
-  }
+  }}
 };
 
 export default App
