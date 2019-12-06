@@ -29,7 +29,7 @@ class GamesList extends React.Component {
 
     render(){
         return <div>
-        {this.gamesSortedByDate().map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser} pushGameUpdateToState={this.props.pushGameUpdateToState} history={this.props.history}/>)}
+            {this.gamesSortedByDate().map(game => <GamesTile key={game.id} game={game} currentUser= {this.props.currentUser} pushGameUpdateToState={this.props.pushGameUpdateToState} history={this.props.history}/>)}
             </div>
     }
 
