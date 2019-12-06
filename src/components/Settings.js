@@ -45,32 +45,35 @@ class Settings extends React.Component {
         } else {
             return <div>
             {this.state.options && <Welcome/> }
+
+            <Segment.Group>
             {this.state.options && 
 
             <Segment placeholder>
-                <Grid columns={2} stackable textAlign='center'>
+            <Grid columns={2} relaxed='very' stackable>
                 <Divider vertical></Divider>
 
                 <Grid.Row verticalAlign='middle'>
-                    <Grid.Column>
-                    <Header icon>
-                        Create Team
-                    </Header>
-                    <Button primary onClick={()=>this.handleCreateClick('teams')}>Create Team</Button>
-                    {this.props.currentUser.admin && <Button primary onClick={()=>this.handleCreateClick('players')}>Create Players</Button> }
-                    {this.props.currentUser.admin &&<Button primary onClick={()=>this.handleCreateClick('games')}>Create Games</Button> }
+                    <Grid.Column className='center aligned segment' >
+                        <Header icon>
+                            Create Team
+                        </Header>
+                        <Button primary onClick={()=>this.handleCreateClick('teams')}>Create Team</Button>
+                        {this.props.currentUser.admin && <Button primary onClick={()=>this.handleCreateClick('players')}>Create Players</Button> }
+                        {this.props.currentUser.admin &&<Button primary onClick={()=>this.handleCreateClick('games')}>Create Games</Button> }
 
                     </Grid.Column>
-                        Or
-                    <Grid.Column>
-                    <Header icon>
-                        Join Team
-                    </Header>
-                    <Button primary onClick={this.handleJoinClick}>Join Team </Button>
+                        
+                    <Grid.Column className='center aligned segment' >
+                        <Header icon>
+                            Join Team
+                        </Header>
+                        <Button primary onClick={this.handleJoinClick}>Join Team </Button>
                     </Grid.Column>
                 </Grid.Row>
                 </Grid>
             </Segment> }
+
             {this.state.create && <>
           
              <Segment><CreatePlayer/></Segment>
@@ -78,6 +81,8 @@ class Settings extends React.Component {
             
             {this.state.join && 'Join Team and link to a player account' && <JoinTeam teams={this.props.teams}
                 currentUser={this.props.currentUser} pushUserUpdateToState={this.props.pushUserUpdateToState} history={this.props.history} /> }
+           
+           </Segment.Group>
             </div>
         }
     }
