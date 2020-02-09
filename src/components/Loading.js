@@ -9,10 +9,6 @@ class Loading extends React.Component {
       return <div>
       <Message icon>
           <Icon name='circle notched' loading />
-          {/* <Message.Content>
-            <Message.Header>Final Whistle</Message.Header>
-            
-          </Message.Content> */}
       </Message>
       </div>
       }

@@ -44,16 +44,15 @@ class App extends React.Component {
         console.log(error)
       })
     API.teams().then(teams => {
-      this.setState({ 
-        teams: teams,
-        loaded: true 
-      })
+      this.setState({ teams })
     })
     API.games().then(games => {
       this.setState({ games })
     })
     API.players().then(players => {
-      this.setState({ players })
+      this.setState({ 
+        players: players,
+        loaded: true })
     })
     }
   }
