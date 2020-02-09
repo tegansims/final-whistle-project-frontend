@@ -83,6 +83,7 @@ const games = () => get(gamesUrl)
 const game = (id) => get(`${gamesUrl}/${id}`)
 const teams = () => get(teamsUrl)
 const players = () => get(playersUrl)
+const player = (id) => get(`${playersUrl}/${id}`)
 const votes = () => get(votesUrl)
 const users = () => get(usersUrl)
 const boards = () => get(boardsUrl)
@@ -110,4 +111,4 @@ window.topScorer = topScorer
 export default { logIn, validate, signUp, createTeam, createPlayer, createGame, games, teams, users,
     createComment, createVote, joinTeam, players, votes, usertypes, updateGame, topScorer, topScorers, 
     topAssister, topAssisters, currentUser, game, updateUser, boards, boardCoords, createBoard, createScorer, 
-    createAssist, deleteScorer, deleteAssist}
+    createAssist, deleteScorer, deleteAssist, player}

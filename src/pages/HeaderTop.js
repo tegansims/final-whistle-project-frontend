@@ -27,7 +27,6 @@ class HeaderTop extends React.Component {
             inverted
             textAlign = 'center'
           />
-        {/* <Image src='./images/Whistle-512.png'/>   */}
       </div>
     }
 

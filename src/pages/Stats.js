@@ -45,8 +45,6 @@ class Stats extends React.Component {
     
     render(){
         return <Segment.Group>    
-            {/* <Segment size='huge' className='center aligned segment' onClick={this.changeScorerState}><strong>Top Scorer: </strong> {this.state.top_scorer}  <Icon disabled name='caret right' /></Segment>
-            <Segment size='huge' className='center aligned segment' onClick={this.changeAssisterState}><strong>Top Assisters: </strong> {this.state.top_assister}  <Icon disabled name='caret right' /></Segment> */}
            <Segment placeholder>
             <Grid columns={2} stackable textAlign='center'>
                 <Divider vertical></Divider>

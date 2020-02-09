@@ -8,9 +8,6 @@ import Loading from '../components/Loading'
 
 import API from '../adaptors/API'
 
-
-
-
 class GamesShowPage extends React.Component {
 
     state = {
@@ -43,7 +40,7 @@ class GamesShowPage extends React.Component {
         }
     }
 
-    handleClick = (item) =>  this.setState({ [item]: !this.state[item]}) 
+    handleClick = (item) => this.setState({ [item]: !this.state[item]}) 
 
     handleCompleteClick = () => {
         this.setState({ 

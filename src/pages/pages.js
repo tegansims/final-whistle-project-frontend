@@ -8,7 +8,9 @@ import CreateTeam from '../components/Setup/CreateTeam'
 import CreatePlayer from '../components/Setup/CreatePlayer'
 import CreateGame from '../components/Setup/CreateGame'
 import LinkPlayer from '../components/Setup/LinkPlayer'
-
+import PlayersList from './PlayersList'
+import PlayersShowPage from '../pages/PlayersShowPage'
+import Table from '../pages/Table'
 
 
 import GamesShowPage from './GamesShowPage'
@@ -24,5 +26,8 @@ export default {
     CreateTeam, 
     CreatePlayer, 
     CreateGame, 
-    LinkPlayer
+    LinkPlayer, 
+    PlayersList, 
+    PlayersShowPage,
+    Table,
 }

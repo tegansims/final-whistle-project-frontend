@@ -15,7 +15,7 @@ import 'semantic-ui-css/semantic.min.css'
 import Loading from './components/Loading'
 
 import pages from './pages/pages'
-const { GamesList, Stats, Tactics2, Home, LoginForm, SignupForm, GamesShowPage, CreateTeam, CreatePlayer, CreateGame, LinkPlayer } = pages
+const { GamesList, Stats, Tactics2, Home, LoginForm, SignupForm, GamesShowPage, CreateTeam, CreatePlayer, CreateGame, LinkPlayer, PlayersList, PlayersShowPage, Table } = pages
 
 class App extends React.Component {
 
@@ -44,16 +44,16 @@ class App extends React.Component {
         console.log(error)
       })
     API.teams().then(teams => {
-      this.setState({ 
-        teams: teams,
-        loaded: true 
-      })
+      this.setState({ teams })
     })
     API.games().then(games => {
       this.setState({ games })
     })
     API.players().then(players => {
-      this.setState({ players })
+      this.setState({ 
+        players: players,
+        loaded: true 
+      })
     })
     }
   }
@@ -128,7 +128,9 @@ class App extends React.Component {
             <Route exact path="/players/new" component={routerProps => <CreatePlayer {...routerProps} currentUser={this.state.currentUser}/>} />
             <Route exact path="/games/new" component={routerProps => <CreateGame {...routerProps} currentUser={this.state.currentUser} pushGameUpdateToState={this.pushGameUpdateToState}/>} />
             <Route exact path="/linkplayer" component={routerProps => <LinkPlayer {...routerProps} currentUser={this.state.currentUser} pushUserUpdateToState={this.pushUserUpdateToState}/>} />
-
+            <Route exact path="/players" component={routerProps => <PlayersList {...routerProps} players={this.filterPlayers()} />} />
+            <Route exact path="/players/:id" component={routerProps => <PlayersShowPage {...routerProps}  />} />
+            {/* <Route exact path="/table" component={routerProps => <Table {...routerProps} />} /> */}
             
             <Route exact path="/games" component={routerProps => <GamesList {...routerProps} currentUser={this.state.currentUser} 
                 games={this.filterGames()} pushGameUpdateToState={this.pushGameUpdateToState} />} />
